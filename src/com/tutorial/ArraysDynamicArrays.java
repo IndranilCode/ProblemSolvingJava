@@ -79,6 +79,31 @@ public class ArraysDynamicArrays {
         int outputAS10 = subarrayWithLeastAverage(inputAS10, 9);
         System.out.println("AS10 - Subarray with least average :" + outputAS10);
 
+        //----------------------HOMEWORK-------------------
+
+        //HW1 > Multiplication of previous and next
+        ArrayList<Integer> inputHW1 = new ArrayList<Integer>(Arrays.asList(1, 2, 3, 4, 5));
+        ArrayList<Integer> outputHW1 = multiplicationOfPreviousNext(inputHW1);
+        System.out.print("HW1 - Multiplication of previous and next :");
+        outputHW1.forEach(e -> {
+            System.out.print(e + " ");
+        });
+        System.out.println("");
+
+        //HW2 > Primal Power
+        //ArrayList<Integer> inputHW2 = new ArrayList<Integer>(Arrays.asList(-11, 7, 8, 9, 10, 11));
+//        ArrayList<Integer> inputHW2 = new ArrayList<Integer>(Arrays.asList(97, 43, 29, 11, 100, 47, 76, 83, 37, 19, 17));
+        ArrayList<Integer> inputHW2 = new ArrayList<Integer>(Arrays.asList(11));
+        int outputHW2 = primalPower(inputHW2);
+        System.out.println("HW2 - Primal Power :" + outputHW2);
+
+        //HW3 > Copy the Array
+        ArrayList<Integer> inputHW3 = new ArrayList<Integer>(Arrays.asList(1,2,3,2,1));
+        ArrayList<Integer> outputHW3 = copyTheArray(inputHW3, 3);
+        System.out.print("HW3 - Copy the Array :");
+        outputHW3.forEach(e -> {
+            System.out.print(e + " ");
+        });
 
 //        //AS6> GoodPair
 //        ArrayList<Integer> inputHW2 = new ArrayList<Integer>(Arrays.asList(2, 4, 1, 3, 2));
@@ -379,5 +404,96 @@ public class ArraysDynamicArrays {
         }
         return startIndexOfSubarrayWithLeastAverage;
         //NOTE: Averaging is causing loss of precision on conversion to int - so did it with total itself.
+    }
+
+    //----------------------HOMEWORK-------------------
+
+    /**
+     * HW1 (Easy) > Multiplication of previous and next
+     * Given an array of integers A, update every element with multiplication of previous and next elements with following exceptions.
+     * a) First element is replaced by multiplication of first and second.
+     * b) Last element is replaced by multiplication of last and second last.
+     * Example => A = [1, 2, 3, 4, 5] => [2, 3, 8, 15, 20]
+     * @param A
+     * @return
+     */
+    private ArrayList<Integer> multiplicationOfPreviousNext(ArrayList<Integer> A) {
+        ArrayList<Integer> result = new ArrayList<>();
+        if (A.size() > 1) {
+            for (int i = 0; i< A.size(); i++) {
+                int product = 0;
+                if (i == 0) {
+                    product = A.get(i) * A.get(i + 1);
+                } else if (i == (A.size() - 1)) {
+                    product = A.get(i) * A.get(i - 1);
+                } else {
+                    product = A.get(i - 1) * A.get(i + 1);
+                }
+                result.add(product);
+            }
+        } else {
+            result = A;
+        }
+        return result;
+    }
+
+    /**
+     * HW2 > Primal Power
+     * "Primal Power" of an array is defined as the count of prime numbers present in it.
+     * Example => A = [-11, 7, 8, 9, 10, 11] => 7 and 11 are prime numbers. Hence, Primal Power = 2.
+     * @param A
+     * @return
+     */
+    private int primalPower(ArrayList<Integer> A) {
+        int result = 0;
+        for (int i = 0; i < A.size(); i++) {
+            if (A.get(i) > 1) {
+                for (int j = 2; j*j < A.get(i); j++) {
+                    if ((A.get(i) % j) == 0) {
+                        result ++;
+                        break;
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
+    /**
+     * HW3 (Easy) > Copy the Array
+     * You are given a constant array A and an integer B. You are required to return another array where outArr[i] = A[i] + B.
+     * Example => A = [1,2,3,2,1] , B = 3 => O/P [4,5,6,5,4]
+     * @param A
+     * @param B
+     * @return
+     */
+    private ArrayList<Integer> copyTheArray(final List<Integer> A, int B) {
+        ArrayList<Integer> result = new ArrayList<Integer>();
+        for (int i = 0; i < A.size(); i++) {
+            result.add(A.get(i) + B);
+        }
+        return result;
+    }
+
+
+
+    /**
+     * HW5 (Easy) > Max Min
+     * Given an array A of size N. You need to find the sum of Maximum and Minimum element in the given array.
+     * Example => A = [-2, 1, -4, 5, 3] , B = 3 => O/P 1
+     * @param A
+     * @return
+     */
+    private int maxMin(ArrayList<Integer> A) {
+        int max = Integer.MIN_VALUE;
+        int min = Integer.MAX_VALUE;
+        for (int i = 0; i < A.size(); i++) {
+            if (A.get(i) > max) {
+                max = A.get(i);
+            } else if (A.get(i) < min) {
+                min = A.get(i);
+            }
+        }
+        return max - min;
     }
 }

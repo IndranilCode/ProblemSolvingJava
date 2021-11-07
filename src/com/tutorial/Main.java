@@ -1,5 +1,7 @@
 package com.tutorial;
 
+import com.tutorial.oops.Example;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -10,11 +12,15 @@ public class Main {
         //2. Add Binary String [a = "100" , b = "11", a+b = "111"]
         //System.out.println(addBinary("1000", "10"));
 
-//        TimeComplexity2 timeComplexity2 = new TimeComplexity2();
-//        timeComplexity2.executeTimeComplexity2();
+        //Day9 - TimeComplexity2
+        new TimeComplexity2().executeTimeComplexity2();
 
-        ArraysDynamicArrays arraysDynamicArrays = new ArraysDynamicArrays();
-        arraysDynamicArrays.executeArraysDynamicArrays();
+
+        //new ArraysDynamicArrays().executeArraysDynamicArrays();
+
+
+        //----OOPS Basics----
+        //new Example().Main();
     }
 
 
