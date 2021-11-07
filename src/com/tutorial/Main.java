@@ -8,14 +8,15 @@ public class Main {
 	// write your code here
 
         //Day 4 - (18 Oct) - Introduction to Problem Solving
+        new Day4IntroductionToProblemSolving().executeIntroductionToProblemSolving();
 
         //2. Add Binary String [a = "100" , b = "11", a+b = "111"]
         //System.out.println(addBinary("1000", "10"));
 
         //Day9 - TimeComplexity2
-        new TimeComplexity2().executeTimeComplexity2();
+        //new TimeComplexity2().executeTimeComplexity2();
 
-
+        //Day10 - ArraysDynamicArrays
         //new ArraysDynamicArrays().executeArraysDynamicArrays();
 
 

@@ -2,6 +2,7 @@ package com.tutorial;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class ArraysDynamicArrays {
@@ -93,7 +94,7 @@ public class ArraysDynamicArrays {
         //HW2 > Primal Power
         //ArrayList<Integer> inputHW2 = new ArrayList<Integer>(Arrays.asList(-11, 7, 8, 9, 10, 11));
 //        ArrayList<Integer> inputHW2 = new ArrayList<Integer>(Arrays.asList(97, 43, 29, 11, 100, 47, 76, 83, 37, 19, 17));
-        ArrayList<Integer> inputHW2 = new ArrayList<Integer>(Arrays.asList(11));
+        ArrayList<Integer> inputHW2 = new ArrayList<Integer>(Arrays.asList(-11, 7, 8, 9, 10, 11));
         int outputHW2 = primalPower(inputHW2);
         System.out.println("HW2 - Primal Power :" + outputHW2);
 
@@ -104,6 +105,16 @@ public class ArraysDynamicArrays {
         outputHW3.forEach(e -> {
             System.out.print(e + " ");
         });
+
+        //HW4 > MAX - MIN
+        ArrayList<Integer> inputHW4 = new ArrayList<Integer>(Arrays.asList( 1, 2, 3, 4, 5));
+        int outputHW4 = maxMinBth(inputHW4, 2);
+        System.out.println("HW4 - MAX - MIN :" + outputHW4);
+
+        //HW5 > Max Min
+        ArrayList<Integer> inputHW5 = new ArrayList<Integer>(Arrays.asList(-2, 1, -4, 5, 3));
+        int outputHW5 = maxMin(inputHW5);
+        System.out.println("HW5 - Max Min :" + outputHW5);
 
 //        //AS6> GoodPair
 //        ArrayList<Integer> inputHW2 = new ArrayList<Integer>(Arrays.asList(2, 4, 1, 3, 2));
@@ -448,11 +459,15 @@ public class ArraysDynamicArrays {
         int result = 0;
         for (int i = 0; i < A.size(); i++) {
             if (A.get(i) > 1) {
-                for (int j = 2; j*j < A.get(i); j++) {
+                Boolean isDivisible = false;
+                for (int j = 2; j*j <= A.get(i); j++) {
                     if ((A.get(i) % j) == 0) {
-                        result ++;
+                        isDivisible = true;
                         break;
                     }
+                }
+                if (!isDivisible) {
+                    result++;
                 }
             }
         }
@@ -475,7 +490,19 @@ public class ArraysDynamicArrays {
         return result;
     }
 
-
+    /**
+     * HW 4 > MAX - MIN
+     * Given an array of integers A and an integer B, find and return the difference of B'th max element and B'th min element of the array A.
+     * Example => A = [1, 2, 3, 4, 5] , B = 2  => 2   (4 - 2 = 2)
+     * @param A
+     * @param B
+     * @return
+     */
+    private int maxMinBth(ArrayList<Integer> A, int B) {
+        Collections.sort(A);
+        //        System.out.println(A);
+        return A.get(A.size() - B) - A.get(B - 1);
+    }
 
     /**
      * HW5 (Easy) > Max Min
@@ -494,6 +521,6 @@ public class ArraysDynamicArrays {
                 min = A.get(i);
             }
         }
-        return max - min;
+        return max + min;
     }
 }
