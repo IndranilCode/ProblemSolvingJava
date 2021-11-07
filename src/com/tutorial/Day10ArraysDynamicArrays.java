@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class ArraysDynamicArrays {
+public class Day10ArraysDynamicArrays {
 
     public void executeArraysDynamicArrays() {
         //AS1 > GoodPair
@@ -357,19 +357,29 @@ public class ArraysDynamicArrays {
      */
     private int nobleInteger(ArrayList<Integer> A) {
         //Approach 1 > Brute Force => Time Limit Exceeded
+        //        int nobleInteger = -1;
+        //        for (int i = 0; i < A.size(); i++) {
+        //            int totalExcess = 0;
+        //            for (int j = 0; j < A.size(); j++) {
+        //                if (A.get(i) < A.get(j)) {
+        //                    totalExcess++;
+        //                }
+        //            }
+        //            if (A.get(i) == totalExcess) {
+        //                nobleInteger = 1;
+        //                break;
+        //            }
+        //            System.out.println(A.get(i) + " : " + totalExcess);
+        //        }
+        //        return nobleInteger;
+
+        //Approach 2 >
         int nobleInteger = -1;
-        for (int i = 0; i < A.size(); i++) {
-            int totalExcess = 0;
-            for (int j = 0; j < A.size(); j++) {
-                if (A.get(i) < A.get(j)) {
-                    totalExcess++;
-                }
-            }
-            if (A.get(i) == totalExcess) {
+        Collections.sort(A);
+        for (int i = 0; i < A.size() ; i++) {
+            if (A.get(i) == (A.size() - i - 1)){
                 nobleInteger = 1;
-                break;
             }
-            System.out.println(A.get(i) + " : " + totalExcess);
         }
         return nobleInteger;
     }
