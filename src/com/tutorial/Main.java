@@ -8,7 +8,7 @@ public class Main {
 	// write your code here
 
         //Day 4 - (18 Oct) - Introduction to Problem Solving
-        new Day4IntroductionToProblemSolving().executeIntroductionToProblemSolving();
+        //new Day4IntroductionToProblemSolving().executeIntroductionToProblemSolving();
 
         //2. Add Binary String [a = "100" , b = "11", a+b = "111"]
         //System.out.println(addBinary("1000", "10"));
@@ -18,6 +18,9 @@ public class Main {
 
         //Day10 - ArraysDynamicArrays
         //new ArraysDynamicArrays().executeArraysDynamicArrays();
+
+        //Day12 -  Array - Prefix sum and carry forward (Day 1)
+        new Day12ArrayPrefixSumAndCarryForwardPart1().executeArrayPrefixSumAndCarryForwardPart1();
 
 
         //----OOPS Basics----
