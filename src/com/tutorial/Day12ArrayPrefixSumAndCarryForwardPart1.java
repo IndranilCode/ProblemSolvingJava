@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
+/**
+ * COMPLETED
+ */
 public class Day12ArrayPrefixSumAndCarryForwardPart1 {
     public void executeArrayPrefixSumAndCarryForwardPart1() {
         //AS1 > Beggars Outside Temple

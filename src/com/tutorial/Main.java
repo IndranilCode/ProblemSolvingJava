@@ -20,8 +20,10 @@ public class Main {
         //new ArraysDynamicArrays().executeArraysDynamicArrays();
 
         //Day12 -  Array - Prefix sum and carry forward (Day 1)
-        new Day12ArrayPrefixSumAndCarryForwardPart1().executeArrayPrefixSumAndCarryForwardPart1();
+        //new Day12ArrayPrefixSumAndCarryForwardPart1().executeArrayPrefixSumAndCarryForwardPart1();
 
+        //Day13 - Array - Prefix sum and carry forward (Day 2)
+        new Day13ArrayPrefixSumAndCarryForwardPart2().executeArrayPrefixSumAndCarryForwardPart2();
 
         //----OOPS Basics----
         //new Example().Main();
