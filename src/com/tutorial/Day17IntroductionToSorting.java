@@ -1,8 +1,6 @@
 package com.tutorial;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.*;
 
 public class Day17IntroductionToSorting {
     public void executeIntroductionToSorting() {
@@ -25,6 +23,13 @@ public class Day17IntroductionToSorting {
             System.out.print(e + " ");
         });
         System.out.println("");
+
+        //HW1 > Largest Number
+        //ArrayList<Integer> inputHW1 = new ArrayList<Integer>(Arrays.asList(3, 30, 34, 5, 9));
+        //ArrayList<Integer> inputHW1 = new ArrayList<Integer>(Arrays.asList(8, 89));
+        ArrayList<Integer> inputHW1 = new ArrayList<Integer>(Arrays.asList(0, 0, 0, 0, 0));
+        String outputHW1 = largestNumber(inputHW1);
+        System.out.println("HW1 - Largest Number :" + outputHW1);
 
         //HW2 > Elements Removal
         ArrayList<Integer> inputHW2 = new ArrayList<Integer>(Arrays.asList(2, 1));
@@ -131,7 +136,7 @@ public class Day17IntroductionToSorting {
     //-----------------------------------------------------------------------
 
     /**
-     * HW2 > Largest Number
+     * HW1 > Largest Number
      * Given integer array A of size N. In one operation, you can remove any element from the array,
      * and the cost of this operation is the sum of all elements in the array present before this operation.
      * Find the minimum cost to remove all elements from the array.
@@ -143,23 +148,93 @@ public class Day17IntroductionToSorting {
      * @param A
      * @return
      */
-    private int elementRemoval(ArrayList<Integer> A) {
-        int cost = 0;
-        Collections.sort(A);
-        ArrayList<Integer> prefixSumArray = new ArrayList<>();
+    private String largestNumber(final List<Integer> A) {
+        //Try 1 : Single loop didn't work to sort all elements
+        //                for (int i = 0; i < A.size() - 1; i++) {
+        //                    Boolean result = determineOrder(A.get(i), A.get(i + 1));
+        //                    if (result) {
+        //                        Integer temp = A.get(i + 1);
+        //                        A.set((i + 1), A.get(i));
+        //                        A.set(i, temp);
+        //                    }
+        //                }
+        //                System.out.println(A);
+        //                return "";
+
+        //Try 2: Used nested loop to do the element sort - bubble sort - Sorts the list but O(N^2) - Hence later using Collections.sort - O(N Log N)
+        //        for (int i = 0; i < A.size() - 1; i++) {
+        //            for (int j = i + 1; j < A.size(); j++) {
+        //                Boolean result = determineOrder(A.get(i), A.get(j));
+        //                if (result) {
+        //                    Integer temp = A.get(j);
+        //                    A.set((j), A.get(i));
+        //                    A.set(i, temp);
+        //                }
+        //            }
+        //        }
+        //        System.out.println(A);
+        //
+        //        String finalNumber = "";
+        //        Boolean previousZero = true;
+        //        for (int i = 0; i < A.size(); i++) {
+        //            if (previousZero) {
+        //                if (A.get(i) != 0) {
+        //                    previousZero = false;
+        //                    finalNumber = finalNumber + A.get(i).toString();
+        //                }
+        //            } else {
+        //                finalNumber = finalNumber + A.get(i).toString();
+        //            }
+        //
+        //        }
+        //        return finalNumber != "" ? finalNumber: "0";
+
+        //Final approach : Using Collection.sort(passing overloaded comparator) - O(N LogN)
+        Collections.sort(A, new SortByHighestPossibleNumber());
+        StringBuilder finalResult = new StringBuilder();
+        Boolean previousZero = true;
         for (int i = 0; i < A.size(); i++) {
-            int lastElementOfPrefixSumArray = prefixSumArray.size() > 0 ? prefixSumArray.get(prefixSumArray.size() -1) : 0;
-            int latestSum = A.get(i) +lastElementOfPrefixSumArray;
-            prefixSumArray.add(latestSum);
+            if (previousZero && i != A.size() -1) {
+                if (A.get(i) != 0) {
+                    previousZero = false;
+                    finalResult.append(A.get(i).toString());
+                }
+            } else {
+                finalResult.append(A.get(i).toString());
+            }
         }
-        for (int i = 0; i < prefixSumArray.size(); i++) {
-            cost = cost + prefixSumArray.get(i);
-        }
-        return cost;
+        return finalResult.toString();
     }
 
     /**
-     * HW2 > Elements Removal
+     * NOTE: [NOT USING] Not using this comparator as I'm using the Java collection sort later - which does in O(N Log N) time
+     * @param a
+     * @param b
+     * @return
+     */
+    private Boolean determineOrder(Integer a, Integer b) {
+        Integer concatinatedNumberAB = Integer.parseInt(a.toString() + b.toString());
+        Integer concatinatedNumberBA = Integer.parseInt(b.toString() + a.toString());
+        return concatinatedNumberBA > concatinatedNumberAB ? true : false; //true - need to sort
+    }
+
+    /**
+     * NOTE: [USING] Using java comparator - for Collection.sort()
+     */
+    class SortByHighestPossibleNumber implements Comparator<Integer> {
+        @Override
+        public int compare(Integer o1, Integer o2) {
+            Long concatinatedNumberAB = Long.parseLong(o1.toString() + o2.toString());
+            Long concatinatedNumberBA = Long.parseLong(o2.toString() + o1.toString());
+            //            return concatinatedNumberAB > concatinatedNumberBA ? 1 : 0;
+            //            return concatinatedNumberAB.compareTo(concatinatedNumberBA);
+            //return concatinatedNumberBA.compareTo(concatinatedNumberAB);
+            return concatinatedNumberAB > concatinatedNumberBA ? -1 : 1;
+        }
+    }
+
+    /**
+     * HW2 > Largest Number
      * Given integer array A of size N. In one operation, you can remove any element from the array,
      * and the cost of this operation is the sum of all elements in the array present before this operation.
      * Find the minimum cost to remove all elements from the array.
