@@ -1,5 +1,6 @@
 package com.tutorial;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -19,7 +20,45 @@ public class Day19IntroductionToHashingLibraries1 {
         //AS2 > First Repeating element
         ArrayList<Integer> inputAS2 = new ArrayList<Integer>(Arrays.asList(10, 5, 3, 4, 3, 5, 6));
         Integer outputAS2 = firstRepeatingElement(inputAS2);
-        System.out.print("AS2 - First Repeating element :" + outputAS2);
+        System.out.println("AS2 - First Repeating element :" + outputAS2);
+
+        //AS3 > Largest Continuous Sequence Zero Sum
+        //ArrayList<Integer> inputAS3 = new ArrayList<Integer>(Arrays.asList(1, 5, 8, -5, -2, -6, 2, -2, 8, -6));
+        //ArrayList<Integer> inputAS3 = new ArrayList<Integer>(Arrays.asList( 1, 2, -2, 4, -4));
+        //ArrayList<Integer> inputAS3 = new ArrayList<Integer>(Arrays.asList( 1, 2, -3, 3));
+        //ArrayList<Integer> inputAS3 = new ArrayList<Integer>(Arrays.asList( 0, -10, 20, 3, 23, 10, -20, 2, 19, -29, 0));
+        //ArrayList<Integer> inputAS3 = new ArrayList<Integer>(Arrays.asList( -19, 8, 2, -8, 19, 5, -2, -23));
+        //ArrayList<Integer> inputAS3 = new ArrayList<Integer>(Arrays.asList(-9, -13, 6, -28, 27, -5, -27, 17, 15, -17, -25, 6, -8, 2, -13, -13, -23, 21, -4, 22, -9, -10, 0, -28, -11, 8, 8, 17));
+        ArrayList<Integer> inputAS3 = new ArrayList<Integer>(Arrays.asList(15, 18, -23, 22, -15, 26, -28, -25, 3, 3, 7, -22, 12, -13, 21, 18, -15, -23, -5));
+        ArrayList<Integer> outputAS3 = largestContinuousSequenceZeroSum(inputAS3);
+        System.out.print("AS3 - Largest Continuous Sequence Zero Sum :");
+        outputAS3.forEach(e -> {
+            System.out.print(e + " ");
+        });
+        System.out.println("");
+
+        //AS4 > Sub-array with 0 sum
+        ArrayList<Integer> inputAS4 = new ArrayList<Integer>(Arrays.asList(1, -1));
+        Integer outputAS4 = subArrayWith0Sum(inputAS4);
+        System.out.println("AS4 - Sub-array with 0 sum :" + outputAS4);
+
+        //AS5 Shaggy and distances [OK-OK]
+        ArrayList<Integer> inputAS5 = new ArrayList<>(Arrays.asList(7, 1, 3, 4, 1, 7));
+        Integer outputAS5 = shaggyAndDistances(inputAS5);
+        System.out.println("AS2 - Shaggy and distances :" + outputAS5);
+
+
+
+
+
+        //HW1 > K Occurrences [NO-TRICK]
+        ArrayList<Integer> inputHW1 = new ArrayList<>(Arrays.asList(1, 2, 2, 3, 3));
+        Integer outputHW1 = kOccurrences(5, 2, inputHW1);
+        System.out.println("HW1 - K Occurrences :" + outputHW1);
+
+        //HW1 > Check Palindrome
+        int outputHW2 =  possiblePalindrome("inttnikjmjbemrberk");
+        System.out.println("HW2 - Check Palindrome :" + outputHW2);
     }
 
     /**
@@ -86,7 +125,7 @@ public class Day19IntroductionToHashingLibraries1 {
     }
 
     /**
-     * AS3 > Largest Continuous Sequence Zero Sum [NO-TRICK]
+     * AS3 > Largest Continuous Sequence Zero Sum
      * Given an array A of N integers, find the largest continuous sequence in a array which sums to zero.
      * Return an array denoting the longest first continuous sequence with total sum of zero.
      * Example => A = [1,2,-2,4,-4] => o/p => [2,-2,4,-4]
@@ -94,6 +133,212 @@ public class Day19IntroductionToHashingLibraries1 {
      * @return
      */
     private ArrayList<Integer> largestContinuousSequenceZeroSum(ArrayList<Integer> A) {
-        return null;
+        //1. Form prefix sum array
+        ArrayList<Integer> prefixSumArray = new ArrayList<>();
+        for (int i = 0; i < A.size(); i++) {
+            if (i == 0) {
+                prefixSumArray.add(A.get((i)));
+            } else {
+                prefixSumArray.add(A.get((i)) + prefixSumArray.get(i - 1));
+            }
+        }
+        //2. Collect indexes of same value from prefix sum array
+        //HashMap<Integer, ArrayList<Integer>> arrayIndexFrequencyHM = new HashMap<>();
+        //Approach 1 => Long logic
+        //        for (int i = 0; i < prefixSumArray.size(); i++) {
+        //            ArrayList<Integer> indexList;
+        //            if (!arrayIndexFrequencyHM.containsKey(prefixSumArray.get(i))) {
+        //                indexList = new ArrayList<>();
+        //            } else {
+        //                indexList = arrayIndexFrequencyHM.get(prefixSumArray.get(i));
+        //            }
+        //            indexList.add(i);
+        //            arrayIndexFrequencyHM.put(prefixSumArray.get(i), indexList);
+        //        }
+        //        int startIndex = -1;
+        //        int endIndex = -1;
+        //        int largestSize = Integer.MIN_VALUE;
+        //        for (Integer key : arrayIndexFrequencyHM.keySet()) {
+        //            if (arrayIndexFrequencyHM.get(key).size() > 1) {
+        //                //The 1st and last index in value of hashtable is the longest sequence
+        //                int currentEndIndex = arrayIndexFrequencyHM.get(key).get(arrayIndexFrequencyHM.get(key).size() - 1);
+        //                int currentStartIndex = arrayIndexFrequencyHM.get(key).get(0) + 1;
+        //                if ((currentEndIndex - currentStartIndex + 1) > largestSize) {
+        //                    endIndex = currentEndIndex;
+        //                    startIndex = currentStartIndex;
+        //                    largestSize = currentEndIndex - startIndex + 1;
+        //                }
+        //            }
+        //        }
+        //
+        //        for (int i = prefixSumArray.size() - 1; i >= 0; i--) {
+        //            if ((prefixSumArray.get(i) == 0) && (i + 1 > largestSize)) {
+        //                startIndex = 0;
+        //                endIndex = i;
+        //                largestSize = i + 1;
+        //            }
+        //        }
+        //
+        //        ArrayList<Integer> longest0SubArray = new ArrayList<>();
+        //        if (endIndex >= startIndex & startIndex!= -1) {
+        //            for (int i = startIndex; i <= endIndex; i++) {
+        //                longest0SubArray.add(A.get(i));
+        //            }
+        //        }
+        //        return longest0SubArray;
+
+        //-----------------------------------------------------------------------------------------------
+        //Approach 2 => TA logic
+        Integer sum = 0;
+        Integer startIndex = -2, endIndex = -3;
+        HashMap<Integer, Integer> sumFreq = new HashMap<>();
+        //sumFreq.put
+        for (int i = 0; i < A.size(); i++) {
+            sum = sum + A.get(0);
+            if (sumFreq.containsKey(sum)) {
+                int olderIndex = sumFreq.get(sum) + 1;
+                if (i - olderIndex > (endIndex - startIndex)) {
+                    endIndex = i;
+                    startIndex = olderIndex;
+                }
+            } else {
+                sumFreq.put(sum, i);
+            }
+        }
+
+        ArrayList<Integer> answer = new ArrayList<>();
+        if (startIndex == -2) {
+            return answer;
+        }
+        for (int i = startIndex; i <= endIndex; i++) {
+            answer.add(A.get(i));
+        }
+        return answer;
+    }
+
+    /**
+     * AS4 > Sub-array with 0 sum [Prefix sum + HashMap]
+     * Array of integers A, return whether the given array contains a non-empty subarray with a sum equal to 0.
+     * If the given array contains a sub-array with sum zero return 1 else return 0.
+     * Example => A = [1, 2, 3, 4, 5] => o/p = 0 => No subarray has sum 0.
+     * A = [-1, 1] => o/p = 1 => The array has sum 0.
+     * @param A
+     * @return
+     */
+    private int subArrayWith0Sum(ArrayList<Integer> A) {
+        ArrayList<Long> B = new ArrayList<>();
+        for (int i = 0; i < A.size(); i++) {
+            if (i == 0) {
+                B.add(Long.valueOf(A.get(i)));
+            } else {
+                B.add(Long.valueOf(A.get(i) + B.get(i-1)));
+            }
+        }
+        HashMap<Long, Integer> arrayFrequency = new HashMap<>();
+        for (int i = 0; i < B.size(); i++) {
+            if (arrayFrequency.containsKey(B.get(i)) || B.get(i) == 0) {
+                return 1;
+            } else {
+                arrayFrequency.put(B.get(i), 1);
+            }
+        }
+        return 0;
+    }
+
+    /**
+     * AS5 > Shaggy and distances [OK-OK]
+     * Array of N elements. Find minimum distance between any distinct numbers.
+     * Example => A = [7, 1, 3, 4, 1, 7] => O/P = 3 => Here we have 2 options:
+     *      1. A[1] and A[4] are both 1 so (1,4) is a special pair and |1-4|=3.
+     *      2. A[0] and A[5] are both 7 so (0,5) is a special pair and |0-5|=5.
+     *      Therefore the minimum possible distance is 3.
+     * @param A
+     * @return
+     */
+    private int shaggyAndDistances(ArrayList<Integer> A) {
+        HashMap<Integer, ArrayList<Integer>> arrayFrequencyTracking = new HashMap<>();
+        for (int i = 0; i < A.size(); i++) {
+            ArrayList<Integer> positions;
+            if (!arrayFrequencyTracking.containsKey(A.get(i))) {
+                //Element not present
+                positions = new ArrayList<>();
+            } else {
+                //Element already present
+                positions = arrayFrequencyTracking.get(A.get(i));
+            }
+            positions.add(i);
+            arrayFrequencyTracking.put(A.get(i), positions);
+        }
+        Integer minDistance = Integer.MAX_VALUE;
+        for (Integer key : arrayFrequencyTracking.keySet()) {
+            if (arrayFrequencyTracking.get(key).size() > 1) {
+                for (int i = 0; i < arrayFrequencyTracking.get(key).size() - 1; i++) {
+                    if (arrayFrequencyTracking.get(key).get(i + 1) - arrayFrequencyTracking.get(key).get(i) < minDistance) {
+                        minDistance = arrayFrequencyTracking.get(key).get(i + 1) - arrayFrequencyTracking.get(key).get(i);
+                    }
+                }
+            }
+        }
+        return minDistance != Integer.MAX_VALUE ? minDistance : -1;
+    }
+
+
+
+
+    /**
+     * HW1 > K Occurrences [NO-TRICK]
+     * @param A
+     * @param B
+     * @param C
+     * @return
+     */
+    public int kOccurrences(int A, int B, ArrayList<Integer> C) {
+        Integer kOccurrenceSum = 0;
+
+        HashMap<Integer, Integer> frequencyHM = new HashMap<>();
+        for (int i = 0; i < C.size(); i++) {
+            if (frequencyHM.containsKey(C.get(i))) {
+                Integer newFrequency = frequencyHM.get(C.get(i)) + 1;
+                frequencyHM.put(C.get(i), newFrequency);
+            } else {
+                frequencyHM.put(C.get(i), 1);
+            }
+        }
+        Boolean isFound = false;
+        for (Integer key : frequencyHM.keySet()) {
+            if (frequencyHM.get(key) == B) {
+                kOccurrenceSum = kOccurrenceSum + key;
+                isFound = true;
+            }
+        }
+        return isFound ? kOccurrenceSum : -1;
+    }
+
+    /**
+     * HW2 > Check Palindrome!
+     * Given a string A consisting of lowercase characters. Check if characters of the given string can be rearranged to form a palindrome.
+     * Return 1 or 0.
+     * Example => A = "abbaee" => o/p = 1
+     * A = "abcde" => o/p = 0
+     * @param A
+     * @return
+     */
+    public int possiblePalindrome(String A) {
+        HashMap<Character, Integer> frequencyHM = new HashMap<>();
+        for (int i = 0; i < A.length(); i++) {
+            if (frequencyHM.containsKey(A.charAt(i))) {
+                Integer currentFreq = frequencyHM.get(A.charAt(i));
+                frequencyHM.put(A.charAt(i), currentFreq + 1);
+            } else {
+                frequencyHM.put(A.charAt(i), 1);
+            }
+        }
+        Integer oddCount = 0;
+        for (Character ch : frequencyHM.keySet()) {
+            if (frequencyHM.get(ch) % 2 != 0) {
+                oddCount ++;
+            }
+        }
+        return oddCount == 0 || oddCount == 1 ? 1 : 0;
     }
 }
