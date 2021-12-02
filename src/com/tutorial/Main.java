@@ -29,7 +29,10 @@ public class Main {
         //new Day17IntroductionToSorting().executeIntroductionToSorting();
 
         //Day19 - Sorting - Introduction to Hashing Libraries - 1
-        new Day19IntroductionToHashingLibraries1().executeIntroductionToHashing();
+        //new Day19IntroductionToHashingLibraries1().executeIntroductionToHashing();
+
+        //Day20 - Intermediate Strings
+        new Day20IntermediateStrings().executeIntermediateStrings();
 
         //----OOPS Basics----
         //new Example().Main();
