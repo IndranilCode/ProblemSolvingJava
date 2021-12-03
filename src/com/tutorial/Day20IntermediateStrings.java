@@ -1,6 +1,5 @@
 package com.tutorial;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -52,11 +51,22 @@ public class Day20IntermediateStrings {
         int outputHW1 = amazingSubarrays(inputHW1);
         System.out.println("HW1 - Amazing Subarrays :" + outputHW1);
 
+        //HW2 > Count Occurrences - bob
+        String inputHW2 = "bobob";
+        int outputHW2 = countOccurrences(inputHW2);
+        System.out.println("HW2 - Count Occurrences - bob :" + outputHW2);
+
+        //HW4 > String operations
+        String inputHW4 = "AbcaZeoB";
+        String outputHW4 = stringOperations(inputHW4);
+        System.out.println("HW4 - String operations :" + outputHW4);
+
+        //HW5 > Longest Common Prefix
+        ArrayList<String> inputHW5 = new ArrayList<>(Arrays.asList("abcdefgh", "aefghijk", "abcefgh"));
+        String outputHW5 = longestCommonPrefix(inputHW5);
+        System.out.println("HW5 - Longest Common Prefix :" + outputHW5);
     }
 
-//    I am an Indian
-//    naidnI na ma I
-//
 
     /**
      * AS1 > Reverse the String [CONCEPT]- Double reverse
@@ -191,8 +201,8 @@ public class Day20IntermediateStrings {
 
 
     /**
-     * HW1 > Amazing Subarrays
-     * Given a string S, and you have to find all the amazing substrings of S.
+     * HW1 > Amazing Subarrays [EASY]
+     * Given a string S, and you have to find all the amazing substrings of S. Return a single integer X mod 10003.
      * Amazing Substring is one that starts with a vowel (a, e, i, o, u, A, E, I, O, U).
      * @param A
      * @return
@@ -208,19 +218,33 @@ public class Day20IntermediateStrings {
                 combinations = combinations + rollingCount;
             }
         }
-        return combinations;
+        return combinations % 10003;
     }
 
     /**
-     * HW2 > Count Occurrences
+     * HW2 > Count Occurrences [EASY]
      * Find number of occurrences of bob in the string A consisting of lowercase english alphabets.
      * @param A
      * @return
      */
     private int countOccurrences(String A) {
-        String searchString = "bob";
-
-        return 0;
+        String searchToString = "bob";
+        int matchCount = 0;
+        for (int i = 0; i < (A.length() - 2); i++) {
+            Boolean isMatch = true;
+            int subwordPosition = 0;
+            while (subwordPosition < 3) {
+                if (A.charAt(i + subwordPosition) != searchToString.charAt(subwordPosition)) {
+                    isMatch = false;
+                    break;
+                }
+                subwordPosition++;
+            }
+            if (isMatch) {
+                matchCount++;
+            }
+        }
+        return matchCount;
     }
 
     /**
@@ -238,7 +262,72 @@ public class Day20IntermediateStrings {
         return 0;
     }
 
+    /**
+     * HW4 > String operations [EASY]
+     * Concatenate the string with itself -> Delete all the uppercase letters -> Replace each vowel with '#'.
+     * Example => A="AbcaZeoB" => o/p "bc###bc###"
+     * @param A
+     * @return
+     */
     private String stringOperations(String A) {
-        return "";
+        StringBuilder doubleStringBuilder = new StringBuilder();
+        doubleStringBuilder.append(A);
+        doubleStringBuilder.append(A);
+
+        String doubleString = doubleStringBuilder.toString();
+        StringBuilder uppercaseRemovedBuilder = new StringBuilder();
+        for (int i = 0; i < doubleString.length(); i++) {
+            if (!(doubleString.charAt(i) >= 'A' && doubleString.charAt(i) <= 'Z')) {
+                uppercaseRemovedBuilder.append(doubleString.charAt(i));
+            }
+        }
+
+        String capsRemovedString = uppercaseRemovedBuilder.toString();
+        StringBuilder finalStringBuilder = new StringBuilder();
+        for (int i = 0; i < capsRemovedString.length(); i++) {
+            if (capsRemovedString.charAt(i) == 'a' || capsRemovedString.charAt(i) == 'e' || capsRemovedString.charAt(i) == 'i' ||
+                    capsRemovedString.charAt(i) == 'o' || capsRemovedString.charAt(i) == 'u') {
+                finalStringBuilder.append('#');
+            } else {
+                finalStringBuilder.append(capsRemovedString.charAt(i));
+            }
+        }
+        return finalStringBuilder.toString();
+    }
+
+    /**
+     * HW5 > Longest Common Prefix [MEDIUM]
+     * Given the array of strings A, you need to find the longest string S which is the prefix of ALL the strings in the array.
+     * Example => A = ["abcdefgh", "aefghijk", "abcefgh"] o/p => "a"
+     * @param A
+     * @return
+     */
+    private String longestCommonPrefix(ArrayList<String> A) {
+        int minStringLength = Integer.MAX_VALUE;
+        String minLengthString = "";
+        for (int i = 0; i < A.size(); i++) {
+            if (A.get(i).length() < minStringLength) {
+                minStringLength = A.get(i).length();
+                minLengthString = A.get(i);
+            }
+        }
+
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < minStringLength; i++) {
+            Character referenceChar = minLengthString.charAt(i);
+            Boolean isAllMatch = true;
+            for (int j = 0; j < A.size(); j++) {
+                if (A.get(j).charAt(i) != referenceChar) {
+                    isAllMatch = false;
+                    break;
+                }
+            }
+            if (isAllMatch) {
+                result.append(referenceChar);
+            } else {
+                break;
+            }
+        }
+        return result.toString();
     }
 }
