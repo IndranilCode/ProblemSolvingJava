@@ -59,6 +59,10 @@ public class Day19IntroductionToHashingLibraries1 {
         //HW1 > Check Palindrome
         int outputHW2 =  possiblePalindrome("inttnikjmjbemrberk");
         System.out.println("HW2 - Check Palindrome :" + outputHW2);
+
+        //HW3 > Colorful Number
+        int outputHW3 = colorfulNumber(236);
+        System.out.println("HW3 - Colorful Number :" + outputHW3);
     }
 
     /**
@@ -189,6 +193,7 @@ public class Day19IntroductionToHashingLibraries1 {
 
         //-----------------------------------------------------------------------------------------------
         //Approach 2 => TA logic
+
         Integer sum = 0;
         Integer startIndex = -2, endIndex = -3;
         HashMap<Integer, Integer> sumFreq = new HashMap<>();
@@ -292,7 +297,7 @@ public class Day19IntroductionToHashingLibraries1 {
      * @param C
      * @return
      */
-    public int kOccurrences(int A, int B, ArrayList<Integer> C) {
+    private int kOccurrences(int A, int B, ArrayList<Integer> C) {
         Integer kOccurrenceSum = 0;
 
         HashMap<Integer, Integer> frequencyHM = new HashMap<>();
@@ -305,6 +310,7 @@ public class Day19IntroductionToHashingLibraries1 {
             }
         }
         Boolean isFound = false;
+
         for (Integer key : frequencyHM.keySet()) {
             if (frequencyHM.get(key) == B) {
                 kOccurrenceSum = kOccurrenceSum + key;
@@ -323,7 +329,7 @@ public class Day19IntroductionToHashingLibraries1 {
      * @param A
      * @return
      */
-    public int possiblePalindrome(String A) {
+    private int possiblePalindrome(String A) {
         HashMap<Character, Integer> frequencyHM = new HashMap<>();
         for (int i = 0; i < A.length(); i++) {
             if (frequencyHM.containsKey(A.charAt(i))) {
@@ -340,5 +346,57 @@ public class Day19IntroductionToHashingLibraries1 {
             }
         }
         return oddCount == 0 || oddCount == 1 ? 1 : 0;
+    }
+
+    /**
+     * HW3 > Colorful Number
+     * Given Number A find if its COLORFUL number or not. If number A is a COLORFUL number return 1 else return 0.
+     * A number can be broken into different contiguous sub-subsequence parts.
+     * Suppose, a number 3245 can be broken into parts like 3 2 4 5 32 24 45 324 245.
+     * And this number is a COLORFUL number, since product of every digit of a contiguous subsequence is different.
+     * Example => A = 236 => Output =>
+     * Possible Sub-sequences: [2, 3, 6, 23, 36, 236] where
+     *  2 -> 2
+     *  3 -> 3
+     *  6 -> 6
+     *  23 -> 6  (product of digits)
+     *  36 -> 18  (product of digits)
+     *  236 -> 36  (product of digits)
+     *  This number is not a COLORFUL number since the product sequence 23  and sequence 6 is same.
+     * @param A
+     * @return
+     */
+    private int colorfulNumber(int A) {
+        Integer newA = A;
+        String numberString = newA.toString();
+        HashMap<Integer, Integer> sumFrequency = new HashMap<Integer, Integer>();
+        int isColourful = 1;
+
+        for (int i = 0 ; i < numberString.length(); i++) {
+            for (int j = i; j < numberString.length(); j++) {
+                Integer sum = 1;
+                for (int k = i; k <= j; k++) {
+                    sum = sum * Integer.parseInt(String.valueOf(numberString.charAt(k)));
+                }
+                if (sumFrequency.containsKey(sum)) {
+                    isColourful = 0;
+                } else {
+                    sumFrequency.put(sum, 1);
+                }
+            }
+        }
+        return isColourful;
+
+
+        // 2369
+        // 0 - 3 : 0
+        // 0-3. [2, 23, 236, 2369]
+        // 0 - 3 : 1
+        // 1-3. [3, 36, 369]
+        // 0 - 3 : 2
+        // 2-3. [6, 69]
+
+        // 0 - 3 : 3
+        // 3-3. [9]
     }
 }
