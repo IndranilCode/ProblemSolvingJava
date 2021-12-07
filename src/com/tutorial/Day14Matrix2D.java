@@ -68,6 +68,35 @@ public class Day14Matrix2D {
         });
         System.out.println("");
 
+
+
+
+        //HW1 > Are Matrices Same ?
+        ArrayList<ArrayList<Integer>> inputHW1a = new ArrayList<>();
+        inputHW1a.add(new ArrayList<>(Arrays.asList(1, 2, 3)));
+        inputHW1a.add(new ArrayList<>(Arrays.asList(4, 5, 6)));
+        inputHW1a.add(new ArrayList<>(Arrays.asList(7, 8, 9)));
+        ArrayList<ArrayList<Integer>> inputHW1b = new ArrayList<>();
+        inputHW1b.add(new ArrayList<>(Arrays.asList(1, 2, 3)));
+        inputHW1b.add(new ArrayList<>(Arrays.asList(4, 5, 6)));
+        inputHW1b.add(new ArrayList<>(Arrays.asList(7, 8, 9)));
+        int outputHW1 = areMatricesSame(inputHW1a, inputHW1b);
+        System.out.println("HW1 - Are Matrices Same :" + outputHW1);
+
+        //HW2 > Matrix Scaler Product
+        ArrayList<ArrayList<Integer>> inputHW2 = new ArrayList<>();
+        inputHW2.add(new ArrayList<>(Arrays.asList(1, 2, 3)));
+        inputHW2.add(new ArrayList<>(Arrays.asList(4, 5, 6)));
+        inputHW2.add(new ArrayList<>(Arrays.asList(7, 8, 9)));
+        ArrayList<ArrayList<Integer>> outputHW2 = matrixScalerProduct(inputHW2, 2);
+        System.out.println("HW2 - Matrix Scaler Product:");
+        outputHW2.forEach(eachRow -> {
+            eachRow.forEach(eachNumber -> System.out.print(eachNumber + " "));
+            System.out.println("");
+        });
+        System.out.println("");
+
+
     }
 
     /**
@@ -195,5 +224,47 @@ public class Day14Matrix2D {
             transposedMatrix.add(newRow);
         }
         return transposedMatrix;
+    }
+
+
+    /**
+     * HW1 > Are Matrices Same ? [EASY]
+     * 2 two matrices A & B of equal sizes and you have to check whether two matrices are equal or not.
+     * NOTE: Both matrices are equal if A[i][j] == B[i][j] for all i and j in the given range. (1 OR 0)
+     * Example => A = [[1, 2, 3],[4, 5, 6],[7, 8, 9]] , B = [[1, 2, 3],[4, 5, 6],[7, 8, 9]] ; O/P = 1
+     * @param A
+     * @param B
+     * @return
+     */
+    private int areMatricesSame(ArrayList<ArrayList<Integer>> A, ArrayList<ArrayList<Integer>> B) {
+        for (int row = 0; row < A.size(); row ++) {
+            for (int col = 0; col < A.get(0).size(); col++) {
+                if (A.get(row).get(col) != B.get(row).get(col)) {
+                    return 0;
+                }
+            }
+        }
+        return 1;
+    }
+
+    /**
+     * HW2 > Matrix Scaler Product [EASY]
+     * You are given a matrix A and and an integer B, you have to perform scalar multiplication of matrix A with an integer B.
+     * Example => A = [[1, 2, 3],[4, 5, 6],[7, 8, 9]] , B = 2
+     * O/p => [[2, 4, 6], [8, 10, 12], [14, 16, 18]]
+     * @param A
+     * @param B
+     * @return
+     */
+    private ArrayList<ArrayList<Integer>> matrixScalerProduct(ArrayList<ArrayList<Integer>> A, int B) {
+        ArrayList<ArrayList<Integer>> result = new ArrayList<>();
+        for (int row = 0; row < A.size(); row++) {
+            ArrayList<Integer> eachRow = new ArrayList<>();
+            for (int col = 0; col < A.get(0).size(); col++) {
+                eachRow.add(B * A.get(row).get(col));
+            }
+            result.add(eachRow);
+        }
+        return result;
     }
 }
