@@ -1,7 +1,10 @@
 package com.tutorial;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 public class Day14Matrix2D {
     public void executeMatrix2D() {
@@ -96,7 +99,46 @@ public class Day14Matrix2D {
         });
         System.out.println("");
 
+        //HW3 > Minor Diagonal Sum
+        ArrayList<ArrayList<Integer>> inputHW3 = new ArrayList<>();
+        inputHW3.add(new ArrayList<>(Arrays.asList(1, -2, -3)));
+        inputHW3.add(new ArrayList<>(Arrays.asList(-4, 5, -6)));
+        inputHW3.add(new ArrayList<>(Arrays.asList(-7, -8, 9)));
+        int outputHW3 = minorDiagonalSum(inputHW3);
+        System.out.println("HW3 - Minor Diagonal Sum :" + outputHW3);
 
+        //HW4 > Row Sum
+        ArrayList<ArrayList<Integer>> inputHW4 = new ArrayList<>();
+        inputHW4.add(new ArrayList<>(Arrays.asList(1,2,3,4)));
+        inputHW4.add(new ArrayList<>(Arrays.asList(5,6,7,8)));
+        inputHW4.add(new ArrayList<>(Arrays.asList(9,2,3,4)));
+        ArrayList<Integer> outputHW4 = rowSum(inputHW4);
+        System.out.print("HW4 - Row Sum: ");
+        outputHW4.forEach(eachNumber -> {
+            System.out.print(eachNumber + " ");
+        });
+        System.out.println("");
+
+        //HW5 > Row to Column Zero
+        ArrayList<ArrayList<Integer>> inputHW5 = new ArrayList<>();
+        inputHW5.add(new ArrayList<>(Arrays.asList(1,2,3,4)));
+        inputHW5.add(new ArrayList<>(Arrays.asList(5,6,7,0)));
+        inputHW5.add(new ArrayList<>(Arrays.asList(9,2,0,4)));
+        ArrayList<ArrayList<Integer>> outputHW5 = rowToColumnZero(inputHW5);
+        System.out.println("HW5 - Row to Column Zero: ");
+        outputHW5.forEach(eachRow -> {
+            eachRow.forEach(eachNumber -> System.out.print(eachNumber + " "));
+            System.out.println("");
+        });
+        System.out.println("");
+
+        //HW6 > Main Diagonal Sum
+        ArrayList<ArrayList<Integer>> inputHW6 = new ArrayList<>();
+        inputHW6.add(new ArrayList<>(Arrays.asList(1, -2, -3)));
+        inputHW6.add(new ArrayList<>(Arrays.asList(-4, 5, -6)));
+        inputHW6.add(new ArrayList<>(Arrays.asList(-7, -8, 9)));
+        int outputHW6 = mainDiagonalSum(inputHW3);
+        System.out.println("HW6 - Main Diagonal Sum :" + outputHW6);
     }
 
     /**
@@ -227,6 +269,8 @@ public class Day14Matrix2D {
     }
 
 
+
+    
     /**
      * HW1 > Are Matrices Same ? [EASY]
      * 2 two matrices A & B of equal sizes and you have to check whether two matrices are equal or not.
@@ -266,5 +310,115 @@ public class Day14Matrix2D {
             result.add(eachRow);
         }
         return result;
+    }
+
+    /**
+     * HW3 > Minor Diagonal Sum [EASY]
+     * N X N integer matrix. You have to find the sum of all the minor diagonal elements of A.
+     * Minor diagonal of a M X M matrix A is a collection of elements A[i, j] such that i + j = M + 1 (where i, j are 1-based).
+     * Example =>
+     * A =  [[1, -2, -3],
+     *       [-4, 5, -6],
+     *       [-7, -8, 9]]
+     * Output => A[1][3] + A[2][2] + A[3][1] = (-3) + 5 + (-7) = -5
+     * @param A
+     * @return
+     */
+    private int minorDiagonalSum(final List<ArrayList<Integer>> A) {
+        int minorDiagonalSum = 0;
+        for (int row = 0; row < A.size(); row++) {
+            for (int col = 0; col < A.get(0).size(); col++) {
+                if ((col + 1) + (row + 1) == (A.size() + 1)) {
+                    minorDiagonalSum = minorDiagonalSum + A.get(row).get(col);
+                }
+            }
+        }
+        return minorDiagonalSum;
+    }
+
+    /**
+     * HW4 > Row Sum [EASY]
+     * 2D integer matrix A, return a 1D integer vector containing row-wise sums of original matrix.
+     * @param A
+     * @return
+     */
+    private ArrayList<Integer> rowSum(ArrayList<ArrayList<Integer>> A) {
+        ArrayList<Integer> rowSum = new ArrayList<>();
+        for (int row = 0; row < A.size(); row++) {
+            int rowTotal = 0;
+            for (int col = 0; col < A.get(0).size(); col++) {
+                rowTotal = rowTotal + A.get(row).get(col);
+            }
+            rowSum.add(rowTotal);
+        }
+        return rowSum;
+    }
+
+    /**
+     * HW5 > Row to Column Zero [OK OK]
+     * You are given a 2D integer matrix A, make all the elements in a row or column zero if the A[i][j] = 0.
+     * Specifically, make entire ith row and jth column zero.
+     * Example =>
+     * [1,2,3,4]
+     * [5,6,7,0]
+     * [9,2,0,4]
+     * O/P =>
+     * [1,2,0,0]
+     * [0,0,0,0]
+     * [0,0,0,0]
+     * @param A
+     * @return
+     */
+    private ArrayList<ArrayList<Integer>> rowToColumnZero(ArrayList<ArrayList<Integer>> A) {
+        ArrayList<Integer> zeroRow = new ArrayList<>();
+        ArrayList<Integer> zeroCol = new ArrayList<>();
+
+        for (int row = 0; row < A.size(); row++) {
+            for (int col = 0; col < A.get(0).size(); col++) {
+                if (A.get(row).get(col) == 0) {
+                    zeroRow.add(row);
+                    zeroCol.add(col);
+                }
+            }
+        }
+
+        ArrayList<ArrayList<Integer>> result = new ArrayList<>();
+        for (int row = 0; row < A.size(); row++) {
+            ArrayList<Integer> eachRow = new ArrayList<>();
+            Boolean isRow0 = zeroRow.contains(row);
+            for (int col = 0; col < A.get(0).size(); col++) {
+                if (isRow0 || zeroCol.contains(col)) {
+                    eachRow.add(0);
+                } else {
+                    eachRow.add(A.get(row).get(col));
+                }
+            }
+            result.add(eachRow);
+        }
+        return result;
+    }
+
+    /**
+     * HW6 > Main Diagonal Sum [EASY]
+     * N X N integer matrix. You have to find the sum of all the minor diagonal elements of A.
+     * Main diagonal of a matrix A is a collection of elements A[i, j] such that i = j.
+     * Example =>
+     * A =  [[1, -2, -3],
+     *       [-4, 5, -6],
+     *       [-7, -8, 9]]
+     * Output => 15
+     * @param A
+     * @return
+     */
+    private int mainDiagonalSum(final List<ArrayList<Integer>> A) {
+        int mainDiagonalSum = 0;
+        for (int row = 0; row < A.size(); row++) {
+            for (int col = 0; col < A.get(0).size(); col++) {
+                if (row == col) {
+                    mainDiagonalSum = mainDiagonalSum + A.get(row).get(col);
+                }
+            }
+        }
+        return mainDiagonalSum;
     }
 }
