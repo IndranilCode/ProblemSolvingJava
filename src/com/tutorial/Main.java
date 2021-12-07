@@ -25,6 +25,9 @@ public class Main {
         //Day13 - Array - Prefix sum and carry forward (Day 2)
         //new Day13ArrayPrefixSumAndCarryForwardPart2().executeArrayPrefixSumAndCarryForwardPart2();
 
+        //Day 14 - 2D Matrix
+        new Day14Matrix2D().executeMatrix2D();
+
         //Day17 - Sorting - IntroductionToSorting
         //new Day17IntroductionToSorting().executeIntroductionToSorting();
 
@@ -32,7 +35,7 @@ public class Main {
         //new Day19IntroductionToHashingLibraries1().executeIntroductionToHashing();
 
         //Day20 - Intermediate Strings
-        new Day20IntermediateStrings().executeIntermediateStrings();
+        //new Day20IntermediateStrings().executeIntermediateStrings();
 
         //----OOPS Basics----
         //new Example().Main();

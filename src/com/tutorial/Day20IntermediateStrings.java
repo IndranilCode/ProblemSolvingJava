@@ -2,6 +2,7 @@ package com.tutorial;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class Day20IntermediateStrings {
     public void executeIntermediateStrings() {
@@ -55,6 +56,12 @@ public class Day20IntermediateStrings {
         String inputHW2 = "bobob";
         int outputHW2 = countOccurrences(inputHW2);
         System.out.println("HW2 - Count Occurrences - bob :" + outputHW2);
+
+        //HW3 > Change character
+        //        String inputHW3 = "abcabbccd";
+        String inputHW3 = "qghumeaylnlfdxfircvscxggbwkfnqduxwfnfozvsrtkjprepggxrpnrvystmwcysyycqpevikeffmznimkkasvwsrenzkycxfxtlsgypsfadpooefxzbcoejuvpvaboygpoeylfpbnpljvrvipyamyehwqnqrqpmxujjloovaowuxwhmsncbxcoksfzkvatxdknlyjyhfixjswnkkufnuxxzrzbmnmgqooketlyhnkoaugzqrcddiuteiojwayyzpvscmpsajlfvgubfaaovlzylntrkdcpwsrtesjwhdizcobzcnfwlqijtvdwvxhrcbldvgylwgbusbmborxtlhcsmpxohgmgnkeufdxotogbgxpeyanfetcukepzshkljugggekjdqzjenpevqgxiepjsrdzjazujllchhbfqmkimwzobiwybxduunfsksrsrtekmq";
+        int outputHW3 = changeCharacter(inputHW3, 119);
+        System.out.println("HW3 - Change character :" + outputHW3);
 
         //HW4 > String operations
         String inputHW4 = "AbcaZeoB";
@@ -259,7 +266,62 @@ public class Day20IntermediateStrings {
      * @return
      */
     private int changeCharacter(String A, int B) {
-        return 0;
+        ArrayList<Character> stringConverted = new ArrayList<>();
+        HashMap<Character, Integer> frequencyMap = new HashMap<Character, Integer>();
+        for (int i = 0; i < A.length(); i++) {
+            stringConverted.add(A.charAt(i));
+            if (frequencyMap.containsKey(A.charAt(i))) {
+                Integer currentCharFreq = frequencyMap.get(A.charAt(i));
+                frequencyMap.put(A.charAt(i), (currentCharFreq + 1));
+            } else {
+                frequencyMap.put(A.charAt(i), 1);
+            }
+        }
+        Integer changesLeft = B;
+        //        Character lowestFrequencyCharacter = '0';
+        //        Integer lowestFrequency = Integer.MAX_VALUE;
+        //        Character highestFrequencyCharacter = '1';
+        //        Integer highestFrequency = Integer.MIN_VALUE;
+
+
+        while (changesLeft > 0) {
+            Character lowestFrequencyCharacter = '0';
+            Integer lowestFrequency = Integer.MAX_VALUE;
+            Character highestFrequencyCharacter = '1';
+            Integer highestFrequency = Integer.MIN_VALUE;
+            for (Character key : frequencyMap.keySet()) {
+                if (frequencyMap.get(key) < lowestFrequency) {
+                    lowestFrequency = frequencyMap.get(key);
+                    lowestFrequencyCharacter = key;
+                }
+                if (frequencyMap.get(key) > highestFrequency) {
+                    highestFrequency = frequencyMap.get(key);
+                    highestFrequencyCharacter = key;
+                }
+            }
+            if (highestFrequency > lowestFrequency && changesLeft >= lowestFrequency) {
+                int changesLeftToUpdate = changesLeft - lowestFrequency;
+                frequencyMap.remove(lowestFrequencyCharacter);
+                highestFrequency = highestFrequency + lowestFrequency;
+                frequencyMap.put(highestFrequencyCharacter, highestFrequency);
+                changesLeft = changesLeftToUpdate;
+            }
+        }
+
+        //        while (changesLeft >= 0 && (lowestFrequency < changesLeft || lowestFrequency == Integer.MAX_VALUE)) {
+        //            for (Character key : frequencyMap.keySet()) {
+        //                if (frequencyMap.get(key) < lowestFrequency) {
+        //                    lowestFrequency = frequencyMap.get(key);
+        //                    lowestFrequencyCharacter = key;
+        //                }
+        //            }
+        //            if (lowestFrequency <= changesLeft) {
+        //                changesLeft = changesLeft - lowestFrequency;
+        //                frequencyMap.remove(lowestFrequencyCharacter);
+        //            }
+        //        }
+
+        return frequencyMap.size();
     }
 
     /**

@@ -29,7 +29,8 @@ public class Day19IntroductionToHashingLibraries1 {
         //ArrayList<Integer> inputAS3 = new ArrayList<Integer>(Arrays.asList( 0, -10, 20, 3, 23, 10, -20, 2, 19, -29, 0));
         //ArrayList<Integer> inputAS3 = new ArrayList<Integer>(Arrays.asList( -19, 8, 2, -8, 19, 5, -2, -23));
         //ArrayList<Integer> inputAS3 = new ArrayList<Integer>(Arrays.asList(-9, -13, 6, -28, 27, -5, -27, 17, 15, -17, -25, 6, -8, 2, -13, -13, -23, 21, -4, 22, -9, -10, 0, -28, -11, 8, 8, 17));
-        ArrayList<Integer> inputAS3 = new ArrayList<Integer>(Arrays.asList(15, 18, -23, 22, -15, 26, -28, -25, 3, 3, 7, -22, 12, -13, 21, 18, -15, -23, -5));
+        //ArrayList<Integer> inputAS3 = new ArrayList<Integer>(Arrays.asList(15, 18, -23, 22, -15, 26, -28, -25, 3, 3, 7, -22, 12, -13, 21, 18, -15, -23, -5));
+        ArrayList<Integer> inputAS3 = new ArrayList<Integer>(Arrays.asList(0, -10, 20, 3, 23, 10, -20, 2, 19, -29, 0));
         ArrayList<Integer> outputAS3 = largestContinuousSequenceZeroSum(inputAS3);
         System.out.print("AS3 - Largest Continuous Sequence Zero Sum :");
         outputAS3.forEach(e -> {
@@ -136,89 +137,157 @@ public class Day19IntroductionToHashingLibraries1 {
      * @param A
      * @return
      */
+//    private ArrayList<Integer> largestContinuousSequenceZeroSum(ArrayList<Integer> A) {
+//        //1. Form prefix sum array
+//        ArrayList<Integer> prefixSumArray = new ArrayList<>();
+//        for (int i = 0; i < A.size(); i++) {
+//            if (i == 0) {
+//                prefixSumArray.add(A.get((i)));
+//            } else {
+//                prefixSumArray.add(A.get((i)) + prefixSumArray.get(i - 1));
+//            }
+//        }
+//        //2. Collect indexes of same value from prefix sum array
+//        //HashMap<Integer, ArrayList<Integer>> arrayIndexFrequencyHM = new HashMap<>();
+//        //Approach 1 => Long logic
+//        //        for (int i = 0; i < prefixSumArray.size(); i++) {
+//        //            ArrayList<Integer> indexList;
+//        //            if (!arrayIndexFrequencyHM.containsKey(prefixSumArray.get(i))) {
+//        //                indexList = new ArrayList<>();
+//        //            } else {
+//        //                indexList = arrayIndexFrequencyHM.get(prefixSumArray.get(i));
+//        //            }
+//        //            indexList.add(i);
+//        //            arrayIndexFrequencyHM.put(prefixSumArray.get(i), indexList);
+//        //        }
+//        //        int startIndex = -1;
+//        //        int endIndex = -1;
+//        //        int largestSize = Integer.MIN_VALUE;
+//        //        for (Integer key : arrayIndexFrequencyHM.keySet()) {
+//        //            if (arrayIndexFrequencyHM.get(key).size() > 1) {
+//        //                //The 1st and last index in value of hashtable is the longest sequence
+//        //                int currentEndIndex = arrayIndexFrequencyHM.get(key).get(arrayIndexFrequencyHM.get(key).size() - 1);
+//        //                int currentStartIndex = arrayIndexFrequencyHM.get(key).get(0) + 1;
+//        //                if ((currentEndIndex - currentStartIndex + 1) > largestSize) {
+//        //                    endIndex = currentEndIndex;
+//        //                    startIndex = currentStartIndex;
+//        //                    largestSize = currentEndIndex - startIndex + 1;
+//        //                }
+//        //            }
+//        //        }
+//        //
+//        //        for (int i = prefixSumArray.size() - 1; i >= 0; i--) {
+//        //            if ((prefixSumArray.get(i) == 0) && (i + 1 > largestSize)) {
+//        //                startIndex = 0;
+//        //                endIndex = i;
+//        //                largestSize = i + 1;
+//        //            }
+//        //        }
+//        //
+//        //        ArrayList<Integer> longest0SubArray = new ArrayList<>();
+//        //        if (endIndex >= startIndex & startIndex!= -1) {
+//        //            for (int i = startIndex; i <= endIndex; i++) {
+//        //                longest0SubArray.add(A.get(i));
+//        //            }
+//        //        }
+//        //        return longest0SubArray;
+//
+//        //-----------------------------------------------------------------------------------------------
+//        //Approach 2 => TA logic
+//
+//        Integer sum = 0;
+//        Integer startIndex = -2, endIndex = -3;
+//        HashMap<Integer, Integer> sumFreq = new HashMap<>();
+//        //sumFreq.put
+//        for (int i = 0; i < A.size(); i++) {
+//            sum = sum + A.get(0);
+//            if (sumFreq.containsKey(sum)) {
+//                int olderIndex = sumFreq.get(sum) + 1;
+//                if (i - olderIndex > (endIndex - startIndex)) {
+//                    endIndex = i;
+//                    startIndex = olderIndex;
+//                }
+//            } else {
+//                sumFreq.put(sum, i);
+//            }
+//        }
+//
+//        ArrayList<Integer> answer = new ArrayList<>();
+//        if (startIndex == -2) {
+//            return answer;
+//        }
+//        for (int i = startIndex; i <= endIndex; i++) {
+//            answer.add(A.get(i));
+//        }
+//        return answer;
+//    }
+
     private ArrayList<Integer> largestContinuousSequenceZeroSum(ArrayList<Integer> A) {
-        //1. Form prefix sum array
-        ArrayList<Integer> prefixSumArray = new ArrayList<>();
-        for (int i = 0; i < A.size(); i++) {
-            if (i == 0) {
-                prefixSumArray.add(A.get((i)));
-            } else {
-                prefixSumArray.add(A.get((i)) + prefixSumArray.get(i - 1));
-            }
-        }
-        //2. Collect indexes of same value from prefix sum array
-        //HashMap<Integer, ArrayList<Integer>> arrayIndexFrequencyHM = new HashMap<>();
-        //Approach 1 => Long logic
-        //        for (int i = 0; i < prefixSumArray.size(); i++) {
-        //            ArrayList<Integer> indexList;
-        //            if (!arrayIndexFrequencyHM.containsKey(prefixSumArray.get(i))) {
-        //                indexList = new ArrayList<>();
-        //            } else {
-        //                indexList = arrayIndexFrequencyHM.get(prefixSumArray.get(i));
-        //            }
-        //            indexList.add(i);
-        //            arrayIndexFrequencyHM.put(prefixSumArray.get(i), indexList);
-        //        }
-        //        int startIndex = -1;
-        //        int endIndex = -1;
-        //        int largestSize = Integer.MIN_VALUE;
-        //        for (Integer key : arrayIndexFrequencyHM.keySet()) {
-        //            if (arrayIndexFrequencyHM.get(key).size() > 1) {
-        //                //The 1st and last index in value of hashtable is the longest sequence
-        //                int currentEndIndex = arrayIndexFrequencyHM.get(key).get(arrayIndexFrequencyHM.get(key).size() - 1);
-        //                int currentStartIndex = arrayIndexFrequencyHM.get(key).get(0) + 1;
-        //                if ((currentEndIndex - currentStartIndex + 1) > largestSize) {
-        //                    endIndex = currentEndIndex;
-        //                    startIndex = currentStartIndex;
-        //                    largestSize = currentEndIndex - startIndex + 1;
-        //                }
-        //            }
-        //        }
-        //
-        //        for (int i = prefixSumArray.size() - 1; i >= 0; i--) {
-        //            if ((prefixSumArray.get(i) == 0) && (i + 1 > largestSize)) {
-        //                startIndex = 0;
-        //                endIndex = i;
-        //                largestSize = i + 1;
-        //            }
-        //        }
-        //
-        //        ArrayList<Integer> longest0SubArray = new ArrayList<>();
-        //        if (endIndex >= startIndex & startIndex!= -1) {
-        //            for (int i = startIndex; i <= endIndex; i++) {
-        //                longest0SubArray.add(A.get(i));
-        //            }
-        //        }
-        //        return longest0SubArray;
-
-        //-----------------------------------------------------------------------------------------------
-        //Approach 2 => TA logic
-
+        ArrayList<Integer> prefixSum = new ArrayList<Integer>();
         Integer sum = 0;
-        Integer startIndex = -2, endIndex = -3;
-        HashMap<Integer, Integer> sumFreq = new HashMap<>();
-        //sumFreq.put
         for (int i = 0; i < A.size(); i++) {
-            sum = sum + A.get(0);
-            if (sumFreq.containsKey(sum)) {
-                int olderIndex = sumFreq.get(sum) + 1;
-                if (i - olderIndex > (endIndex - startIndex)) {
-                    endIndex = i;
-                    startIndex = olderIndex;
-                }
+            sum = sum + A.get(i);
+            prefixSum.add(sum);
+        }
+
+        HashMap<Integer, ArrayList<Integer>> prefixSumFreq = new HashMap<>();
+        for (int i = 0; i < prefixSum.size(); i++) {
+            if (prefixSumFreq.containsKey(prefixSum.get(i))) {
+                ArrayList<Integer> thisKeyIndexList = prefixSumFreq.get(prefixSum.get(i));
+                thisKeyIndexList.add(i);
+                prefixSumFreq.put(prefixSum.get(i), thisKeyIndexList);
             } else {
-                sumFreq.put(sum, i);
+                ArrayList<Integer> thisKeyIndexList = new ArrayList<Integer>();
+                thisKeyIndexList.add(i);
+                prefixSumFreq.put(prefixSum.get(i), thisKeyIndexList);
             }
         }
 
-        ArrayList<Integer> answer = new ArrayList<>();
-        if (startIndex == -2) {
-            return answer;
+        int startIndex = -10;
+        int endIndex = -11;
+        int maxSize = -1;
+        for (Integer key: prefixSumFreq.keySet()) {
+            ArrayList<Integer> freqList = prefixSumFreq.get(key);
+            if (freqList.size() > 1 && key != 0) {
+                int currentStartIndex = freqList.get(0) + 1;
+                int currentEndIndex = freqList.get(freqList.size() - 1);
+                int currentNumberMaxLength = currentEndIndex - currentStartIndex;
+                if (currentNumberMaxLength > maxSize) {
+                    maxSize = currentNumberMaxLength;
+                    startIndex = currentStartIndex;
+                    endIndex = currentEndIndex;
+                }
+            }
+            if (freqList.size() > 0 && key == 0) {
+                int currentStartIndex = 0;
+                int currentEndIndex = freqList.get(freqList.size() - 1);
+                int currentNumberMaxLength = currentEndIndex - currentStartIndex;
+                if (currentNumberMaxLength > maxSize) {
+                    maxSize = currentNumberMaxLength;
+                    startIndex = currentStartIndex;
+                    endIndex = currentEndIndex;
+                }
+            }
         }
-        for (int i = startIndex; i <= endIndex; i++) {
-            answer.add(A.get(i));
+
+        ArrayList<Integer> result = new ArrayList<Integer>();
+        if (endIndex >= startIndex) {
+            for (int i = startIndex; i <= endIndex; i++) {
+                result.add(A.get(i));
+            }
         }
-        return answer;
+        return result;
+
+        // 0. 1.  2. 3
+        // 1, 2, -3, 3
+        // 1, 3,  0, 3
+
+        // 0.   1.  2   4.  4.  5.   6.  7.  8.   9  10
+        // 0, -10, 20,  3, 23, 10, -20,  2, 19, -29, 0
+        // 0, -10, 10, 13, 36, 46,  26, 28, 47,  18, 18
+
+        //0 : 0
+
     }
 
     /**
