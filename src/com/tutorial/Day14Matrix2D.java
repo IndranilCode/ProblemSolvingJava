@@ -313,7 +313,7 @@ public class Day14Matrix2D {
     }
 
     /**
-     * HW3 > Minor Diagonal Sum [EASY]
+     * HW3 > Minor Diagonal Sum [EASY - BUT CHECK O(N)]
      * N X N integer matrix. You have to find the sum of all the minor diagonal elements of A.
      * Minor diagonal of a M X M matrix A is a collection of elements A[i, j] such that i + j = M + 1 (where i, j are 1-based).
      * Example =>
@@ -325,13 +325,22 @@ public class Day14Matrix2D {
      * @return
      */
     private int minorDiagonalSum(final List<ArrayList<Integer>> A) {
+        //BF Approach => Parses 0(N^2)
+        //        int minorDiagonalSum = 0;
+        //        for (int row = 0; row < A.size(); row++) {
+        //            for (int col = 0; col < A.get(0).size(); col++) {
+        //                if ((col + 1) + (row + 1) == (A.size() + 1)) {
+        //                    minorDiagonalSum = minorDiagonalSum + A.get(row).get(col);
+        //                }
+        //            }
+        //        }
+        //        return minorDiagonalSum;
+
+        //Smart Approach => Parses O(N)
         int minorDiagonalSum = 0;
-        for (int row = 0; row < A.size(); row++) {
-            for (int col = 0; col < A.get(0).size(); col++) {
-                if ((col + 1) + (row + 1) == (A.size() + 1)) {
-                    minorDiagonalSum = minorDiagonalSum + A.get(row).get(col);
-                }
-            }
+        int totalSize = A.size();
+        for (int i = 0; i < totalSize; i++) {
+            minorDiagonalSum = minorDiagonalSum + A.get(i).get(totalSize - i - 1);
         }
         return minorDiagonalSum;
     }
@@ -399,7 +408,7 @@ public class Day14Matrix2D {
     }
 
     /**
-     * HW6 > Main Diagonal Sum [EASY]
+     * HW6 > Main Diagonal Sum [EASY - BUT CHECK O(N)]
      * N X N integer matrix. You have to find the sum of all the minor diagonal elements of A.
      * Main diagonal of a matrix A is a collection of elements A[i, j] such that i = j.
      * Example =>
@@ -411,13 +420,21 @@ public class Day14Matrix2D {
      * @return
      */
     private int mainDiagonalSum(final List<ArrayList<Integer>> A) {
+        //BF Approach => Parses 0(N^2)
+        //        int mainDiagonalSum = 0;
+        //        for (int row = 0; row < A.size(); row++) {
+        //            for (int col = 0; col < A.get(0).size(); col++) {
+        //                if (row == col) {
+        //                    mainDiagonalSum = mainDiagonalSum + A.get(row).get(col);
+        //                }
+        //            }
+        //        }
+        //        return mainDiagonalSum;
+
+        //Smart Approach => Parses O(N)
         int mainDiagonalSum = 0;
-        for (int row = 0; row < A.size(); row++) {
-            for (int col = 0; col < A.get(0).size(); col++) {
-                if (row == col) {
-                    mainDiagonalSum = mainDiagonalSum + A.get(row).get(col);
-                }
-            }
+        for (int i = 0; i < A.size(); i++) {
+            mainDiagonalSum = mainDiagonalSum + A.get(i).get(i);
         }
         return mainDiagonalSum;
     }
