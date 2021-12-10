@@ -142,7 +142,7 @@ public class Day14Matrix2D {
     }
 
     /**
-     * AS1 > Add the matrices [EASY]
+     * AS1 > (*) Add the matrices [EASY]
      * You are given two matrices A & B of same size, you have to return another matrix which is the sum of A and B.
      * Example => A = [[1, 2, 3],[4, 5, 6],[7, 8, 9]] , B = [[9, 8, 7],[6, 5, 4],[3, 2, 1]]
      * O/P = [[10, 10, 10], [10, 10, 10], [10, 10, 10]]
@@ -163,7 +163,7 @@ public class Day14Matrix2D {
     }
 
     /**
-     * AS3 > Column Sum [EASY]
+     * AS3 > (*) Column Sum [EASY]
      * You are given a 2D integer matrix A, return a 1D integer vector containing column-wise sums of original matrix.
      * @param A
      * @return
@@ -219,7 +219,7 @@ public class Day14Matrix2D {
     }
 
     /**
-     * AS5 > Matrix Subtraction [EASY]
+     * AS5 > (*) Matrix Subtraction [EASY]
      * @param A
      * @param B
      * @return
@@ -240,7 +240,7 @@ public class Day14Matrix2D {
     }
 
     /**
-     * AS6 > Matrix Transpose [EASY]
+     * AS6 > (*) Matrix Transpose [EASY]
      * @param A
      * @return
      */
@@ -272,7 +272,7 @@ public class Day14Matrix2D {
 
     
     /**
-     * HW1 > Are Matrices Same ? [EASY]
+     * HW1 > (*) Are Matrices Same ? [EASY]
      * 2 two matrices A & B of equal sizes and you have to check whether two matrices are equal or not.
      * NOTE: Both matrices are equal if A[i][j] == B[i][j] for all i and j in the given range. (1 OR 0)
      * Example => A = [[1, 2, 3],[4, 5, 6],[7, 8, 9]] , B = [[1, 2, 3],[4, 5, 6],[7, 8, 9]] ; O/P = 1
@@ -313,7 +313,7 @@ public class Day14Matrix2D {
     }
 
     /**
-     * HW3 > Minor Diagonal Sum [EASY - BUT CHECK O(N)]
+     * HW3 > (*) Minor Diagonal Sum [EASY - BUT CHECK O(N)]
      * N X N integer matrix. You have to find the sum of all the minor diagonal elements of A.
      * Minor diagonal of a M X M matrix A is a collection of elements A[i, j] such that i + j = M + 1 (where i, j are 1-based).
      * Example =>
@@ -346,7 +346,7 @@ public class Day14Matrix2D {
     }
 
     /**
-     * HW4 > Row Sum [EASY]
+     * HW4 > (*) Row Sum [EASY]
      * 2D integer matrix A, return a 1D integer vector containing row-wise sums of original matrix.
      * @param A
      * @return
@@ -364,7 +364,7 @@ public class Day14Matrix2D {
     }
 
     /**
-     * HW5 > Row to Column Zero [OK OK]
+     * HW5 > (*) Row to Column Zero [OK OK]
      * You are given a 2D integer matrix A, make all the elements in a row or column zero if the A[i][j] = 0.
      * Specifically, make entire ith row and jth column zero.
      * Example =>
@@ -408,7 +408,7 @@ public class Day14Matrix2D {
     }
 
     /**
-     * HW6 > Main Diagonal Sum [EASY - BUT CHECK O(N)]
+     * HW6 > (*) Main Diagonal Sum [EASY - BUT CHECK O(N)]
      * N X N integer matrix. You have to find the sum of all the minor diagonal elements of A.
      * Main diagonal of a matrix A is a collection of elements A[i, j] such that i = j.
      * Example =>

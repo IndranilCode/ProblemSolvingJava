@@ -7,11 +7,29 @@ public class Day23Recursion1 {
         int outputAS1 = checkPalindrome(inputAS1);
         System.out.println("AS1 - Check Palindrome : " + outputAS1);
 
-        //AS1 - Check Palindrome
+        //AS2 - Check Palindrome
         int inputAS2 = 5;
         int outputAS2 = findAthFibonacci(inputAS2);
         System.out.println("AS2 - Find Fibonacci : " + outputAS2);
 
+        //AS3 - Find Factorial
+        int inputAS3 = 5;
+        int outputAS3 = findFactorial(inputAS3);
+        System.out.println("AS3 - Find Factorial : " + outputAS3);
+
+        //AS4 - Print reverse string
+        String inputAS4 = "HELLO";
+        String outputAS4 = getReverseString(inputAS4, "");
+        System.out.println("AS4 - Print reverse string : " + outputAS4);
+
+
+
+        //HW1 - Sum of Digits
+        int inputHW1 = 20534;
+        int outputHW1a = sumOfDigits(inputHW1, 0);
+        System.out.println("HW1 - Sum of Digits : " + outputHW1a);
+        int outputHW1b = sumOfDigitsBetter(inputHW1);
+        System.out.println("HW1 - Sum of Digits (Better Approach) : " + outputHW1b);
     }
 
     /**
@@ -63,11 +81,60 @@ public class Day23Recursion1 {
      * @return
      */
     private int findFactorial(int A) {
-        return 0;
+        if (A == 0) {
+            return 1;
+        }
+        return A * findFactorial(A-1);
     }
 
-    private void printReverseString() {
+    /**
+     * AS4 > Print reverse string - recursion [PRACTICE]
+     * @param s
+     * @param workingString
+     * @return
+     */
+    private String getReverseString(String s, String workingString) {
+        if (s.length() == 0) {
+            return workingString;
+        }
+        Character lastChar = s.charAt(s.length() - 1);
+        workingString = workingString + lastChar;
 
+        String remainingString = s.substring(0, s.length() - 1);
+        return getReverseString(remainingString, workingString);
     }
+
+
+    /**
+     * HW1 > Sum of Digits
+     * "236" -> 10
+     * @param number
+     * @param sum
+     * @return
+     */
+    private int sumOfDigits(int number, int sum) {
+        if (number == 0) {
+            return sum;
+        }
+        int currentDigit = number % 10;
+        sum = sum + currentDigit;
+        //int numberForNextIteration = (number - currentDigit) / 10; //Not needed
+        int numberForNextIteration = number / 10;
+        return sumOfDigits(numberForNextIteration, sum);
+    }
+
+    /**
+     * HW1 > Sum of Digits [BETTER SOLN]
+     * "236" -> 10
+     * @param number
+     * @return
+     */
+    private int sumOfDigitsBetter(int number) {
+        if (number == 0) {
+            return 0;
+        }
+        return number % 10 + sumOfDigitsBetter(number / 10);
+    }
+
 }
 
