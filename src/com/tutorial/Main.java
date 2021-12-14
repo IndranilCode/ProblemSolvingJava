@@ -2,6 +2,7 @@ package com.tutorial;
 
 import com.tutorial.oops.Example;
 import com.tutorial.recursion.Day23Recursion1;
+import com.tutorial.recursion.Day24Recursion2;
 
 public class Main {
 
@@ -40,7 +41,10 @@ public class Main {
 
 
         //Day23 - Recursion 1
-        new Day23Recursion1().execute();
+        //new Day23Recursion1().execute();
+
+        //Day24 - Recursion 2
+        new Day24Recursion2().execute();
 
         //----OOPS Basics----
         //new Example().Main();

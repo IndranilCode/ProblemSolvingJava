@@ -1,8 +1,11 @@
-package com.tutorial;
+package com.tutorial.M1_ProblemSolvingIntroduction;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * AS => DONE; HW => DONE
+ */
 public class Day4IntroductionToProblemSolving {
 
     public void executeIntroductionToProblemSolving() {

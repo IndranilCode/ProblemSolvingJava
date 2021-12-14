@@ -1,11 +1,12 @@
 package com.tutorial;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 
+/**
+ * AS => 2 left; HW => DONE
+ */
 public class Day14Matrix2D {
     public void executeMatrix2D() {
         //AS1 > Add the matrices
@@ -292,7 +293,7 @@ public class Day14Matrix2D {
     }
 
     /**
-     * HW2 > Matrix Scaler Product [EASY]
+     * HW2 > (*) Matrix Scaler Product [EASY]
      * You are given a matrix A and and an integer B, you have to perform scalar multiplication of matrix A with an integer B.
      * Example => A = [[1, 2, 3],[4, 5, 6],[7, 8, 9]] , B = 2
      * O/p => [[2, 4, 6], [8, 10, 12], [14, 16, 18]]

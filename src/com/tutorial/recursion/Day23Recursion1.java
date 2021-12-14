@@ -1,5 +1,8 @@
 package com.tutorial.recursion;
 
+/**
+ * AS => DONE; HW => DONE
+ */
 public class Day23Recursion1 {
     public void execute() {
         //AS1 - Check Palindrome
@@ -21,7 +24,8 @@ public class Day23Recursion1 {
         String inputAS4 = "HELLO";
         String outputAS4 = getReverseString(inputAS4, "");
         System.out.println("AS4 - Print reverse string : " + outputAS4);
-
+        String outputAS4b = getReverseStringBetter(inputAS4);
+        System.out.println("AS4 - Print reverse string (Better Approach) : " + outputAS4b);
 
 
         //HW1 - Sum of Digits
@@ -33,7 +37,7 @@ public class Day23Recursion1 {
     }
 
     /**
-     * AS1 > Check Palindrome
+     * AS1 > (*) Check Palindrome [PRACTICE]
      * @param A
      * @return
      */
@@ -53,7 +57,7 @@ public class Day23Recursion1 {
     }
 
     /**
-     * AS2 > Find Fibonacci
+     * AS2 > (*) Find Fibonacci [PRACTICE]
      * 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, ……..
      * @param A
      * @return
@@ -102,6 +106,19 @@ public class Day23Recursion1 {
 
         String remainingString = s.substring(0, s.length() - 1);
         return getReverseString(remainingString, workingString);
+    }
+
+    /**
+     * AS4 > Print reverse string - recursion [PRACTICE - BETTER SOLN]
+     * @param s
+     * @return
+     */
+    private String getReverseStringBetter(String s) {
+        if (s.length() == 0) {
+            return "";
+        } else {
+            return s.charAt(s.length() - 1) + getReverseStringBetter(s.substring(0, s.length() - 1));
+        }
     }
 
 
