@@ -1,5 +1,6 @@
 package com.tutorial;
 
+import com.tutorial.Arrays.Day16_ArrayAndMath;
 import com.tutorial.oops.Example;
 import com.tutorial.recursion.Day23Recursion1;
 import com.tutorial.recursion.Day24Recursion2;
@@ -30,6 +31,9 @@ public class Main {
         //Day 14 - 2D Matrix
         //new Day14Matrix2D().executeMatrix2D();
 
+        //
+        new Day16_ArrayAndMath().execute();
+
         //Day17 - Sorting - IntroductionToSorting
         //new Day17IntroductionToSorting().executeIntroductionToSorting();
 
@@ -44,7 +48,7 @@ public class Main {
         //new Day23Recursion1().execute();
 
         //Day24 - Recursion 2
-        new Day24Recursion2().execute();
+        //        new Day24Recursion2().execute();
 
         //----OOPS Basics----
         //new Example().Main();
