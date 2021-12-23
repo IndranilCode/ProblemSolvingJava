@@ -4,18 +4,6 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 public class Day27_TreesBasic1 {
-    class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-
-        TreeNode(int initVal) {
-            this.val = initVal;
-            left = null;
-            right = null;
-        }
-    }
-
     private TreeNode generateSampleTree() {
         TreeNode root = new TreeNode(6);
         root.left = new TreeNode(3);
@@ -26,6 +14,7 @@ public class Day27_TreesBasic1 {
         return root;
     }
 
+    //------------------------------------------------------------
 
     public void execute() {
         //Sample Tree =>
@@ -35,18 +24,18 @@ public class Day27_TreesBasic1 {
 
         //AS1 > Inorder - Recursion
         System.out.print("AS1 - InOrder (Recursion) : ");
-        TreeNode root = generateSampleTree();
+                TreeNode root = generateSampleTree();
         inOrderRecursion(root);
         System.out.println("");
 
         //AS1 > Inorder - Iteration
-        //        root = generateSampleTree();
-        //        ArrayList<Integer> outputAS1 = inOrderIterative(root);
-        //        System.out.print("AS1 - Inorder (Iterative) : ");
-        //        outputAS1.forEach(e -> {
-        //            System.out.print(e + " ");
-        //        });
-        //        System.out.println("");
+        root = generateSampleTree();
+        ArrayList<Integer> outputAS1 = inOrderIterative(root);
+        System.out.print("AS1 - Inorder (Iterative) : ");
+        outputAS1.forEach(e -> {
+            System.out.print(e + " ");
+        });
+        System.out.println("");
 
         //AS2 > PreOrder - Recursion
         System.out.print("AS2 - PreOrder (Recursion) : ");
@@ -83,8 +72,29 @@ public class Day27_TreesBasic1 {
         root = generateSampleTree();
         int outputAS4 = treeHeight(root);
         System.out.println("AS4 - Tree Height : " + outputAS4);
+
+        //-------------------------------------------------------------
+
+        //HW1 > Identical Binary Trees
+        TreeNode root2 = generateSampleTree();
+        root = generateSampleTree();
+        int outputHW1a = isSameBinaryTree(root, root2);
+        System.out.println("HW1 - Identical Binary Trees - Case 1 : " + outputHW1a);
+        TreeNode root3 = generateSampleTree();
+        root3.right.right = new TreeNode(9);
+        int outputHW1b = isSameBinaryTree(root, root3);
+        System.out.println("HW1 - Identical Binary Trees - Case 2 : " + outputHW1b);
+
+        //HW3 > Nodes Count
+        root = generateSampleTree();
+        int outputHW3 = nodeCount(root);
+        System.out.println("HW3 - Nodes Count : " + outputHW3);
     }
 
+    /**
+     * AS1 > (*) InOrder - Recursion
+     * @param root
+     */
     private void inOrderRecursion(TreeNode root) {
         if (root == null) return;
         inOrderRecursion(root.left);
@@ -92,23 +102,27 @@ public class Day27_TreesBasic1 {
         inOrderRecursion(root.right);
     }
 
+    /**
+     * AS1 > (*) InOrder - Iterative [PRACTICE]
+     * @param root
+     * @return
+     */
     private ArrayList<Integer> inOrderIterative(TreeNode root) {
         ArrayList<Integer> inOrderResult = new ArrayList<>();
         Stack<TreeNode> s1 = new Stack<>();
-        s1.push(root);
-
-        TreeNode temp = root;
-        while (!s1.empty()) {
-            temp = temp.left;
-            if (temp != null) {
-                s1.push(temp);
-                //temp = temp.left;
+        while (!s1.empty() || root != null) {
+            if (root != null) {
+                s1.push(root);
+                root = root.left;
             } else {
-                TreeNode foundNode = s1.pop();
-                inOrderResult.add(foundNode.val);
-                temp = temp.right;
+                TreeNode p = s1.pop();
+                inOrderResult.add(p.val);
+                if (p.right != null) {
+                    root = p.right;
+                }
             }
         }
+
         return inOrderResult;
     }
 
@@ -124,7 +138,7 @@ public class Day27_TreesBasic1 {
     }
 
     /**
-     * AS2 > (*) PreOrder - Iterative
+     * AS2 > (*) PreOrder - Iterative [PRACTICE]
      * @param root
      * @return
      */
@@ -146,6 +160,10 @@ public class Day27_TreesBasic1 {
         return result;
     }
 
+    /**
+     * AS3 > (*) PostOrder - Recursion
+     * @param root
+     */
     private void postOrderRecursion(TreeNode root) {
         if (root == null) {
             return;
@@ -156,7 +174,7 @@ public class Day27_TreesBasic1 {
     }
 
     /**
-     * AS3 > (*) PostOrder - Iteration
+     * AS3 > (*) PostOrder - Iteration [PRACTICE]
      * @param root
      * @return
      */
@@ -198,5 +216,32 @@ public class Day27_TreesBasic1 {
         int rightHeight = treeHeight(A.right);
         int maxHeight = leftHeight > rightHeight ? leftHeight : rightHeight;
         return maxHeight + 1;
+    }
+
+    //----------------------------------------------------
+
+    /**
+     * HW1 > (*) Identical Binary Trees
+     * Check if the entire binary tree is same or not
+     * @param A
+     * @param B
+     * @return
+     */
+    private int isSameBinaryTree(TreeNode A, TreeNode B) {
+        if (A == null && B == null) return 1;
+        if ((A == null && B != null) || (B == null && A != null)) return 0;
+        if (A.val != B.val) return 0;
+        return isSameBinaryTree(A.left, B.left) * isSameBinaryTree(A.right, B.right);
+    }
+
+    /**
+     * HW3 > Nodes Count
+     * Given the root node of a binary tree A. You have to find the number of nodes in this tree.
+     * @param root
+     * @return
+     */
+    private int nodeCount(TreeNode root) {
+        if (root == null) return 0;
+        return 1 + nodeCount(root.left) + nodeCount(root.right);
     }
 }
