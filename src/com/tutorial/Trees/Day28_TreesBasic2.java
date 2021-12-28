@@ -1,5 +1,8 @@
 package com.tutorial.Trees;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class Day28_TreesBasic2 {
     private TreeNode generateSampleTree() {
         TreeNode root = new TreeNode(6);
@@ -18,6 +21,15 @@ public class Day28_TreesBasic2 {
         int numberToSearch = 2;
         boolean outputCW1 = searchForNumberInTree(numberToSearch, root);
         System.out.println("CW1 - Search for number in Binary Tree : " + outputCW1);
+
+
+        root = generateSampleTree();
+        ArrayList<Integer> outputHW2 = pathToGivenNode(root, 4);
+        System.out.print("HW2 - Path to Given Node :");
+        outputHW2.forEach(e -> {
+            System.out.print(e + " ");
+        });
+        System.out.println("");
     }
 
     /**
@@ -89,4 +101,39 @@ public class Day28_TreesBasic2 {
         }
         return count + howManyNodesInRange(A.left, B, C) + howManyNodesInRange(A.right, B, C);
     }
+
+
+
+
+    //    private ArrayList<Integer> pathToGivenNode(TreeNode A, int B) {
+    //        ArrayList<Integer> path = new ArrayList<>();
+    //
+    //        if (A == null) {
+    //            return null;
+    //        }
+    //
+    //        //ArrayList<Integer> paths = new ArrayList<>().add()
+    //    }
+
+    private ArrayList<Integer> pathToGivenNode(TreeNode A, int B) {
+        return pathToNode(A, B, new ArrayList<>());
+    }
+
+    private ArrayList<Integer> pathToNode(TreeNode A, int B, ArrayList<Integer> pathTrail) {
+        if (A == null) {
+            return null;
+        }
+        if (A.val == B) {
+            pathTrail.add(A.val);
+            return pathTrail;
+        }
+        pathTrail.add(A.val);
+        if (A.left != null) {
+            return pathToNode(A.left, B, pathTrail);
+        }
+        return pathToNode(A.right, B, pathTrail);
+    }
+
+
+
 }

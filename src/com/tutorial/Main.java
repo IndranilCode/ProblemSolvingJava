@@ -2,6 +2,7 @@ package com.tutorial;
 
 import com.tutorial.Arrays.Day16_ArrayAndMath;
 import com.tutorial.Trees.Day27_TreesBasic1;
+import com.tutorial.Trees.Day28_TreesBasic2;
 import com.tutorial.oops.Example;
 import com.tutorial.recursion.Day23Recursion1;
 import com.tutorial.recursion.Day24Recursion2;
@@ -54,10 +55,12 @@ public class Main {
 
 
         //Day27 - Trees Basics
-        new Day27_TreesBasic1().execute();
+        //new Day27_TreesBasic1().execute();
 
         //----OOPS Basics----
         //new Example().Main();
+
+        new Day28_TreesBasic2().execute();
     }
 
 
