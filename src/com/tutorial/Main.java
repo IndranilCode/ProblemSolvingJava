@@ -22,13 +22,13 @@ public class Main {
         //new TimeComplexity2().executeTimeComplexity2();
 
         //Day10 - ArraysDynamicArrays
-        //new ArraysDynamicArrays().executeArraysDynamicArrays();
+        //new Day10ArraysDynamicArrays().execute();
 
         //Day12 -  Array - Prefix sum and carry forward (Day 1)
         //new Day12ArrayPrefixSumAndCarryForwardPart1().executeArrayPrefixSumAndCarryForwardPart1();
 
         //Day13 - Array - Prefix sum and carry forward (Day 2)
-        //new Day13ArrayPrefixSumAndCarryForwardPart2().executeArrayPrefixSumAndCarryForwardPart2();
+        new Day13ArrayPrefixSumAndCarryForwardPart2().execute();
 
         //Day 14 - 2D Matrix
         //new Day14Matrix2D().executeMatrix2D();
@@ -60,7 +60,7 @@ public class Main {
         //----OOPS Basics----
         //new Example().Main();
 
-        new Day28_TreesBasic2().execute();
+        //new Day28_TreesBasic2().execute();
     }
 
 

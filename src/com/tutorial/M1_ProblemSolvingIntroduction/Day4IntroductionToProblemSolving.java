@@ -8,7 +8,7 @@ import java.util.Arrays;
  */
 public class Day4IntroductionToProblemSolving {
 
-    public void executeIntroductionToProblemSolving() {
+    public void execute() {
         //HW1 > Smaller and Greater
         ArrayList<Integer> inputHW1 = new ArrayList<Integer>(Arrays.asList(1,2,3,4));
         int outputHW1 = smallerAndGreater(inputHW1);

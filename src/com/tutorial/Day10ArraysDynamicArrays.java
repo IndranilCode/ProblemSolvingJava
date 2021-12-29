@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Day10ArraysDynamicArrays {
 
-    public void executeArraysDynamicArrays() {
+    public void execute() {
         //AS1 > GoodPair
         ArrayList<Integer> inputAS1 = new ArrayList<Integer>(Arrays.asList(1,2,3,4));
         int outputAS1 = goodPair(inputAS1, 7);
@@ -31,6 +31,13 @@ public class Day10ArraysDynamicArrays {
         ArrayList<Integer> outputAS4 = rotationGame(inputAS4, 2);
         System.out.print("AS4 - Rotation Game :");
         outputAS4.forEach(e -> {
+            System.out.print(e + " ");
+        });
+        System.out.println("");
+        ArrayList<Integer> inputAS4b = new ArrayList<Integer>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8));
+        ArrayList<Integer> outputAS4b = rotationGame(inputAS4b, 3);
+        System.out.print("Rotation Game (b) :");
+        outputAS4b.forEach(e -> {
             System.out.print(e + " ");
         });
         System.out.println("");
