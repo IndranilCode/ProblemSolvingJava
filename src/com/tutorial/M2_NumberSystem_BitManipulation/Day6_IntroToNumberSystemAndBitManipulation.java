@@ -21,6 +21,7 @@ public class Day6_IntroToNumberSystemAndBitManipulation {
         //HW1 > Add Binary String
         System.out.println("HW1 > Add Binary Strings (1010110 + 111): " + this.addBinary("1010110", "111"));
         System.out.println("HW1 > Add Binary Strings (11 + 10): " + this.addBinary("11", "10"));
+
     }
 
     /**
