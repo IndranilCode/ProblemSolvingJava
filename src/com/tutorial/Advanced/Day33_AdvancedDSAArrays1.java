@@ -6,14 +6,22 @@ import java.util.List;
 
 public class Day33_AdvancedDSAArrays1 {
     public void execute() {
+        //CW1 > Find max subarray => Kadane's algo + indexes (start , end)
+        ArrayList<Integer> inputCW1 = new ArrayList<>(Arrays.asList(-10, 2, 3, 5, -4 , -1, 20, -3, -100));
+        this.kadanesAlgo(inputCW1);
 
         //AS2 > Max Subarray Sum - Kadane's Algo
-        ArrayList<Integer> inputAS2A = new ArrayList<>(Arrays.asList(5, 6, 7, -3, 2, -10, -12, 8, 12, 21));
+        ArrayList<Integer> inputAS2A = new ArrayList<>(Arrays.asList(5, 6, 7, -3, 2, -10, -12, 8, 12, 21, -100));
         int outputAS2A = this.maxSubArray(inputAS2A);
         System.out.println("AS2> Max Subarray Sum - Kadane's Algo [5, 6, 7, -3, 2, -10, -12, 8, 12, 21]: " + outputAS2A);
         ArrayList<Integer> inputAS2B = new ArrayList<>(Arrays.asList(-5, -6, -3, -2, -10));
         int outputAS2B = this.maxSubArray(inputAS2B);
         System.out.println("AS2> Max Subarray Sum - Kadane's Algo [-5, -6, -3, -2, -10]: " + outputAS2B);
+
+        flip("1001100001");
+        flip("10011001");
+        flip("111");
+
 
         //AS4 > Beggars outside temple
         Integer inputAS4A = 5;
@@ -30,11 +38,46 @@ public class Day33_AdvancedDSAArrays1 {
     }
 
     /**
+     * CW1> Kadane's algo
+     * @param A
+     */
+    private void kadanesAlgo(List<Integer> A) {
+        int tempLeft = 0;
+        int startIndex = 0;
+        int endIndex = 0;
+        int maxSubarrySum = Integer.MIN_VALUE;
+        int runningSum = 0;
+
+        //[ -10, 2, 3, 5, -4 , -1, 20, -3, -100]
+
+        for (int i = 0; i < A.size(); i++) {
+            runningSum = runningSum + A.get(i);
+
+            if (runningSum < 0) {
+                runningSum = 0;
+                tempLeft = i + 1; //Note: here if last index sum is -ve too this can go out of bound
+            }
+            if (runningSum > maxSubarrySum) {
+                maxSubarrySum = runningSum;
+                endIndex = i;
+                startIndex = tempLeft;
+            }
+        }
+
+        ArrayList<Integer> result = new ArrayList<>();
+        for (int i = startIndex; i <= endIndex; i++) {
+            result.add(A.get(i));
+        }
+
+        System.out.println("CW1> Kadane's algo " + A + " => Max: " + maxSubarrySum + ", StartIndex: " + startIndex + ", EndIndex:" + endIndex + ", Result:" + result);
+    }
+
+    /**
      * AS2 > Max Subarray Sum - Kadane's Algo
      * @param A
      * @return
      */
-    public int maxSubArray(final List<Integer> A) {
+    private int maxSubArray(final List<Integer> A) {
         //KADANES ALGO - Find Largest subarray sum in O(N)
         int maxSum = Integer.MIN_VALUE;
         int runningSum = 0;
@@ -53,13 +96,59 @@ public class Day33_AdvancedDSAArrays1 {
     }
 
     /**
+     * AS3 > Flip
+     * Given a binary string A of 0/1, choose two indices L and R, flip the characters ( 0 -> 1, 1 -> 0).
+     * Aim is to perform ATMOST one operation such that in final string number of 1s is maximised.
+     * @param A
+     * @return
+     */
+    private ArrayList<Integer> flip(String A) {
+        ArrayList<Integer> weightedString = new ArrayList<>();
+        for (int i = 0; i < A.length(); i++) {
+            weightedString.add(A.charAt(i) == '1' ? -1 : 1);
+        }
+        System.out.println(weightedString);
+
+        int l = 0;
+        int startIndex = Integer.MIN_VALUE;
+        int endIndex = Integer.MIN_VALUE;
+        int runningSum = 0;
+        int maxSum = Integer.MIN_VALUE;
+
+
+        for (int i = 0; i < weightedString.size(); i++) {
+            int currentNumber = Integer.parseInt(weightedString.get(i) + "");
+            runningSum = runningSum + currentNumber;
+
+            if (runningSum < 0) {
+                runningSum = 0;
+                l = i + 1;
+            }
+
+            if (runningSum > maxSum) {
+                maxSum = runningSum;
+                endIndex = i;
+                startIndex = l;
+            }
+        }
+        System.out.println(maxSum + " startIndex:" + startIndex + " endIndex: " + endIndex);
+
+        ArrayList<Integer> result = new ArrayList<>();
+        if (endIndex > startIndex) {
+            result.add(startIndex + 1);
+            result.add(endIndex + 1);
+        }
+        return result;
+    }
+
+    /**
      * AS4 > Beggars outside temple
      * Note 1 based array inputs (not 0 based)
      * @param A
      * @param B
      * @return
      */
-    public ArrayList<Integer> beggarsOutsideTemple(int A, ArrayList<ArrayList<Integer>> B) {
+    private ArrayList<Integer> beggarsOutsideTemple(int A, ArrayList<ArrayList<Integer>> B) {
         ArrayList<Integer> beggars = new ArrayList<Integer>();
         for (int i = 0; i < A; i++) {
             beggars.add(0);
