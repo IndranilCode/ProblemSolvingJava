@@ -2,6 +2,7 @@ package com.tutorial.Advanced;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class Day33_AdvancedDSAArrays1 {
@@ -9,6 +10,12 @@ public class Day33_AdvancedDSAArrays1 {
         //CW1 > Find max subarray => Kadane's algo + indexes (start , end)
         ArrayList<Integer> inputCW1 = new ArrayList<>(Arrays.asList(-10, 2, 3, 5, -4 , -1, 20, -3, -100));
         this.kadanesAlgo(inputCW1);
+        this.maxSubarraySumBruteForce(inputCW1);
+
+        //AS1> Rain Water Trapped
+        ArrayList<Integer> inputAS1 = new ArrayList<>(Arrays.asList(1, 0, 3, 7, 4, 8));
+        int outputAS1 = this.waterTrap(inputAS1);
+        System.out.println("AS1> Rain Water Trapped : " + outputAS1);
 
         //AS2 > Max Subarray Sum - Kadane's Algo
         ArrayList<Integer> inputAS2A = new ArrayList<>(Arrays.asList(5, 6, 7, -3, 2, -10, -12, 8, 12, 21, -100));
@@ -38,7 +45,8 @@ public class Day33_AdvancedDSAArrays1 {
     }
 
     /**
-     * CW1> Kadane's algo
+     * CW1> Kadane's algo. Find max subarray
+     * TC = O(n) , SC = O(1)
      * @param A
      */
     private void kadanesAlgo(List<Integer> A) {
@@ -55,7 +63,7 @@ public class Day33_AdvancedDSAArrays1 {
 
             if (runningSum < 0) {
                 runningSum = 0;
-                tempLeft = i + 1; //Note: here if last index sum is -ve too this can go out of bound
+                tempLeft = i + 1; //Note: here if last index sum is -ve too this can go out of bound [But the temp copy protects the final]
             }
             if (runningSum > maxSubarrySum) {
                 maxSubarrySum = runningSum;
@@ -70,6 +78,67 @@ public class Day33_AdvancedDSAArrays1 {
         }
 
         System.out.println("CW1> Kadane's algo " + A + " => Max: " + maxSubarrySum + ", StartIndex: " + startIndex + ", EndIndex:" + endIndex + ", Result:" + result);
+    }
+
+    /**
+     * CW2> Max subarray sum (Brute Force)
+     * @param A
+     */
+    private void maxSubarraySumBruteForce(List<Integer> A) {
+        int totalSize = A.size();
+        int maxSubarraySum = Integer.MIN_VALUE;
+        int startIndex = 0;
+        int endIndex = 0;
+        for (int i = 0; i < totalSize; i++) {
+            for (int j = i; j < totalSize; j++) {
+                int runningSum = 0;
+                for (int k = i; k <= j; k++) {
+                    runningSum = runningSum + A.get(k);
+                }
+                if (runningSum > maxSubarraySum) {
+                    maxSubarraySum = runningSum;
+                    startIndex = i;
+                    endIndex = j;
+                }
+            }
+        }
+        ArrayList<Integer> result = new ArrayList<>();
+        for (int i = startIndex; i <= endIndex; i++) {
+            result.add(A.get(i));
+        }
+        System.out.println("CW2> Brute Force max subarray sum" + A + " => Max: " + maxSubarraySum + ", StartIndex: " + startIndex + ", EndIndex:" + endIndex + ", Result:" + result);
+    }
+
+    /**
+     * AS1> Rain Water Trapped
+     * Given a vector A of non-negative integers representing an elevation map where the width of each bar is 1,
+     * compute how much water it is able to trap after raining
+     * @param A
+     * @return
+     */
+    private int waterTrap(final List<Integer> A) {
+        ArrayList<Integer> lmax = new ArrayList();
+        ArrayList<Integer> rmax = new ArrayList();
+
+        int currentLMax = 0;
+        int currentRMax = 0;
+        for (int i = 0; i < A.size(); i++) {
+            currentLMax = A.get(i) > currentLMax ? A.get(i) : currentLMax;
+            lmax.add(currentLMax);
+        }
+        for (int i = A.size() - 1; i >= 0; i--) {
+            currentRMax = A.get(i) > currentRMax ? A.get(i) : currentRMax;
+            rmax.add(currentRMax);
+        }
+        Collections.reverse(rmax); //rmax = rmax.reverse(); [WONT WORK]
+
+        int totalStorage = 0;
+
+        for (int i = 0; i < A.size(); i++) {
+            int currentPossibleStorage = (lmax.get(i) < rmax.get(i) ? lmax.get(i) : rmax.get(i)) - A.get(i);
+            totalStorage = totalStorage + currentPossibleStorage;
+        }
+        return totalStorage;
     }
 
     /**
