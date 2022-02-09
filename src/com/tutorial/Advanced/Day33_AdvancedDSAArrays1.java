@@ -25,6 +25,7 @@ public class Day33_AdvancedDSAArrays1 {
         int outputAS2B = this.maxSubArray(inputAS2B);
         System.out.println("AS2> Max Subarray Sum - Kadane's Algo [-5, -6, -3, -2, -10]: " + outputAS2B);
 
+        //AS3 > Flipping bits to get max 1 (Converted Kadane's algo)
         flip("1001100001");
         flip("10011001");
         flip("111");
