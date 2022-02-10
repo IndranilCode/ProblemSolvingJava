@@ -2,6 +2,9 @@ package com.tutorial.Advanced.Maths;
 
 import jdk.swing.interop.SwingInterOpUtils;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Day37_GCD {
     public void execute() {
         //CW1> GCD - Naive Method
@@ -29,12 +32,31 @@ public class Day37_GCD {
         System.out.println("CW4> GCD - Euclid's algo (Pure) (-15,16): " + this.findGCD_EuclidsAlgoPure(15, 16));
 
         //-------------Assessment-------------
+
+        //AS1> Delete one
+        ArrayList<Integer> inputAS1a = new ArrayList<>(Arrays.asList(12, 15, 18));
+        System.out.println("AS1> Delete one Max GCD [12, 15, 18]: " + this.deleteOneEachTimeMaxGCD(inputAS1a));
+        ArrayList<Integer> inputAS1b = new ArrayList<>(Arrays.asList(5, 15, 30));
+        System.out.println("AS1> Delete one Max GCD [5, 15, 30]: " + this.deleteOneEachTimeMaxGCD(inputAS1b));
+
+        //AS2> Enumerating GCD
         System.out.println("AS2> Enumerating GCD (5 - 9): " + this.enumeratingGCD("5", "9"));
         System.out.println("AS2> Enumerating GCD (3412 - 3412): " + this.enumeratingGCD("3412", "3412"));
         System.out.println("AS2> Enumerating GCD (678728391838182039102 - 678728391838182039103): " + this.enumeratingGCD("678728391838182039102", "678728391838182039103"));
 
+        //AS3> Greatest Common Divisor
         System.out.println("AS3> Greatest Common Divisor (4,16): " + this.gcd(4, 16));
+
+        //AS4> Pubg
+        ArrayList<Integer> inputAS4a = new ArrayList<>(Arrays.asList(2, 3, 4));
+        System.out.println("AS4> Pubg [2, 3, 4]: " + this.pubG(inputAS4a));
+        ArrayList<Integer> inputAS4b = new ArrayList<>(Arrays.asList(6, 2, 12, 8));
+        System.out.println("AS4> Pubg [6, 2, 12, 8]: " + this.pubG(inputAS4b));
+        ArrayList<Integer> inputAS4c = new ArrayList<>(Arrays.asList(100));
+        System.out.println("AS4> Pubg [100]: " + this.pubG(inputAS4c));
     }
+
+    /*------------CLASSWORK------------*/
 
     /**
      * CW1> GCD - Naive Method
@@ -109,6 +131,56 @@ public class Day37_GCD {
         return findGCD_EuclidsAlgoPure(b, a%b);
     }
 
+    /*------------ASSIGNMENTS------------*/
+
+    /**
+     * AS1> Delete one Max GCD
+     * Integer array A of size N. Delete one element such that the GCD) of the remaining array is maximum.
+     * Find the maximum value of GCD.
+     * @param A
+     * @return
+     */
+    private int deleteOneEachTimeMaxGCD(ArrayList<Integer> A) {
+        Integer[] prefixGCD = new Integer[A.size()];
+        Integer[] suffixGCD = new Integer[A.size()];
+
+        //Build prefix GCD
+        int prefixRunningGCD = A.get(0);
+        prefixGCD[0] = prefixRunningGCD;
+        for (int i = 1; i < A.size(); i++) {
+            prefixRunningGCD = deleteGCDHelper(prefixRunningGCD, A.get(i));
+            prefixGCD[i] = prefixRunningGCD;
+        }
+
+        //Build suffix GCD
+        int suffixRunningGCD = A.get(A.size() - 1);
+        suffixGCD[A.size() - 1] = suffixRunningGCD;
+        for (int i = A.size() - 2; i >= 0; i--) {
+            suffixRunningGCD = deleteGCDHelper(suffixRunningGCD, A.get(i));
+            suffixGCD[i] = suffixRunningGCD;
+        }
+
+        int maxGCD = 1;
+        int runningGCD = 1;
+        for (int i = 0; i < A.size(); i++) {
+            if (i == 0) {
+                runningGCD = suffixGCD[i + 1];
+            } else if (i == (A.size() - 1)) {
+                runningGCD = prefixGCD[i - 1];
+            } else {
+                runningGCD = deleteGCDHelper(prefixGCD[i - 1], suffixGCD[i + 1]);
+            }
+            if (runningGCD > maxGCD) {
+                maxGCD = runningGCD;
+            }
+        }
+        return maxGCD;
+    }
+    private int deleteGCDHelper(int a, int b) {
+        if (b == 0) return a;
+        return deleteGCDHelper(b , a%b);
+    }
+
     /**
      * AS2> Enumerating GCD
      * From 2 inputs A & B - enumerating GCD is the gcd of all consecutive numbers from a to b
@@ -149,5 +221,23 @@ public class Day37_GCD {
         //assuming a > b
         if (b == 0) return a;
         return gcd(b, a%b);
+    }
+
+    /**
+     * AS4> Pubg
+     * N players each with strength A[i]. when player i attack player j, player j strength reduces to max(0, A[j]-A[i])
+     * @param A
+     * @return
+     */
+    private int pubG(ArrayList<Integer> A) {
+        int initNo = A.get(0);
+        for (int i = 1; i < A.size(); i++) {
+            initNo = pubgGcd(initNo, A.get(i));
+        }
+        return initNo;
+    }
+    private int pubgGcd(int a, int b) {
+        if (b == 0) return a;
+        return pubgGcd(b, a%b);
     }
 }
