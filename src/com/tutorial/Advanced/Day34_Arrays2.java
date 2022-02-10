@@ -29,7 +29,23 @@ public class Day34_Arrays2 {
         inputCW3.add(new ArrayList<>(Arrays.asList(7, 2 ,3 ,4, 2)));
         inputCW3.add(new ArrayList<>(Arrays.asList(3, 4 ,2 ,5, 3)));
         inputCW3.add(new ArrayList<>(Arrays.asList(8, 4 ,2 ,3, 1)));
+        System.out.println("CW3 > Build prefix sum matrix: " + outputCW2);
         this.buildPrefixSumMatrix(inputCW3);
+
+        ArrayList<ArrayList<Integer>> inputCW33 = new ArrayList<>();
+        inputCW33.add(new ArrayList<>(Arrays.asList(1,2,3)));
+        inputCW33.add(new ArrayList<>(Arrays.asList(4,5,6)));
+        inputCW33.add(new ArrayList<>(Arrays.asList(7,8,9)));
+        this.buildPrefixSumMatrix(inputCW33);
+
+        //CW4 > Sum of elements of submatrix - Prefix Matrix apprach (Optimized)
+        ArrayList<ArrayList<Integer>> inputCW4 = new ArrayList<>();
+        inputCW4.add(new ArrayList<>(Arrays.asList(1, 5, 2, 3, 4)));
+        inputCW4.add(new ArrayList<>(Arrays.asList(7, 2 ,3 ,4, 2)));
+        inputCW4.add(new ArrayList<>(Arrays.asList(3, 4 ,2 ,5, 3)));
+        inputCW4.add(new ArrayList<>(Arrays.asList(8, 4 ,2 ,3, 1)));
+        int outputCW4 = this.sumOfSubMatrixWithPrefixSumArrayOptimized(inputCW4, 1, 1 ,2, 3);
+        System.out.println("CW4 > Sum of elements of submatrix - Prefix Matrix apprach (Optimized): " + outputCW4);
     }
 
     /**
@@ -89,7 +105,7 @@ public class Day34_Arrays2 {
     }
 
     /**
-     * Prefix sum matrix creation
+     * CW3> Prefix sum matrix creation
      * @param A
      */
     private void buildPrefixSumMatrix(ArrayList<ArrayList<Integer>> A) {
@@ -126,5 +142,47 @@ public class Day34_Arrays2 {
             }
             System.out.println();
         }
+    }
+
+    /**
+     * CW4> Sum of elemets of submatrix - Brute Force - Optimization 1 - with PS per row
+     * @param A
+     * @param r1
+     * @param c1
+     * @param r2
+     * @param c2
+     * @return
+     */
+    private int sumOfSubMatrixWithPrefixSumArrayOptimized(ArrayList<ArrayList<Integer>> A, int r1, int c1, int r2, int c2) {
+        int rows = A.size();
+        int cols = A.get(0).size();
+        Integer[][] prefixMatrix = new Integer[rows][cols];
+
+        //Building prefix sum matrix
+        //0th row
+        int runningSum = 0;
+        for (int i = 0; i < cols; i++) {
+            runningSum = runningSum + A.get(0).get(i);
+            prefixMatrix[0][i] = runningSum;
+        }
+
+        //0th column
+        runningSum = A.get(0).get(0);
+        for (int j = 1; j < rows; j++) {
+            runningSum = runningSum + A.get(j).get(0);
+            prefixMatrix[j][0] = runningSum;
+        }
+
+        //All other row/cols
+        for (int i = 1; i < rows; i++) {
+            for (int j = 1; j < cols; j++) {
+                prefixMatrix[i][j] = prefixMatrix[i-1][j] + prefixMatrix[i][j-1] - prefixMatrix[i-1][j-1] + A.get(i).get(j);
+            }
+        }
+
+        //Getting sum of prefix sum array
+        int startR1 = (r1-1) > 0 ? (r1-1) : 0;
+        int startC1 = (c1-1) > 0 ? (c1-1) : 0;
+        return prefixMatrix[r2][c2] - prefixMatrix[startR1][c2] - prefixMatrix[r2][startC1] + prefixMatrix[startR1][startC1];
     }
 }
