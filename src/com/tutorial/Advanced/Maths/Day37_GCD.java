@@ -1,7 +1,5 @@
 package com.tutorial.Advanced.Maths;
 
-import jdk.swing.interop.SwingInterOpUtils;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 

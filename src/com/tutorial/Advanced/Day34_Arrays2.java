@@ -5,23 +5,23 @@ import java.util.Arrays;
 
 public class Day34_Arrays2 {
     public void execute() {
-        //CW1 > Sum of elemets of submatrix - Brute Force
+        //CW1 > Sum of elements of submatrix - Brute Force
         ArrayList<ArrayList<Integer>> inputCW1 = new ArrayList<>();
         inputCW1.add(new ArrayList<>(Arrays.asList(1, 5, 2, 3)));
         inputCW1.add(new ArrayList<>(Arrays.asList(7, 2 ,3 ,4)));
         inputCW1.add(new ArrayList<>(Arrays.asList(3, 4 ,2 ,5)));
         inputCW1.add(new ArrayList<>(Arrays.asList(8, 4 ,2 ,3)));
         int outputCW1 = this.sumOfSubMatrixBruteForce(inputCW1, 1, 1 ,2, 3);
-        System.out.println("CW1 > Sum of elemets of submatrix - Brute Force: " + outputCW1);
+        System.out.println("CW1 > Sum of elements of submatrix - Brute Force: " + outputCW1);
 
-        //CW2 > Sum of elemets of submatrix - Brute Force
+        //CW2 > Sum of elements of submatrix - Brute Force - Optimization 1 - with PS per row
         ArrayList<ArrayList<Integer>> inputCW2 = new ArrayList<>();
         inputCW2.add(new ArrayList<>(Arrays.asList(1, 5, 2, 3, 4)));
         inputCW2.add(new ArrayList<>(Arrays.asList(7, 2 ,3 ,4, 2)));
         inputCW2.add(new ArrayList<>(Arrays.asList(3, 4 ,2 ,5, 3)));
         inputCW2.add(new ArrayList<>(Arrays.asList(8, 4 ,2 ,3, 1)));
         int outputCW2 = this.sumOfSubMatrixBruteForcePrefixSumRow(inputCW2, 1, 1 ,2, 3);
-        System.out.println("CW2 > Sum of elemets of submatrix - Brute Force - Optimization 1 - with PS per row: " + outputCW2);
+        System.out.println("CW2 > Sum of elements of submatrix - Brute Force - Optimization 1 - with PS per row: " + outputCW2);
 
         //CW3 > Build prefix sum matrix
         ArrayList<ArrayList<Integer>> inputCW3 = new ArrayList<>();
@@ -45,8 +45,18 @@ public class Day34_Arrays2 {
         inputCW4.add(new ArrayList<>(Arrays.asList(3, 4 ,2 ,5, 3)));
         inputCW4.add(new ArrayList<>(Arrays.asList(8, 4 ,2 ,3, 1)));
         int outputCW4 = this.sumOfSubMatrixWithPrefixSumArrayOptimized(inputCW4, 1, 1 ,2, 3);
-        System.out.println("CW4 > Sum of elements of submatrix - Prefix Matrix apprach (Optimized): " + outputCW4);
+        System.out.println("CW4 > Sum of elements of submatrix - Prefix Matrix approach (Optimized): " + outputCW4);
+
+        /*------------ASSIGNMENTS------------*/
+
+        ArrayList<ArrayList<Integer>> inputAS2 = new ArrayList<>();
+        inputAS2.add(new ArrayList<>(Arrays.asList(9, 6)));
+        inputAS2.add(new ArrayList<>(Arrays.asList(5, 4)));
+        System.out.println("AS2> Sum of all Submatrices: " + this.sumOfAllSubmatrices(inputAS2));
+
     }
+
+    /*------------CLASSWORK------------*/
 
     /**
      * CW1 > Sum of elemets of submatrix - Brute Force
@@ -184,5 +194,26 @@ public class Day34_Arrays2 {
         int startR1 = (r1-1) > 0 ? (r1-1) : 0;
         int startC1 = (c1-1) > 0 ? (c1-1) : 0;
         return prefixMatrix[r2][c2] - prefixMatrix[startR1][c2] - prefixMatrix[r2][startC1] + prefixMatrix[startR1][startC1];
+    }
+
+    /*------------ASSIGNMENTS------------*/
+
+    /**
+     * AS2> Sum of all Submatrices
+     * Given a 2D Matrix A of dimensions N*N, we need to return sum of all possible submatrices.
+     * Process - Contribution Technique => (i+1)*(j+1)*(n-i)*(m-j)
+     * @param A
+     * @return
+     */
+    private int sumOfAllSubmatrices(ArrayList<ArrayList<Integer>> A) {
+        int sum = 0;
+        int n = A.size();
+        int m = A.get(0).size();
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                sum = sum + ((i + 1) * (j + 1) * (n - i) * (m - i) * A.get(i).get(j));
+            }
+        }
+        return sum;
     }
 }
