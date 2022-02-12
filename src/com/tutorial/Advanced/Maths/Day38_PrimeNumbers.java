@@ -1,6 +1,7 @@
 package com.tutorial.Advanced.Maths;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Day38_PrimeNumbers {
     public void execute() {
@@ -15,10 +16,16 @@ public class Day38_PrimeNumbers {
         System.out.println("CW2 > Is prime (9): " + this.isPrime(16));
         System.out.println("CW2 > Is prime (11): " + this.isPrime(11));
 
-        //CW2 > Print all primes from 1 - n
-        System.out.print("CW3 > Print all primes from (1 - n): ");
-        ArrayList<Integer> resultCS3 = this.printAllPrimesTillN(100);
+        //CW3 > Print all primes from (1 - n) (Brute Force)
+        System.out.print("CW3 > Print all primes from (1 - n) (Brute Force) : ");
+        ArrayList<Integer> resultCS3 = this.printAllPrimesTillN_BruteForce(100);
         resultCS3.forEach(e -> System.out.print(e + ", "));
+        System.out.println();
+
+        //CW4 > Print all primes from 1 - n (Sieve of Eros)
+        System.out.print("CW4 > Print all primes from 1 - n (Sieve of Eros) : ");
+        ArrayList<Integer> resultCS4 = this.printAllPrimesTillN_SieveOfErosthenes(100);
+        resultCS4.forEach(e -> System.out.print(e + ", "));
         System.out.println();
     }
 
@@ -77,16 +84,41 @@ public class Day38_PrimeNumbers {
     }
 
     /**
-     * CW3 > Print all primes from 1 - n
+     * CW3 > Print all primes from 1 - n (Brute Force)
      * Approach 1 - Iterate from 1 - n & evaluate isPrime => TC =O(n root n)
      * @param a
      * @return
      */
-    private ArrayList<Integer> printAllPrimesTillN(int a) {
+    private ArrayList<Integer> printAllPrimesTillN_BruteForce(int a) {
         //Approach 1 - Iterate from 1 - n & evaluate isPrime
         ArrayList<Integer> allPrimes = new ArrayList<>();
         for (int i = 1; i <= a; i++) {
             if (isPrime(i)) {
+                allPrimes.add(i);
+            }
+        }
+        return allPrimes;
+    }
+
+    /**
+     * CW4 > Print all primes from 1 - n (Sieve of Eros)
+     * @param a
+     * @return
+     */
+    private ArrayList<Integer> printAllPrimesTillN_SieveOfErosthenes(int a) {
+        //Approach 2 - Sieve of Eratosthenes
+        boolean[] isPrime = new boolean[a + 1];
+        Arrays.fill(isPrime, true);
+        isPrime[1] = false;
+        for (int i = 2; i <= a; i++) {
+            for (int j = 2*i; j <= a; j=j+i) {
+                isPrime[j] = false;
+            }
+        }
+
+        ArrayList<Integer> allPrimes = new ArrayList<>();
+        for (int i = 1; i <= a; i++) {
+            if (isPrime[i]) {
                 allPrimes.add(i);
             }
         }
