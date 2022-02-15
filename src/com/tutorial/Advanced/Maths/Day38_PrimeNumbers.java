@@ -44,16 +44,21 @@ public class Day38_PrimeNumbers {
 
         /*------------ASSIGNMENTS------------*/
 
+        //AS1 > Count of divisors (BF &Sieve algo)
         System.out.print("AS1 > Count of divisors (BF &Sieve algo) [2, 3, 4, 5] : ");
         ArrayList<Integer> inputAS1 = new ArrayList<>(Arrays.asList(2, 3, 4, 5));
         ArrayList<Integer> resultAS1 = this.countOfDivisors(inputAS1);
         resultAS1.forEach(e -> System.out.print(e + ", "));
         System.out.println();
 
+        //AS2 > Prime Sum (BF & Sieve algo)
         System.out.print("AS2 > Prime Sum (BF & Sieve algo) 18 : ");
         ArrayList<Integer> resultAS2 = this.primeSum(18);
         resultAS2.forEach(e -> System.out.print(e + ", "));
         System.out.println();
+
+        //AS3 > Lucky Number
+        System.out.println("AS3 > Lucky Number (12) : " + this.luckyNumber(12));
     }
 
     /*------------CLASSWORK------------*/
@@ -219,13 +224,36 @@ public class Day38_PrimeNumbers {
      * @return
      */
     private ArrayList<Integer> countOfDivisors(ArrayList<Integer> A) {
-        //Approach1 :
-        ArrayList<Integer> counts = new ArrayList<>();
+        //Approach1 : Brute force
+        //                ArrayList<Integer> counts = new ArrayList<>();
+        //                for (int i = 0; i < A.size(); i++) {
+        //                    int thisNumberDivisorCount = this.eachNumberDivisorCount(A.get(i));
+        //                    counts.add(thisNumberDivisorCount);
+        //                }
+        //                return counts;
+
+        //Approach2:
+        int maxNumber = Integer.MIN_VALUE;
         for (int i = 0; i < A.size(); i++) {
-            int thisNumberDivisorCount = this.eachNumberDivisorCount(A.get(i));
-            counts.add(thisNumberDivisorCount);
+            if (A.get(i) > maxNumber) {
+                maxNumber = A.get(i);
+            }
         }
-        return counts;
+
+        int[] divisorCount = new int[maxNumber + 1];
+        Arrays.fill(divisorCount, 2);
+        divisorCount[1] = 1;
+        for (int i = 2; i <= maxNumber; i++) {
+            for (int j = 2*i; j <= maxNumber; j = j+i) {
+                divisorCount[j]++;
+            }
+        }
+
+        ArrayList<Integer> divisorCountResult = new ArrayList<>();
+        for (int i = 0; i < A.size(); i++) {
+            divisorCountResult.add(divisorCount[A.get(i)]);
+        }
+        return divisorCountResult;
     }
     private int eachNumberDivisorCount(int a) {
         int count = 0;
@@ -308,7 +336,31 @@ public class Day38_PrimeNumbers {
      * @return
      */
     private int luckyNumber(int A) {
-        return 0;
+        //Attempt 2: Sieve of eros algo
+
+        int[] primeFactorCounts = new int[A + 1]; //Array of all counts till N - init to 0
+        Arrays.fill(primeFactorCounts, 0);
+
+        boolean[] isPrimes = new boolean[A + 1]; //Array of boolean - isPrime
+        Arrays.fill(isPrimes, true);
+        isPrimes[1] = false;
+
+        for (int i = 2; i <= A; i++) {
+            if (isPrimes[i]) {
+                for (int j = 2 * i; j <= A; j = j+i) {
+                    isPrimes[j] = false;
+                    primeFactorCounts[j]++; //Add the prime counts for all multiples of prime nos
+                }
+            }
+        }
+
+        int result = 0;
+        for (int j = 2 ; j <= A; j++) {
+            if (primeFactorCounts[j] == 2) {
+                result++;
+            }
+        }
+        return result;
     }
 
 }
