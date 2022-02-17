@@ -11,7 +11,7 @@ public class Day34_Arrays2 {
         inputCW1.add(new ArrayList<>(Arrays.asList(7, 2 ,3 ,4)));
         inputCW1.add(new ArrayList<>(Arrays.asList(3, 4 ,2 ,5)));
         inputCW1.add(new ArrayList<>(Arrays.asList(8, 4 ,2 ,3)));
-        int outputCW1 = this.sumOfSubMatrixBruteForce(inputCW1, 1, 1 ,2, 3);
+        int outputCW1 = this.sumOf1SubMatrix_BruteForce(inputCW1, 1, 1 ,2, 3);
         System.out.println("CW1 > Sum of elements of submatrix - Brute Force: " + outputCW1);
 
         //CW2 > Sum of elements of submatrix - Brute Force - Optimization 1 - with PS per row
@@ -20,7 +20,7 @@ public class Day34_Arrays2 {
         inputCW2.add(new ArrayList<>(Arrays.asList(7, 2 ,3 ,4, 2)));
         inputCW2.add(new ArrayList<>(Arrays.asList(3, 4 ,2 ,5, 3)));
         inputCW2.add(new ArrayList<>(Arrays.asList(8, 4 ,2 ,3, 1)));
-        int outputCW2 = this.sumOfSubMatrixBruteForcePrefixSumRow(inputCW2, 1, 1 ,2, 3);
+        int outputCW2 = this.sumOfSubMatrix_BruteForce_PrefixSumRow(inputCW2, 1, 1 ,2, 3);
         System.out.println("CW2 > Sum of elements of submatrix - Brute Force - Optimization 1 - with PS per row: " + outputCW2);
 
         //CW3 > Build prefix sum matrix
@@ -44,7 +44,7 @@ public class Day34_Arrays2 {
         inputCW4.add(new ArrayList<>(Arrays.asList(7, 2 ,3 ,4, 2)));
         inputCW4.add(new ArrayList<>(Arrays.asList(3, 4 ,2 ,5, 3)));
         inputCW4.add(new ArrayList<>(Arrays.asList(8, 4 ,2 ,3, 1)));
-        int outputCW4 = this.sumOfSubMatrixWithPrefixSumArrayOptimized(inputCW4, 1, 1 ,2, 3);
+        int outputCW4 = this.sumOfSubMatrix_PrefixMatrix_Optimized(inputCW4, 1, 1 ,2, 3);
         System.out.println("CW4 > Sum of elements of submatrix - Prefix Matrix approach (Optimized): " + outputCW4);
 
         /*------------ASSIGNMENTS------------*/
@@ -70,7 +70,7 @@ public class Day34_Arrays2 {
      * @param c2
      * @return
      */
-    private int sumOfSubMatrixBruteForce(ArrayList<ArrayList<Integer>> A, int r1, int c1, int r2, int c2) {
+    private int sumOf1SubMatrix_BruteForce(ArrayList<ArrayList<Integer>> A, int r1, int c1, int r2, int c2) {
         int sum = 0;
         for (int i = r1; i <= r2; i++) {
             for (int j = c1; j <= c2; j++) {
@@ -92,7 +92,7 @@ public class Day34_Arrays2 {
      * @param c2
      * @return
      */
-    private int sumOfSubMatrixBruteForcePrefixSumRow(ArrayList<ArrayList<Integer>> A, int r1, int c1, int r2, int c2) {
+    private int sumOfSubMatrix_BruteForce_PrefixSumRow(ArrayList<ArrayList<Integer>> A, int r1, int c1, int r2, int c2) {
         ArrayList<ArrayList<Integer>> prefixSumRows = new ArrayList<>();
 
         //Create PS per row
@@ -155,7 +155,7 @@ public class Day34_Arrays2 {
     }
 
     /**
-     * CW4> Sum of elemets of submatrix - Brute Force - Optimization 1 - with PS per row
+     * CW4> Sum of elements of submatrix - Prefix Submatrix
      * @param A
      * @param r1
      * @param c1
@@ -163,7 +163,7 @@ public class Day34_Arrays2 {
      * @param c2
      * @return
      */
-    private int sumOfSubMatrixWithPrefixSumArrayOptimized(ArrayList<ArrayList<Integer>> A, int r1, int c1, int r2, int c2) {
+    private int sumOfSubMatrix_PrefixMatrix_Optimized(ArrayList<ArrayList<Integer>> A, int r1, int c1, int r2, int c2) {
         int rows = A.size();
         int cols = A.get(0).size();
         Integer[][] prefixMatrix = new Integer[rows][cols];
