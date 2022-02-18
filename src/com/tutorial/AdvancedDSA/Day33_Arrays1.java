@@ -1,11 +1,11 @@
-package com.tutorial.Advanced;
+package com.tutorial.AdvancedDSA;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class Day33_AdvancedDSAArrays1 {
+public class Day33_Arrays1 {
     public void execute() {
         //CW1 > Find max subarray => Kadane's algo + indexes (start , end)
         ArrayList<Integer> inputCW1 = new ArrayList<>(Arrays.asList(-10, 2, 3, 5, -4 , -1, 20, -3, -100));
