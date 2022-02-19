@@ -51,6 +51,7 @@ public class Day34_Arrays2 {
 
         /*------------ASSIGNMENTS------------*/
 
+        //AS2 > Sum of all Sub-matrices (Contribution Technique)
         ArrayList<ArrayList<Integer>> inputAS2 = new ArrayList<>();
         inputAS2.add(new ArrayList<>(Arrays.asList(9, 6)));
         inputAS2.add(new ArrayList<>(Arrays.asList(5, 4)));
