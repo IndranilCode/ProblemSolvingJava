@@ -1,4 +1,4 @@
-package com.tutorial.AdvancedDSA.BitManipulations;
+package com.tutorial.AdvancedDSA.M3_BitManipulations;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,6 +16,14 @@ public class Day40_BitManipulation1 {
         //AS2 > Single Number 2 - All triple occurrence except 1 [Bit shift]
         ArrayList<Integer> inputAS2 = new ArrayList<>(Arrays.asList(1, 2, 3, 1, 2, 3, 1, 2, 3, 7));
         System.out.println("AS2 > Single Number 2 - All triple occurrence except 1 [Bit shift] [1, 2, 3, 1, 2, 3, 1, 2, 3, 7] => " + this.findSingleNumber2_AllTripleExcept1_shift(inputAS2));
+
+        //AS3 > Number of 1 Bits
+        System.out.println("AS3 > Number of 1 Bits (11) => " + this.numberOfSetBits(11));
+        System.out.println("AS3 > Number of 1 Bits (101) => " + this.numberOfSetBits(101));
+
+        //AS4 > Add Binary Strings
+        System.out.println("AS4 > Add Binary Strings => " + this.addBinaryString("101", "111"));
+        System.out.println("AS4 > Add Binary Strings => " + this.addBinaryString("1010110111001101101000", "1000011011000000111100110"));
     }
 
     /**
@@ -72,6 +80,58 @@ public class Day40_BitManipulation1 {
             }
             if ((count % 3) == 1) {
                 result = result | (1 << i);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * AS3 > Number of 1 Bits
+     * Takes an integer and returns the number of 1 bits it has.
+     * @param A
+     * @return
+     */
+    private int numberOfSetBits(int A) {
+        int count = 0;
+        for (int i = 0; i < 32; i++) {
+            int conversionNumber = 1 << i;
+            if ((conversionNumber & A) >= 1) {
+                count ++;
+            }
+        }
+        return count;
+    }
+
+    /**
+     * AS4 > Add Binary Strings
+     * Given two binary strings, return their sum (also a binary string).
+     * "100" + "11" = "111"
+     * @param A
+     * @param B
+     * @return
+     */
+    private String addBinaryString(String A, String B) {
+        int diff = Math.abs(A.length() - B.length());
+        String appendStr = "";
+        for (int i = 0; i < diff; i++) {
+            appendStr = appendStr + "0";
+        }
+        if (A.length() > B.length()) {
+            B = appendStr + B;
+        } else {
+            A = appendStr + A;
+        }
+
+        String result = "";
+        int carryBit = 0;
+        for (int i = A.length()-1; i >= 0; i--) {
+            int a = Integer.parseInt(A.charAt(i) + "");
+            int b = Integer.parseInt(B.charAt(i) + "");
+            int total = a + b + carryBit;
+            result = ((total) % 2) + "" + result;
+            carryBit = total / 2;
+            if (i == 0 && carryBit > 0) {
+                result = carryBit + "" + result;
             }
         }
         return result;

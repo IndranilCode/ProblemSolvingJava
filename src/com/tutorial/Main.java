@@ -1,11 +1,7 @@
 package com.tutorial;
 
-import com.tutorial.Arrays.Day16_ArrayAndMath;
-import com.tutorial.Trees.Day27_TreesBasic1;
-import com.tutorial.Trees.Day28_TreesBasic2;
-import com.tutorial.oops.Example;
-import com.tutorial.recursion.Day23Recursion1;
-import com.tutorial.recursion.Day24Recursion2;
+import com.tutorial.AdvancedDSA.M1_Arrays.Day34_Arrays2;
+import com.tutorial.AdvancedDSA.M3_BitManipulations.Day40_BitManipulation1;
 
 public class Main {
 
@@ -14,6 +10,11 @@ public class Main {
 
         //Day 4 - (18 Oct) - Introduction to Problem Solving
         //new Day4IntroductionToProblemSolving().executeIntroductionToProblemSolving();
+
+        //M2 - Bit manipulations
+        //Day 6 - Intro to number system & bit manipulation
+        //new Day6_IntroToNumberSystemAndBitManipulation().execute();
+        //new Day7_BitManipulations().execute();
 
         //2. Add Binary String [a = "100" , b = "11", a+b = "111"]
         //System.out.println(addBinary("1000", "10"));
@@ -28,7 +29,7 @@ public class Main {
         //new Day12ArrayPrefixSumAndCarryForwardPart1().executeArrayPrefixSumAndCarryForwardPart1();
 
         //Day13 - Array - Prefix sum and carry forward (Day 2)
-        new Day13ArrayPrefixSumAndCarryForwardPart2().execute();
+        //new Day13ArrayPrefixSumAndCarryForwardPart2().execute();
 
         //Day 14 - 2D Matrix
         //new Day14Matrix2D().executeMatrix2D();
@@ -53,6 +54,10 @@ public class Main {
         //        new Day24Recursion2().execute();
 
 
+        //Day25 - Link List
+        //new Day25_LinkListBasics().execute();
+
+
 
         //Day27 - Trees Basics
         //new Day27_TreesBasic1().execute();
@@ -61,6 +66,22 @@ public class Main {
         //new Example().Main();
 
         //new Day28_TreesBasic2().execute();
+
+        //-------------Advanced DSA - Arrays------------------
+        //Day33_Arrays1
+        //new Day33_Arrays1().execute();
+
+        //Day34_Arrays2
+        new Day34_Arrays2().execute();
+
+        //-------------Advanced DSA - Maths------------------
+        //new Day37_GCD().execute();
+        //new Day38_PrimeNumbers().execute();
+
+        //new Day39_Combinatorics().execute();
+
+        //-------------Advanced DSA - Bit Manipulations------------------
+        //new Day40_BitManipulation1().execute();
     }
 
 

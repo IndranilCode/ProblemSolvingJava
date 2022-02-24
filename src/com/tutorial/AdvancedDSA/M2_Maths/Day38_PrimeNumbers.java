@@ -1,4 +1,4 @@
-package com.tutorial.AdvancedDSA.Maths;
+package com.tutorial.AdvancedDSA.M2_Maths;
 
 import java.util.ArrayList;
 import java.util.Arrays;

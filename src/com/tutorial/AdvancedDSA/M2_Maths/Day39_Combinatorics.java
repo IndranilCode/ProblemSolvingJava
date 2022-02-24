@@ -1,4 +1,4 @@
-package com.tutorial.AdvancedDSA.Maths;
+package com.tutorial.AdvancedDSA.M2_Maths;
 
 public class Day39_Combinatorics {
     public void execute() {

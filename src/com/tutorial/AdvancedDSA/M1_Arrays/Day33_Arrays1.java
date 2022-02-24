@@ -1,4 +1,4 @@
-package com.tutorial.AdvancedDSA;
+package com.tutorial.AdvancedDSA.M1_Arrays;
 
 import java.util.ArrayList;
 import java.util.Arrays;
