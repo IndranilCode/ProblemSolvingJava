@@ -2,6 +2,7 @@ package com.tutorial;
 
 import com.tutorial.AdvancedDSA.M1_Arrays.Day34_Arrays2;
 import com.tutorial.AdvancedDSA.M3_BitManipulations.Day40_BitManipulation1;
+import com.tutorial.AdvancedDSA.M4_Recursion.Day42_Recursion1;
 
 public class Main {
 
@@ -72,7 +73,7 @@ public class Main {
         //new Day33_Arrays1().execute();
 
         //Day34_Arrays2
-        new Day34_Arrays2().execute();
+        //new Day34_Arrays2().execute();
 
         //-------------Advanced DSA - Maths------------------
         //new Day37_GCD().execute();
@@ -82,6 +83,9 @@ public class Main {
 
         //-------------Advanced DSA - Bit Manipulations------------------
         //new Day40_BitManipulation1().execute();
+
+        //------------
+        new Day42_Recursion1().execute();
     }
 
 
