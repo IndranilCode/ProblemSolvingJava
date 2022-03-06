@@ -19,6 +19,17 @@ public class Day45_Sorting1 {
         //CW2.1 > Kth max with Selection sort
         System.out.println("    > Kth (6th) max Selection sort [5, 2, 7, 12, 99, 6, 1] => " +  this.kThMax_selectionSort(inputCW2, 6));
         System.out.println("    > Kth (3rd) max Selection sort [5, 2, 7, 12, 99, 6, 1] => " +  this.kThMax_selectionSort(inputCW2, 3));
+
+        //CW2 > Selection Sort
+        ArrayList<Integer> inputCW3 = new ArrayList<>(Arrays.asList(5, 2, 7, 12, 99, 6, 1));
+        ArrayList<Integer> resultCW3 = this.bubbleSort(inputCW3);
+        System.out.print("CW3 > Bubble sort [5, 2, 7, 12, 99, 6, 1] => ");
+        resultCW3.forEach(e -> System.out.print(e + ", "));
+        System.out.println("");
+
+        //CW3.1 > Kth max with Selection sort
+        System.out.println("    > Kth (6th) max Bubble sort [5, 2, 7, 12, 99, 6, 1] => " +  this.kThMax_bubbleSort(inputCW3, 6));
+        System.out.println("    > Kth (3rd) max Bubble sort [5, 2, 7, 12, 99, 6, 1] => " +  this.kThMax_bubbleSort(inputCW3, 3));
     }
 
     /**
@@ -108,6 +119,48 @@ public class Day45_Sorting1 {
             temp = a.get(endOfActiveArr);
             a.set(endOfActiveArr, currentMax); //Set lastElem = max
             a.set(currentMaxIndex, temp); //Set index@maxNumber = last element
+        }
+        return a.get(n-k);
+    }
+
+    /**
+     * CW3 > Bubble sort
+     * @param a
+     * @return
+     */
+    private ArrayList<Integer> bubbleSort(ArrayList<Integer> a) {
+        int temp;
+        for (int end = a.size()-2; end >= 0; end--) {
+            for (int i = 0; i <= end; i++) {
+                if (a.get(i) > a.get(i+1)) {
+                    //swap a[i]  a[i+1] => bubble up higher element
+                    temp = a.get(i);
+                    a.set(i, a.get(i+1));
+                    a.set(i+1, temp);
+                }
+            }
+        }
+        return a;
+    }
+
+    /**
+     * CW3.1 > Kth max with Bubble sort
+     * @param a
+     * @param k
+     * @return
+     */
+    private int kThMax_bubbleSort(ArrayList<Integer> a, int k) {
+        int temp;
+        int n = a.size();
+        for (int end = n-2; end >= n-k; end--) {
+            for (int i = 0; i <= end; i++) {
+                if (a.get(i) > a.get(i+1)) {
+                    //swap a[i]  a[i+1] => bubble up higher element
+                    temp = a.get(i);
+                    a.set(i, a.get(i+1));
+                    a.set(i+1, temp);
+                }
+            }
         }
         return a.get(n-k);
     }
