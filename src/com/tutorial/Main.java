@@ -1,8 +1,10 @@
 package com.tutorial;
 
 import com.tutorial.AdvancedDSA.M1_Arrays.Day34_Arrays2;
+import com.tutorial.AdvancedDSA.M1_Arrays.Day35_Arrays3;
 import com.tutorial.AdvancedDSA.M3_BitManipulations.Day40_BitManipulation1;
 import com.tutorial.AdvancedDSA.M4_Recursion.Day42_Recursion1;
+import com.tutorial.AdvancedDSA.M5_Sorting.Day45_Sorting1;
 
 public class Main {
 
@@ -75,6 +77,9 @@ public class Main {
         //Day34_Arrays2
         //new Day34_Arrays2().execute();
 
+        //Day35_Arrays3
+        //new Day35_Arrays3().execute();
+
         //-------------Advanced DSA - Maths------------------
         //new Day37_GCD().execute();
         //new Day38_PrimeNumbers().execute();
@@ -85,7 +90,10 @@ public class Main {
         //new Day40_BitManipulation1().execute();
 
         //------------
-        new Day42_Recursion1().execute();
+        //new Day42_Recursion1().execute();
+
+        //-------------Sorting-------------------
+        new Day45_Sorting1().execute();
     }
 
 

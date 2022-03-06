@@ -34,6 +34,8 @@ public class Day42_Recursion1 {
         System.out.println("HW1 > Find Fibonacci (9) => " + this.fibonacci(9));
         System.out.println("HW2 > Sum of Digits (21057) => " + this.sumOfAllDigits(21057));
         System.out.println("HW3 > Find Factorial (6) => " + this.factorial(6));
+        System.out.println("HW4 > Print reverse string (indranilbasu) => " + this.reverseString("indranilbasu"));
+        System.out.println("HW5 > Another sequence problem (3) => " + this.sequence(3));
     }
 
     /*------------CLASSWORK------------*/
@@ -172,5 +174,28 @@ public class Day42_Recursion1 {
     private int factorial(int a) {
         if (a == 1) return 1;
         return a * this.factorial(a - 1);
+    }
+
+    /**
+     * MH4 > Print reverse string
+     * @param a
+     * @return
+     */
+    private String reverseString(String a) {
+        if (a.length() == 1) return a;
+        return a.charAt(a.length() - 1) + reverseString(a.substring(0, a.length() - 1));
+    }
+
+    /**
+     * HW5 > Another sequence problem
+     * f(A) = f(A-1) + f(A-2) + f(A-3) + A
+     * @param a
+     * @return
+     */
+    private int sequence(int a) {
+        if (a == 0) return 1;
+        if (a == 1) return 1;
+        if (a == 2) return 2;
+        return this.sequence(a-1) + this.sequence(a-2) + this.sequence(a-3) + a;
     }
 }
