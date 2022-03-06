@@ -15,6 +15,10 @@ public class Day45_Sorting1 {
         System.out.print("CW2 > Selection sort [5, 2, 7, 12, 99, 6, 1] => ");
         resultCW2.forEach(e -> System.out.print(e + ", "));
         System.out.println("");
+
+        //CW2.1 > Kth max with Selection sort
+        System.out.println("    > Kth (6th) max Selection sort [5, 2, 7, 12, 99, 6, 1] => " +  this.kThMax_selectionSort(inputCW2, 6));
+        System.out.println("    > Kth (3rd) max Selection sort [5, 2, 7, 12, 99, 6, 1] => " +  this.kThMax_selectionSort(inputCW2, 3));
     }
 
     /**
@@ -78,5 +82,33 @@ public class Day45_Sorting1 {
             a.set(currentMaxIndex, temp); //Set index@maxNumber = last element
         }
         return a;
+    }
+
+    /**
+     * CW2.1 > Kth max with Selection sort
+     * @param a
+     * @param k
+     * @return
+     */
+    private int kThMax_selectionSort(ArrayList<Integer> a, int k) {
+        int currentMax;
+        int currentMaxIndex;
+        int temp;
+        int n = a.size();
+        for (int endOfActiveArr = n - 1; endOfActiveArr >= n - k; endOfActiveArr--) {
+            currentMax = Integer.MIN_VALUE;
+            currentMaxIndex = -1;
+            for (int i = 0; i <= endOfActiveArr; i++) {
+                if (a.get(i) > currentMax) {
+                    currentMax = a.get(i);
+                    currentMaxIndex = i;
+                }
+            }
+            //Max found => Swap max element with last active index
+            temp = a.get(endOfActiveArr);
+            a.set(endOfActiveArr, currentMax); //Set lastElem = max
+            a.set(currentMaxIndex, temp); //Set index@maxNumber = last element
+        }
+        return a.get(n-k);
     }
 }
