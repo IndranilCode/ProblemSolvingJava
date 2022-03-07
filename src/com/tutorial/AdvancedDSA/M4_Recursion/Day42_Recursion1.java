@@ -81,7 +81,7 @@ public class Day42_Recursion1 {
         return step1 + step2 + step3;
     }
 
-    /*------------ASSIGNMENTS------------*/
+/*------------ASSIGNMENTS------------*/
 
     /**
      * AS1 > Sum of Digits
