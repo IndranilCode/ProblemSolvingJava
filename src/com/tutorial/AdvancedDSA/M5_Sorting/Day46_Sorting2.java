@@ -4,15 +4,23 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Day46_Sorting2 {
+    //1. Merge sort
+    //2. Inversion count
+
     public void execute() {
         System.out.println("------------SORTING 2------------");
         System.out.println("------------CLASSWORK------------");
+
+        //CW1 > Merge sort
         ArrayList<Integer> inputCW1 = new ArrayList<>(Arrays.asList(5, 2, 7, 12, 99, 6, 1));
-        //        ArrayList<Integer> resultCW1 = this.mergeSort(inputCW1, 0, inputCW1.size()-1);
         this.mergeSort(inputCW1, 0, inputCW1.size()-1);
         System.out.print("CW1 > Merge sort [5, 2, 7, 12, 99, 6, 1] => ");
         inputCW1.forEach(e -> System.out.print(e + ", "));
         System.out.println("");
+
+        //CW2 > Inversion count of an array (Brute Force)
+        ArrayList<Integer> inputCW2 = new ArrayList<>(Arrays.asList(4, 5, 1, 2, 6, 3));
+        System.out.println("CW2 > Inversion count of an array (Brute Force) [4, 5, 1, 2, 6, 3] => " + this.inversionCount_bruteForce(inputCW2));
     }
 
     /**
@@ -73,5 +81,35 @@ public class Day46_Sorting2 {
         }
 
         return;
+    }
+
+    /**
+     * CW2 > Inversion count of an array (Brute Force)
+     * Total pairs (i,j) such that i<j && A[i] > A[j]
+     * Eg numbers = [4, 5, 1, 2, 6, 3]
+     *      index =  0  1  2  3  4  5
+     *      i -> set of j index -> count
+     *      0    2,3,5              3
+     *      1    2,3,5              3
+     *      2                       0
+     *      3                       0
+     *      4    5                  1
+     * =====TOTAL ================> 7
+     * TC = O(n2)
+     * @param numbers
+     * @return
+     */
+    private int inversionCount_bruteForce(ArrayList<Integer> numbers) {
+        int count = 0;
+        int pivot; //pivot is the ith element
+        for (int i = 0; i <= numbers.size()-2; i++) {
+            pivot = numbers.get(i);
+            for (int j = i+1; j < numbers.size(); j++) {
+                if (pivot > numbers.get(j)){
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 }
