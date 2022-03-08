@@ -5,6 +5,7 @@ import com.tutorial.AdvancedDSA.M1_Arrays.Day35_Arrays3;
 import com.tutorial.AdvancedDSA.M3_BitManipulations.Day40_BitManipulation1;
 import com.tutorial.AdvancedDSA.M4_Recursion.Day42_Recursion1;
 import com.tutorial.AdvancedDSA.M5_Sorting.Day45_Sorting1;
+import com.tutorial.AdvancedDSA.M5_Sorting.Day46_Sorting2;
 
 public class Main {
 
@@ -93,7 +94,8 @@ public class Main {
         //new Day42_Recursion1().execute();
 
         //-------------Sorting-------------------
-        new Day45_Sorting1().execute();
+        //new Day45_Sorting1().execute();
+        new Day46_Sorting2().execute();
     }
 
 

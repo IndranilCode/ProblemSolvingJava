@@ -8,7 +8,6 @@ public class Day45_Sorting1 {
     //1. Selection sort - O(n2)
     //2. Bubble sort - O(n2)
     //3. Insertion sort - O(n2)
-    //4. Merge sort
 
     public void execute() {
         System.out.println("------------SORTING 1------------");
