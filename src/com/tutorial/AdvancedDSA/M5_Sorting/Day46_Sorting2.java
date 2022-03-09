@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 public class Day46_Sorting2 {
     //1. Merge sort
-    //2. Inversion count
+    //2. Inversion count - Brute force / Merge sort method
 
     public void execute() {
         System.out.println("------------SORTING 2------------");
@@ -21,6 +21,13 @@ public class Day46_Sorting2 {
         //CW2 > Inversion count of an array (Brute Force)
         ArrayList<Integer> inputCW2 = new ArrayList<>(Arrays.asList(4, 5, 1, 2, 6, 3));
         System.out.println("CW2 > Inversion count of an array (Brute Force) [4, 5, 1, 2, 6, 3] => " + this.inversionCount_bruteForce(inputCW2));
+
+        //CW2.2 > Inversion count of an array (Merge sort)
+        ArrayList<Integer> inputCW2_2 = new ArrayList<>(Arrays.asList(4, 5, 1, 2, 6, 3));
+        int countResult = this.inversionCount_MergeSortTechnique(inputCW2_2, 0, inputCW2_2.size()-1, 0);
+        System.out.print("    > Inversion count of an array (Merge sort) [4, 5, 1, 2, 6, 3] => " + countResult + "; Sorted Array => ");
+        inputCW2_2.forEach(e -> System.out.print(e + ", "));
+        System.out.println("");
     }
 
     /**
@@ -42,7 +49,6 @@ public class Day46_Sorting2 {
         //Merge the sorted arrays arr1 & arr2
         ArrayList<Integer> arr1 = new ArrayList<>();
         ArrayList<Integer> arr2 = new ArrayList<>();
-
 
         //Copy elements to arr1 => arr[start] - arr[mid]
         for (int k = start; k <= mid; k++) {
@@ -109,6 +115,66 @@ public class Day46_Sorting2 {
                     count++;
                 }
             }
+        }
+        return count;
+    }
+
+    /**
+     * CW2.2 > Inversion count of an array (Merge sort method)
+     * @param arr
+     * @param start
+     * @param end
+     * @param count
+     * @return
+     */
+    private int inversionCount_MergeSortTechnique(ArrayList<Integer> arr, int start, int end, int count) {
+        if (start == end) return 0;
+        int mid = (start + end) / 2;
+        int c1 = this.inversionCount_MergeSortTechnique(arr, start, mid, count);
+        int c2 = this.inversionCount_MergeSortTechnique(arr, mid + 1, end, count);
+        return c1 + c2 + this.mergeForInversionCount(arr, start, mid, end);
+    }
+    private int mergeForInversionCount(ArrayList<Integer> arr, int start, int mid, int end) {
+        int count = 0;
+        //Create 2 arrays arr1(left) & arr2(right) which are sorted by itself
+        //Merge the sorted arrays arr1 & arr2
+        ArrayList<Integer> arr1 = new ArrayList<>();
+        ArrayList<Integer> arr2 = new ArrayList<>();
+
+        //Copy elements to arr1 => arr[start] - arr[mid]
+        for (int k = start; k <= mid; k++) {
+            arr1.add(arr.get(k));
+        }
+        //Copy elements to arr2 => arr[mid+1] - arr[end]
+        for (int k = mid+1; k <= end; k++) {
+            arr2.add(arr.get(k));
+        }
+
+        int arr1Len = arr1.size();
+        int arr2Len = arr2.size();
+        int i = 0, j = 0, index = start;
+        while (i < arr1Len && j < arr2Len) {
+            if (arr2.get(j) < arr1.get(i)) {
+                count = count + (arr1Len - i);
+                arr.set(index, arr2.get(j));
+                index++;
+                j++;
+            } else {
+                arr.set(index, arr1.get(i));
+                index++;
+                i++;
+            }
+        }
+        //Copy the leftover
+        while (i < arr1Len) {
+            arr.set(index, arr1.get(i));
+            index++;
+            i++;
+        }
+        while (j < arr2Len) {
+            arr.set(index, arr2.get(j));
+            index++;
+            j++;
         }
         return count;
     }

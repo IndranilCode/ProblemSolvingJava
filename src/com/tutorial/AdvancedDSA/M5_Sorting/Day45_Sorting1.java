@@ -2,6 +2,7 @@ package com.tutorial.AdvancedDSA.M5_Sorting;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class Day45_Sorting1 {
@@ -64,6 +65,22 @@ public class Day45_Sorting1 {
         System.out.println("    > Kth (5th) smallest element (using SelectionSort) [5, 2, 7, 12, 99, 6, 1] => " + this.kThSmallestElement(inputAS2, 5));
         ArrayList<Integer> inputAS2b = new ArrayList<>(Arrays.asList(94, 87, 100, 11, 23, 98, 17, 35, 43, 66, 34, 53, 72, 80, 5, 34, 64, 71, 9, 16, 41, 66, 96));
         System.out.println("    > Kth (5th) smallest element (using SelectionSort) [94, 87, 100, 11, 23, 98, 17, 35, 43, 66, 34, 53, 72, 80, 5, 34, 64, 71, 9, 16, 41, 66, 96] => " + this.kThSmallestElement(inputAS2b, 19));
+
+        //AS3 > Array with consecutive elements
+        ArrayList<Integer> inputAS3a = new ArrayList<>(Arrays.asList(3, 2, 1, 4, 5));
+        System.out.println("AS3 > Array with consecutive elements [3, 2, 1, 4, 5] => " + this.isArrayWithConsecutiveElements(inputAS3a));
+        ArrayList<Integer> inputAS3b = new ArrayList<>(Arrays.asList(1, 3, 2, 5));
+        System.out.println("    > Array with consecutive elements [3, 2, 1, 4, 5] => " + this.isArrayWithConsecutiveElements(inputAS3b));
+
+        //AS4 > MaxMod
+        ArrayList<Integer> inputAS4a = new ArrayList<>(Arrays.asList(1, 2, 44, 3));
+        System.out.println("AS4 > MaxMod [1, 2, 44, 3] => " + this.maxMod(inputAS4a));
+        ArrayList<Integer> inputAS4b = new ArrayList<>(Arrays.asList(2, 6, 4));
+        System.out.println("    > MaxMod [2, 6, 4] => " + this.maxMod(inputAS4b));
+        ArrayList<Integer> inputAS4c = new ArrayList<>(Arrays.asList(6, 6, 4 ,2));
+        System.out.println("    > MaxMod [6, 6, 4 ,2] => " + this.maxMod(inputAS4c));
+        ArrayList<Integer> inputAS4d = new ArrayList<>(Arrays.asList(6, 6, 4 ,2));
+        System.out.println("    > MaxMod [4, 2, 6, 6] => " + this.maxMod(inputAS4d));
     }
 
     /**
@@ -291,5 +308,90 @@ public class Day45_Sorting1 {
             A.set(end, temp);
         }
         return A.get(n - B);
+    }
+
+    /**
+     * AS3 > Array with consecutive elements
+     * Eg A = [3, 2, 1, 4, 5] => Consecutive (1)
+     * A = [1, 3, 2, 5] => Non-consecutive (0)
+     * @param a
+     * @return
+     */
+    private int isArrayWithConsecutiveElements(ArrayList<Integer> a) {
+        int result = 1;
+
+        //1. Find the min number - O(n)
+        int min = Integer.MAX_VALUE;
+        for (int i = 0; i < a.size(); i++) {
+            if (a.get(i) < min) {
+                min = a.get(i);
+            }
         }
+
+        //2. Range must be from min to idealMax(min + n - 1).
+        //a> Check if all elements are from min-max
+        //b> Check if all frequency is 1
+        //Both needed to qualify for consecutive
+        int idealMax = min + a.size() - 1;
+        int currentNumber, currentFreq;
+        HashMap<Integer, Integer> freq = new HashMap<>();
+        for (int i = 0; i < a.size(); i++) {
+            currentNumber = a.get(i);
+            currentFreq = 0;
+            if (a.get(i) >= min && a.get(i) <= idealMax) {
+                //Within range - OK - but add to hashmap for frequency
+                if (freq.containsKey(currentNumber)) {
+                    currentFreq = freq.get(currentNumber);
+                }
+                currentFreq++;
+                freq.put(currentNumber, currentFreq);
+            } else {
+                //Not in range - surely not consecutive
+                result = 0;
+                break;
+            }
+        }
+        //3. If still result = 1, check for frequency OR better check length of freq. must be = n
+        if (result == 1) {
+            if (freq.size() != a.size()) {
+                result = 0;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * AS4 > MaxMod
+     * A[i] % A[j] is maximum among all possible pairs of (i, j).
+     * Eg => A = [1, 2, 44, 3] => i = 3, j = 2  A[i] % A[j] = 3 % 44 = 3.
+     * A = [2, 6, 4] => i = 2, j = 1  A[i] % A[j] = 4 % 6 = 4.
+     * @param A
+     * @return
+     */
+    private int maxMod(ArrayList<Integer> A) {
+        int max = Integer.MIN_VALUE, max2 = Integer.MIN_VALUE, temp;
+        if (A.size() > 1) {
+            if (A.get(0) == A.get(1)) {
+                max = A.get(0);
+            } else if (A.get(0) > A.get(1)) {
+                max = A.get(0);
+                max2 = A.get(1);
+            } else {
+                max = A.get(1);
+                max2 = A.get(0);
+            }
+            for (int i = 2; i < A.size(); i++) {
+                if (A.get(i) <= max2) {
+                    continue;
+                } else if (A.get(i) > max) {
+                    temp = max;
+                    max = A.get(i);
+                    max2 = temp;
+                } else {
+                    max2 = A.get(i);
+                }
+            }
+        }
+        return max2;
+    }
 }
