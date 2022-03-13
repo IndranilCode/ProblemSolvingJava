@@ -1,7 +1,10 @@
 package com.tutorial.AdvancedDSA.M5_Sorting;
 
+import javax.swing.text.html.parser.Entity;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Day46_Sorting2 {
     //1. Merge sort
@@ -27,6 +30,16 @@ public class Day46_Sorting2 {
         int countResult = this.inversionCount_MergeSortTechnique(inputCW2_2, 0, inputCW2_2.size()-1, 0);
         System.out.print("    > Inversion count of an array (Merge sort) [4, 5, 1, 2, 6, 3] => " + countResult + "; Sorted Array => ");
         inputCW2_2.forEach(e -> System.out.print(e + ", "));
+        System.out.println("");
+
+        //CW3 > Lock-Key pair - Brute Force
+        ArrayList<Integer> inputCW3_locks = new ArrayList<>(Arrays.asList(5, 3 ,1, 2, 7, 6, 11));
+        ArrayList<Integer> inputCW3_keys = new ArrayList<>(Arrays.asList(1, 6, 5 , 7, 11, 3, 2));
+        HashMap<Integer, Integer> resultCW3 = this.lockAndKeyIndexPair_bruteForce(inputCW3_locks, inputCW3_keys);
+        System.out.print("CW3 > Lock-Key pair - Brute Force => [");
+        for (Map.Entry<Integer, Integer> e : resultCW3.entrySet()) {
+            System.out.print(e.getKey() + " : " + e.getValue() + " ,");
+        }
         System.out.println("");
     }
 
@@ -177,5 +190,26 @@ public class Day46_Sorting2 {
             j++;
         }
         return count;
+    }
+
+    /**
+     * CW3 > Lock-Key pair - Brute Force
+     * @param locks
+     * @param keys
+     * @return
+     */
+    private HashMap<Integer, Integer> lockAndKeyIndexPair_bruteForce(ArrayList<Integer> locks, ArrayList<Integer> keys) {
+        HashMap<Integer, Integer> lockKeyRelation = new HashMap<>();
+        int currentLock, currentKey;
+        for (int i = 0; i < locks.size(); i++) {
+            currentLock = locks.get(i);
+            for (int j = 0; j < keys.size(); j++) {
+                currentKey = keys.get(j);
+                if (currentLock == currentKey) {
+                    lockKeyRelation.put(i, j);
+                }
+            }
+        }
+        return lockKeyRelation;
     }
 }

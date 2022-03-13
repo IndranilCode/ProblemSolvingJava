@@ -6,6 +6,7 @@ import com.tutorial.AdvancedDSA.M3_BitManipulations.Day40_BitManipulation1;
 import com.tutorial.AdvancedDSA.M4_Recursion.Day42_Recursion1;
 import com.tutorial.AdvancedDSA.M5_Sorting.Day45_Sorting1;
 import com.tutorial.AdvancedDSA.M5_Sorting.Day46_Sorting2;
+import com.tutorial.AdvancedDSA.M6_BinarySearch.Day48_BinarySearch1;
 
 public class Main {
 
@@ -95,7 +96,10 @@ public class Main {
 
         //-------------Sorting-------------------
         //new Day45_Sorting1().execute();
-        new Day46_Sorting2().execute();
+        //new Day46_Sorting2().execute();
+
+        //-------------Binary Search-------------
+        new Day48_BinarySearch1().execute();
     }
 
 

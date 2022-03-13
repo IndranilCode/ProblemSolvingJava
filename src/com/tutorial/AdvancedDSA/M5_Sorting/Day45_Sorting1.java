@@ -73,14 +73,24 @@ public class Day45_Sorting1 {
         System.out.println("    > Array with consecutive elements [3, 2, 1, 4, 5] => " + this.isArrayWithConsecutiveElements(inputAS3b));
 
         //AS4 > MaxMod
-        ArrayList<Integer> inputAS4a = new ArrayList<>(Arrays.asList(1, 2, 44, 3));
-        System.out.println("AS4 > MaxMod [1, 2, 44, 3] => " + this.maxMod(inputAS4a));
-        ArrayList<Integer> inputAS4b = new ArrayList<>(Arrays.asList(2, 6, 4));
-        System.out.println("    > MaxMod [2, 6, 4] => " + this.maxMod(inputAS4b));
-        ArrayList<Integer> inputAS4c = new ArrayList<>(Arrays.asList(6, 6, 4 ,2));
-        System.out.println("    > MaxMod [6, 6, 4 ,2] => " + this.maxMod(inputAS4c));
-        ArrayList<Integer> inputAS4d = new ArrayList<>(Arrays.asList(6, 6, 4 ,2));
-        System.out.println("    > MaxMod [4, 2, 6, 6] => " + this.maxMod(inputAS4d));
+        //        ArrayList<Integer> inputAS4a = new ArrayList<>(Arrays.asList(1, 2, 44, 3));
+        //        System.out.println("AS4 > MaxMod [1, 2, 44, 3] => " + this.maxMod(inputAS4a));
+        //        ArrayList<Integer> inputAS4b = new ArrayList<>(Arrays.asList(2, 6, 4));
+        //        System.out.println("    > MaxMod [2, 6, 4] => " + this.maxMod(inputAS4b));
+        //        ArrayList<Integer> inputAS4c = new ArrayList<>(Arrays.asList(6, 6, 4 ,2));
+        //        System.out.println("    > MaxMod [6, 6, 4 ,2] => " + this.maxMod(inputAS4c));
+        //        ArrayList<Integer> inputAS4d = new ArrayList<>(Arrays.asList(6, 6, 4 ,2));
+        //        System.out.println("    > MaxMod [4, 2, 6, 6] => " + this.maxMod(inputAS4d));
+                ArrayList<Integer> inputAS4e = new ArrayList<>(Arrays.asList(1, 2, 3, 3));
+                System.out.println("    > MaxMod [1, 2, 3, 3] => " + this.maxMod(inputAS4e));
+        //        ArrayList<Integer> inputAS4f = new ArrayList<>(Arrays.asList(5, 5, 5, 5, 5));
+        //        System.out.println("    > MaxMod [5, 5, 5, 5, 5] => " + this.maxMod(inputAS4f));
+
+        /*------------HOMEWORK------------*/
+        System.out.println("------------HOMEWORK------------");
+
+
+
     }
 
     /**
@@ -387,11 +397,87 @@ public class Day45_Sorting1 {
                     temp = max;
                     max = A.get(i);
                     max2 = temp;
-                } else {
+                } else if (A.get(i) == max) {
+                    continue;
+                }
+                else {
                     max2 = A.get(i);
                 }
             }
         }
+
+        //If there is no 2nd minimum then return 0
+        if (max2 == Integer.MIN_VALUE) {
+            max2 = 0;
+        }
+
         return max2;
+    }
+
+    /*------------HOMEWORK------------*/
+
+    /**
+     * HW1 > Chocolate Distribution
+     *
+     * @param A
+     * @param B
+     * @return
+     */
+    private int chocolateDistributionProblem(ArrayList<Integer> A, int B) {
+        this.mergeSort_CP(A, 0, A.size() - 1);
+        // System.out.println(A);
+        int lowest = A.get(0);
+        int bThLowest = A.get(B-1);
+        return bThLowest-lowest;
+    }
+
+    private void mergeSort_CP(ArrayList<Integer> arr, int start, int end) {
+        if (start == end) return;
+        int mid = (start + end) / 2;
+        this.mergeSort_CP(arr, start, mid);
+        this.mergeSort_CP(arr, mid+1, end);
+        this.merge_CP(arr, start, mid, end);
+    }
+    private void merge_CP(ArrayList<Integer> arr, int start, int mid, int end) {
+        ArrayList<Integer> arr1 = new ArrayList();
+        ArrayList<Integer> arr2 = new ArrayList();
+
+        //Fill left array - arr1
+        for (int k = start; k <= mid; k++) {
+            arr1.add(arr.get(k));
+        }
+        //Fill right array - arr2
+        for (int k = mid+1; k <= end; k++) {
+            arr2.add(arr.get(k));
+        }
+
+        //Compare arr1 start element with arr2 end element and keep filling
+        int i = 0; //arr1 pointer
+        int j = 0; //arr2 pointer
+        int index = start;
+        int arr1Len = arr1.size();
+        int arr2Len = arr2.size();
+        while (i < arr1Len && j < arr2Len) {
+            if (arr1.get(i) <= arr2.get(j)) {
+                arr.set(index, arr1.get(i));
+                index++;
+                i++;
+            } else {
+                arr.set(index, arr2.get(j));
+                index++;
+                j++;
+            }
+        }
+        //Copy leftovers
+        while (i < arr1Len) {
+            arr.set(index, arr1.get(i));
+            index++;
+            i++;
+        }
+        while (j < arr2Len) {
+            arr.set(index, arr2.get(j));
+            index++;
+            j++;
+        }
     }
 }
