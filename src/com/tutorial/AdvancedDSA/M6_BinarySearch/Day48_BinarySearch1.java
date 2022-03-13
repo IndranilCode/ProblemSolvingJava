@@ -44,11 +44,20 @@ public class Day48_BinarySearch1 {
         /*------------ASSIGNMENTS------------*/
 
         System.out.println("------------ASSIGNMENTS-----------------");
+        //AS1 > Sorted Insert Position
         ArrayList<Integer> inputAS1 = new ArrayList<>(Arrays.asList(1, 3 ,5, 6));
         System.out.println("AS1 > Sorted Insert Position (5) [1, 3 ,5, 6] => " + this.sortedInsertPosition(inputAS1 , 5));
         System.out.println("    > Sorted Insert Position (4) [1, 3 ,5, 6] => " + this.sortedInsertPosition(inputAS1 , 4));
         System.out.println("    > Sorted Insert Position (-10) [1, 3 ,5, 6] => " + this.sortedInsertPosition(inputAS1 , -10));
         System.out.println("    > Sorted Insert Position (20) [1, 3 ,5, 6] => " + this.sortedInsertPosition(inputAS1 , 20));
+
+        //AS2 > Find a peak element
+        ArrayList<Integer> inputAS2a = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5));
+        System.out.println("AS2 > Find a peak element [1, 2, 3, 4, 5] => " + this.findAnyPeakElement(inputAS2a));
+        ArrayList<Integer> inputAS2b = new ArrayList<>(Arrays.asList(5, 17, 100, 11));
+        System.out.println("    > Find a peak element [5, 17, 100, 11] => " + this.findAnyPeakElement(inputAS2b));
+        ArrayList<Integer> inputAS2c = new ArrayList<>(Arrays.asList(5, 17, 100, 11, 17, 16, 9, 7, 8, 3));
+        System.out.println("    > Find a peak element [5, 17, 100, 11, 17, 16, 9, 7, 8, 3] => " + this.findAnyPeakElement(inputAS2c));
     }
 
     /**
@@ -200,5 +209,54 @@ public class Day48_BinarySearch1 {
             }
         }
         return result;
+    }
+
+    /**
+     * AS2 > Find a peak element
+     * Array of integers A, find and return any peak element in it. An array element is peak if it is NOT smaller than its neighbors.
+     * For corner elements, we need to consider only one neighbor.
+     * @param A
+     * @return
+     */
+    private int findAnyPeakElement(ArrayList<Integer> A) {
+        int peak = Integer.MIN_VALUE;
+
+        //Handle edge case
+        //1 element - return that
+        //Check borders - if so return border element
+        if (A.size() > 1) {
+            if (A.get(0) > A.get(1)) {
+                return A.get(0);
+            }
+            if (A.get(A.size() - 1) > A.get(A.size() - 2)) {
+                return A.get(A.size() - 1);
+            }
+        } else {
+            return A.get(0);
+        }
+
+        //Check inside peaks
+        int low = 0;
+        int high = A.size() - 1;
+        int mid;
+        while (low <= high) {
+            mid = (low + high) / 2;
+
+            //Non border
+            if (mid != 0 && mid != (A.size() - 1)) {
+                if (A.get(mid) > A.get(mid - 1) && A.get(mid) > A.get(mid + 1)) {
+                    peak = mid;
+                    break;
+                } else if (A.get(mid - 1) > A.get(mid) && A.get(mid + 1) < A.get(mid)) {  //Left is higher than right - goto left
+                    high = mid - 1;
+                } else { //Right is higher than left
+                    low = mid + 1;
+                }
+            } else {
+                peak = mid;
+                break;
+            }
+        }
+        return A.get(peak);
     }
 }
