@@ -1,7 +1,6 @@
 package com.tutorial.AdvancedDSA.M7_2Pointers;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
 public class Day51_2Pointer {
     public void execute() {
@@ -20,6 +19,7 @@ public class Day51_2Pointer {
         System.out.print("CW2 > Sorted array (Diff) => Find pair (i,j) => A[i] - A[j] = 15;  [1, 3, 5, 10, 20, 23, 30] => [");
         resultCW2.forEach(e -> System.out.print(e + ","));
         System.out.println("]");
+
         ArrayList<Integer> resultCW2_2 = this.differenceIJEqualsK_2Pointer(inputCW2, -15);
         System.out.print("    > Sorted array (Diff) => Find pair (i,j) => A[i] - A[j] = -15;  [1, 3, 5, 10, 20, 23, 30] => [");
         resultCW2_2.forEach(e -> System.out.print(e + ","));
@@ -31,6 +31,7 @@ public class Day51_2Pointer {
         System.out.print("CW2_2 > Sorted array (Diff) [BS Method] => Find pair (i,j) => A[i] - A[j] = 15;  [1, 3, 5, 10, 20, 23, 30] => [");
         resultCW2b.forEach(e -> System.out.print(e + ","));
         System.out.println("]");
+
         ArrayList<Integer> resultCW2_2b = this.differenceIJEqualsK_BS(inputCW2, -15);
         System.out.print("      > Sorted array (Diff) [BS Method] => Find pair (i,j) => A[i] - A[j] = -15;  [1, 3, 5, 10, 20, 23, 30] => [");
         resultCW2_2b.forEach(e -> System.out.print(e + ","));
@@ -48,6 +49,7 @@ public class Day51_2Pointer {
         System.out.print("CW3 > Sorted array (Triplet Sum) => Find pair (i,j,k) => A[j]+A[i]+A[k] = 38;  [1, 3, 5, 10, 20, 23, 30] => [");
         resultCW3a.forEach(e -> System.out.print(e + ","));
         System.out.println("]");
+
         ArrayList<Integer> resultCW3b = this.tripletSumEqualsK_2Pointer(inputCW3a, 37);
         System.out.print("    > Sorted array (Triplet Sum) => Find pair (i,j,k) => A[j]+A[i]+A[k] = 37;  [1, 3, 5, 10, 20, 23, 30] => [");
         resultCW3b.forEach(e -> System.out.print(e + ","));
@@ -59,10 +61,53 @@ public class Day51_2Pointer {
         System.out.print("CW3_2 > Sorted array (Triplet Sum) [BS Method] => Find pair (i,j,k) => A[j]+A[i]+A[k] = 38;  [1, 3, 5, 10, 20, 23, 30] => [");
         resultCW3_2a.forEach(e -> System.out.print(e + ","));
         System.out.println("]");
+
         ArrayList<Integer> inputCW3_2b = this.tripletSumEqualsK_BS(inputCW3_2a, 37);
         System.out.print("      > Sorted array (Triplet Sum) [BS Method] => Find pair (i,j,k) => A[j]+A[i]+A[k] = 37;  [1, 3, 5, 10, 20, 23, 30] => [");
         inputCW3_2b.forEach(e -> System.out.print(e + ","));
         System.out.println("]");
+
+        //CW4
+        ArrayList<Integer> inputCW4 = new ArrayList<>(Arrays.asList(1, 3, 15, 10, 20, 23, 3));
+        ArrayList<Integer> resultCW4 = this.findSubarraySumEqualK_UsingPrefix(inputCW4, 48);
+        System.out.print("CW4 > Subarray sum = 48 => [1, 3, 15, 10, 20, 23, 3] => [");
+        resultCW4.forEach(e -> System.out.print(e + ","));
+        System.out.println("]");
+
+        ArrayList<Integer> resultCW4_a = this.findSubarraySumEqualK_UsingPrefix(inputCW4, 49);
+        System.out.print("    > Subarray sum = 49 => [1, 3, 15, 10, 20, 23, 3] => [");
+        resultCW4_a.forEach(e -> System.out.print(e + ","));
+        System.out.println("]");
+
+        ArrayList<Integer> resultCW4_b = this.findSubarraySumEqualK_UsingPrefix(inputCW4, 47);
+        System.out.print("    > Subarray sum = 47 => [1, 3, 15, 10, 20, 23, 3] => [");
+        resultCW4_b.forEach(e -> System.out.print(e + ","));
+        System.out.println("]");
+
+        /*------------ASSIGNMENTS------------*/
+        System.out.println("------------ASSIGNMENTS------------");
+
+        //AS1 > Subarray with given sum
+        ArrayList<Integer> inputAS1 = new ArrayList<>(Arrays.asList(1, 2, 3 ,4, 5));
+        ArrayList<Integer> resultAS1 = this.findSubarraySumEqualK(inputAS1, 5);
+        System.out.print("AS1 > Subarray with given sum => [");
+        resultAS1.forEach(e -> System.out.print(e + ","));
+        System.out.println("]");
+
+        ArrayList<Integer> inputAS1a = new ArrayList<>(Arrays.asList(5, 10, 20, 100, 105));
+        ArrayList<Integer> resultAS1a = this.findSubarraySumEqualK(inputAS1a, 110);
+        System.out.print("    > Subarray with given sum => [");
+        resultAS1a.forEach(e -> System.out.print(e + ","));
+        System.out.println("]");
+
+        //AS2 > Pairs with Given Difference
+        ArrayList<Integer> inputAS2 = new ArrayList<>(Arrays.asList(8, 12, 16, 4, 0, 20));
+        System.out.println("AS2 > Pairs with Given Difference (4) [8, 12, 16, 4, 0, 20] => " + this.countPairsWithGivenDifference(inputAS2, 4));
+
+        ArrayList<Integer> inputAS2a = new ArrayList<>(Arrays.asList(1, 2));
+        System.out.println("    > Pairs with Given Difference (0) [1, 2] => " + this.countPairsWithGivenDifference(inputAS2a, 0));
+
+
     }
 
     /**
@@ -163,6 +208,7 @@ public class Day51_2Pointer {
     /**
      * CW3 > Triplet sum = X ( A[i] + A[j] + A[k] = X)
      * A = [1, 3, 5, 10, 20, 23], X=38 ==> (2, 3, 5)
+     * TC = O(n2)
      * @param numbers
      * @param k
      * @return
@@ -235,5 +281,119 @@ public class Day51_2Pointer {
             }
         }
         return result;
+    }
+
+    /**
+     * CW4 > Array of +ve int (not in order) - find subarray that adds to k [Using prefix]
+     * @param numbers
+     * @param k
+     * @return
+     */
+    private ArrayList<Integer> findSubarraySumEqualK_UsingPrefix(ArrayList<Integer> numbers, int k) {
+        //PrefixSum[j] - PrefixSum[i] = k => already solved with A[j]-A[i]=k
+        ArrayList<Integer> resultSubarray = new ArrayList<>();
+        int sum = 0;
+        ArrayList<Integer> prefixSumArray = new ArrayList<>();
+        prefixSumArray.add(0);
+        for (int i = 0; i < numbers.size(); i++) {
+            sum = sum + numbers.get(i);
+            prefixSumArray.add(sum);
+        }
+        int i = 0;
+        int j = 0;
+        int currentDiff;
+        int prefixArrayEnd = prefixSumArray.size() - 1;
+        while (i <= prefixArrayEnd && j <= prefixArrayEnd) {
+            currentDiff = prefixSumArray.get(j) - prefixSumArray.get(i);
+            if (currentDiff == k) {
+                //Ans found - construct the subarray send back
+                for (int index = i; index <= j-1; index++) {
+                    resultSubarray.add(numbers.get(index));
+                }
+                break;
+            } else if (currentDiff < k) {
+                j++;
+            } else {
+                i++;
+            }
+        }
+        return resultSubarray;
+    }
+
+    /*------------ASSIGNMENTS------------*/
+
+    /**
+     * AS1 > Subarray with given sum
+     * @param A
+     * @param B
+     * @return
+     */
+    private ArrayList<Integer> findSubarraySumEqualK(ArrayList<Integer> A, int B) {
+        ArrayList<Integer> result = new ArrayList<Integer>();
+        int i = 0;
+        int j = 0;
+        int sum = 0;
+        int lastPossibleIndex = A.size() - 1;
+        sum = sum + A.get(0);
+        while (i <= lastPossibleIndex && j <= lastPossibleIndex) {
+            if (sum == B) {
+                for (int index = i; index <= j; index++) {
+                    result.add(A.get(index));
+                }
+                return result;
+            } else if (sum < B) {
+                j++;
+                if (j > lastPossibleIndex) break;
+                sum = sum + A.get(j);
+            } else {
+                i++;
+                if (i > lastPossibleIndex) break;
+                sum = sum - A.get(i-1);
+            }
+        }
+        result.add(-1);
+        return result;
+    }
+
+    /**
+     * AS2 > Pairs with Given Difference
+     * @param A
+     * @param B
+     * @return
+     */
+    private int countPairsWithGivenDifference(ArrayList<Integer> A, int B) {
+        //Create hashmap of frequency
+        Map<Integer, Integer> frequencyMap = new HashMap<>();
+        int currentElement, currentFreq;
+        for (int i = 0; i < A.size(); i++) {
+            currentElement = A.get(i);
+            currentFreq = 0;
+            if (frequencyMap.containsKey(currentElement)) {
+                currentFreq = frequencyMap.get(currentElement);
+            }
+            frequencyMap.put(currentElement, currentFreq + 1);
+        }
+
+        //For every unique key check if (B+diff) is available or not
+        int count = 0;
+        int elementToLookFor;
+        for (Integer eachKey : frequencyMap.keySet()) {
+            elementToLookFor = B + eachKey; //given A[j]-A[i] = B
+            //Search for elementToLookFor in the map
+            if (frequencyMap.containsKey(elementToLookFor)) {
+                //If the same element is being looked out for then ignore the current element's freq of 1
+                int foundFreq = frequencyMap.get(elementToLookFor);
+                if (eachKey == elementToLookFor) { //Same element is being searched - only 1 distinct pair for same number
+                    if ((foundFreq -1) > 0) {
+                        count++;
+                    }
+                } else {
+                    //Distinct pairs possible as  (x,y)
+                    count++;
+                }
+            }
+        }
+
+        return count;
     }
 }
