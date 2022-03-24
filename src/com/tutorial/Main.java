@@ -1,12 +1,6 @@
 package com.tutorial;
 
-import com.tutorial.AdvancedDSA.M1_Arrays.Day34_Arrays2;
-import com.tutorial.AdvancedDSA.M1_Arrays.Day35_Arrays3;
-import com.tutorial.AdvancedDSA.M3_BitManipulations.Day40_BitManipulation1;
-import com.tutorial.AdvancedDSA.M4_Recursion.Day42_Recursion1;
-import com.tutorial.AdvancedDSA.M5_Sorting.Day45_Sorting1;
-import com.tutorial.AdvancedDSA.M5_Sorting.Day46_Sorting2;
-import com.tutorial.AdvancedDSA.M6_BinarySearch.Day48_BinarySearch1;
+import com.tutorial.AdvancedDSA.M8_Hashing.Day52_Hashing1;
 
 public class Main {
 
@@ -99,7 +93,13 @@ public class Main {
         //new Day46_Sorting2().execute();
 
         //-------------Binary Search-------------
-        new Day48_BinarySearch1().execute();
+        //new Day48_BinarySearch1().execute();
+
+        //-------------2 Pointers-------------
+        //new Day51_2Pointer().execute();
+
+        //-------------Hashing-------------
+        new Day52_Hashing1().execute();
     }
 
 

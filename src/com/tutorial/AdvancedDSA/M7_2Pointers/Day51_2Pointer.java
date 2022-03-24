@@ -107,7 +107,24 @@ public class Day51_2Pointer {
         ArrayList<Integer> inputAS2a = new ArrayList<>(Arrays.asList(1, 2));
         System.out.println("    > Pairs with Given Difference (0) [1, 2] => " + this.countPairsWithGivenDifference(inputAS2a, 0));
 
+        //AS4 > 3 Sum Zero
+        ArrayList<Integer> inputAS4 = new ArrayList<>(Arrays.asList(-1, 0, 1, 2, -1, 4));
+        ArrayList<ArrayList<Integer>> resultAS4 = this.tripletSum0(inputAS4);
+        System.out.print("AS4 > 3 Sum Zero [-1, 0, 1, 2, -1, 4] => [");
+        resultAS4.forEach(eachSet -> {
+            System.out.print("  (");
+            eachSet.forEach(e -> System.out.print(e + ","));
+            System.out.print(")");
+        });
+        System.out.println("]");
 
+        //AS5 > Pairs with given sum II
+        ArrayList<Integer> inputAS5 = new ArrayList<>(Arrays.asList(1, 2, 2, 2, 3, 3, 4, 4, 5, 6));
+        System.out.println("AS5 > Pairs with given sum II (6) [1, 2, 2, 2, 3, 3, 4, 4, 5, 6] => " + this.countPairsWithGivenSum_duplicatesInArray(inputAS5, 6));
+
+        //AS6 > Count of pairs with the given sum
+        ArrayList<Integer> inputAS6 = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5));
+        System.out.println("AS6 > Count of pairs with the given sum (5) [1, 2, 3, 4, 5] => " + this.countPairsWithGivenSum(inputAS6, 5));
     }
 
     /**
@@ -395,5 +412,156 @@ public class Day51_2Pointer {
         }
 
         return count;
+    }
+
+    /**
+     * AS4 > 3 Sum Zero
+     * @param A
+     * @return
+     */
+    private ArrayList<ArrayList<Integer>> tripletSum0(ArrayList<Integer> A) {
+        //a+b+c= 0 ; a + b = -c (figure a pair with sum -c)
+        int elementC;
+        Collections.sort(A);
+        ArrayList<ArrayList<Integer>> result = new ArrayList<>();
+
+        Map<Integer, Integer> elemFreq = new HashMap<>();
+        for (int k = 0; k < A.size(); k++) {
+            elementC = A.get(k);
+
+            int i = 0;
+            int j = A.size() - 1;
+            int runningSum = 0;
+            while (i < j) {
+                runningSum = A.get(i) + A.get(j);
+                if (runningSum < -(elementC)) {
+                    i++;
+                } else if (runningSum > -(elementC)) {
+                    j--;
+                } else {
+                    //runningSum == -(elementC)
+                    int lowest = Integer.MAX_VALUE;
+                    int highest = Integer.MIN_VALUE;
+                    int mid;
+                    if (i != j && j != k && i != k){
+                        ArrayList<Integer> singleCombination = new ArrayList<>();
+                        if (A.get(i) <= lowest) lowest = A.get(i);
+                        if (A.get(j) <= lowest) lowest = A.get(j);
+                        if (A.get(k) <= lowest) lowest = A.get(k);
+                        if (A.get(i) > highest) highest = A.get(i);
+                        if (A.get(j) >= highest) highest = A.get(j);
+                        if (A.get(k) >= highest) highest = A.get(k);
+                        mid = 0 - lowest - highest;
+                        singleCombination.add(lowest);
+                        singleCombination.add(mid);
+                        singleCombination.add(highest);
+                        if (!result.contains(singleCombination)) {
+                            result.add(singleCombination);
+                        }
+                        i++;
+                    } else {
+                        i++;
+                    }
+                }
+            }
+
+        }
+        return result;
+    }
+
+    /**
+     * AS5 > Pairs with given sum II
+     * @param A
+     * @param B
+     * @return
+     */
+    private int countPairsWithGivenSum_duplicatesInArray(ArrayList<Integer> A, int B) {
+        //Build freq map
+        Map<Integer,Integer> freqMap = new HashMap<>();
+        int currentElement;
+        for (int i = 0; i < A.size(); i++) {
+            currentElement = A.get(i);
+            if (freqMap.containsKey(currentElement)) {
+                freqMap.replace(currentElement, freqMap.get(currentElement) + 1);
+            } else {
+                freqMap.put(currentElement, 1);
+            }
+        }
+
+        int requiredPairValue;
+        int count = 0;
+        int partnerFreq;
+        //Parse through each element - evaluate the other number and find presence
+        for (int i = 0; i < A.size(); i++) {
+            currentElement = A.get(i);
+            requiredPairValue = B - currentElement;
+
+            //Pair like (x,y)
+            if (requiredPairValue != currentElement) {
+                if (freqMap.containsKey(requiredPairValue)) {
+                    partnerFreq = freqMap.get(requiredPairValue);
+                    if (partnerFreq > 0) {
+                        count = count + partnerFreq;
+                    }
+                }
+            } else {
+                //Pair like (x,x) - x can partner with other x's only
+                partnerFreq = freqMap.get(requiredPairValue);
+                count = count + (partnerFreq - 1);
+            }
+        }
+
+        return count/2;
+    }
+
+    /**
+     * AS6 > Count of pairs with the given sum
+     * Given a sorted array of distinct integers A and an integer B,
+     * find and return how many pair of integers ( A[i], A[j] ) such that i != j have sum equal to B.
+     * @param A
+     * @param B
+     * @return
+     */
+    private int countPairsWithGivenSum(ArrayList<Integer> A, int B) {
+        int count = 0;
+        int i = 0;
+        int j = A.size() - 1;
+        int currentSum;
+        while (i < j) {
+            currentSum = A.get(i) + A.get(j);
+            if (currentSum == B) {
+                count++;
+                i++; //Increment the i so that it goes to find the next pair
+            } else if (currentSum > B) {
+                j--;
+            } else {
+                i++;
+            }
+        }
+        return count;
+    }
+
+    /*------------HOMEWORK------------*/
+
+    private ArrayList<Integer> sortColors(ArrayList<Integer> A) {
+        ArrayList<Integer> result = new ArrayList<>();
+        int count0 = 0;
+        int count1 = 0;
+        int count2 = 0;
+        for (int i = 0; i < A.size(); i++) {
+            if (A.get(i) == 0) count0++;
+            if (A.get(i) == 1) count1++;
+            if (A.get(i) == 2) count2++;
+        }
+        for (int i = 0; i < count0; i++) {
+            result.add(0);
+        }
+        for (int i = 0; i < count1; i++) {
+            result.add(1);
+        }
+        for (int i = 0; i < count2; i++) {
+            result.add(2);
+        }
+        return result;
     }
 }
