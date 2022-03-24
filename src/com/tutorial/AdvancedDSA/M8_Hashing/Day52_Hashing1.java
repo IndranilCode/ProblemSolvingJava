@@ -122,8 +122,8 @@ public class Day52_Hashing1 {
      * @return
      */
     private int subarrayWith0Sum(ArrayList<Integer> A) {
-        Set<Integer> prefixSumEntries = new HashSet<>();
-        int runningSum = 0;
+        Set<Long> prefixSumEntries = new HashSet<>();
+        Long runningSum = 0L;
         for (int i = 0; i < A.size(); i++) {
             runningSum = runningSum + A.get(i);
             if (runningSum == 0) return 1; //Prefix sum at some index = 0 => means subaaray is there with 0 sum
