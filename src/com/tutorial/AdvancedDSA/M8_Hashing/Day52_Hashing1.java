@@ -39,7 +39,34 @@ public class Day52_Hashing1 {
         System.out.print("    > Largest Continuous Sequence Zero Sum [1, 2, 3, -2, 4, -4, -1, 6, 5, -5, 4, -4, 3, -3, 2, -2, -6] => [");
         resultAS4c.forEach(e -> System.out.print(e + ", "));
         System.out.println("]");
+
+        //AS5 > Distinct Numbers in Window
+        ArrayList<Integer> inputAS5a = new ArrayList<>(Arrays.asList(1, 2, 1, 3, 4, 3));
+        ArrayList<Integer> resultAS5a = this.distinctNumberInWindow_BruteForce(inputAS5a, 3);
+        System.out.print("AS5 > Distinct Numbers in Window [1, 2, 1, 3, 4, 3] => [");
+        resultAS5a.forEach(e -> System.out.print(e + ", "));
+        System.out.println("]");
+
+        System.out.println("------------HOMEWORK------------------");
+
+        //AS1 > Sort Array in given Order
+        ArrayList<Integer> inputHW1_a = new ArrayList<>(Arrays.asList(12, 7));
+        ArrayList<Integer> inputHW1_b = new ArrayList<>(Arrays.asList(7, 1, 6, 17, 2, 19, 10));
+        ArrayList<Integer> resultHW1 = this.sortArrayInGivenOrder(inputHW1_a, inputHW1_b);
+        System.out.print("AS1 > Sort Array in given Order [12, 7] , [7, 1, 6, 17, 2, 19, 10]  => [");
+        resultHW1.forEach(e -> System.out.print(e + ", "));
+        System.out.println("]");
+
+        //AS3 > Check Palindrome - II
+        System.out.println("AS3 > Check Possible Palindrome - II  => " + this.checkPalindrome2("madam"));
+        System.out.println("    > Check Possible Palindrome - II  => " + this.checkPalindrome2("mamayalal"));
+        System.out.println("    > Check Possible Palindrome - II  => " + this.checkPalindrome2("lamymalaya"));
+        System.out.println("    > Check Possible Palindrome - II  => " + this.checkPalindrome2("maddammd"));
+//
+//        colourfulNumber(2345);
     }
+
+    /*------------ASSIGNMENTS------------*/
 
     /**
      * AS1 > Longest Consecutive Sequence
@@ -186,5 +213,124 @@ public class Day52_Hashing1 {
             }
         }
         return longestContinuousSequenceResult;
+    }
+
+    /**
+     * AS5 > Distinct Numbers in Window
+     * Return the of count of distinct numbers in all windows of size B.
+     * @param A
+     * @param B
+     * @return
+     */
+    private ArrayList<Integer> distinctNumberInWindow_BruteForce(ArrayList<Integer> A, int B) {
+        ArrayList<Integer> result = new ArrayList<>();
+        Set<Integer> uniqueContainer;
+        int end = A.size() - B + 1;
+        for (int i = 0; i < end; i++) {
+            uniqueContainer = new HashSet<>();
+            for (int j = i; j < (i + B); j++) {
+                uniqueContainer.add(A.get(j));
+            }
+            result.add(uniqueContainer.size());
+        }
+        return result;
+    }
+
+    /*------------HOMEWORK------------*/
+
+    /**
+     * AS1 > Sort Array in given Order
+     * Given two arrays of integers A and B, Sort A in such a way that the relative order among the elements will be the same as those are in B.
+     * For the elements not present in B, append them at last in sorted order.
+     * Return the array A after sorting from the above method.NOTE: Elements of B are unique.
+     * @param A
+     * @param B
+     * @return
+     */
+    private ArrayList<Integer> sortArrayInGivenOrder(ArrayList<Integer> A, ArrayList<Integer> B) {
+        SortedMap<Integer, Integer> sortedMapFreq = new TreeMap<>();
+        int currentNumber, currentFreq;
+        for (int i = 0; i < A.size(); i++) {
+            currentNumber = A.get(i);
+            if (sortedMapFreq.containsKey(currentNumber)) {
+                currentFreq = sortedMapFreq.get(currentNumber);
+                sortedMapFreq.put(currentNumber, ++currentFreq);
+            } else {
+                sortedMapFreq.put(currentNumber, 1);
+            }
+        }
+
+        ArrayList<Integer> result = new ArrayList<>();
+        for (int i = 0; i < B.size(); i++) {
+            currentNumber = B.get(i);
+            if (sortedMapFreq.containsKey(currentNumber)) {
+                currentFreq = sortedMapFreq.get(currentNumber);
+                for (int j = 0; j < currentFreq; j++) {
+                    result.add(currentNumber);
+                }
+                sortedMapFreq.remove(currentNumber);
+            }
+        }
+        for (Map.Entry<Integer, Integer> eachEntry : sortedMapFreq.entrySet()) {
+            currentNumber = eachEntry.getKey();
+            currentFreq = eachEntry.getValue();
+            for (int j = 0; j < currentFreq; j++) {
+                result.add(currentNumber);
+            }
+        }
+        return result;
+    }
+
+//    private int colourfulNumber(int A) {
+//        Map<Long, Integer> productFreq = new HashMap<>();
+//        long product = numberProducts(A);
+//        productFreq.put(product, 1);
+//
+//
+//
+//
+//        System.out.println(product);return 1;
+//    }
+//    private int numberProducts(int a, Map<Long, Integer> productFreq) {
+//        if (a < 10) return a;
+//        return (a % 10) * numberProducts(a / 10);
+//    }
+
+    /**
+     * AS3 > Check Possible Palindrome - II
+     * Given a string A consisting of lowercase characters.
+     * Check if characters of the given string can be rearranged to form a palindrome.
+     * Return 1 if it is possible to rearrange the characters of the string A such that it becomes a palindrome else return 0
+     * @param A
+     * @return
+     */
+    private int checkPalindrome2(String A) {
+        Map<Character, Integer> letterFrequency = new HashMap<>();
+        Character currentChar;
+        Integer freq;
+        for (int i = 0; i < A.length(); i++) {
+            currentChar = A.charAt(i);
+            if (letterFrequency.containsKey(currentChar)) {
+                freq = letterFrequency.get(currentChar);
+                letterFrequency.put(currentChar, ++freq);
+            } else {
+                letterFrequency.put(currentChar, 1);
+            }
+        }
+
+        int result = 1;
+        int oddSet = 0;
+
+        for (Integer eachFreq: letterFrequency.values()) {
+            if ((eachFreq % 2) == 1) {
+                //Odd
+                oddSet++;
+                if (oddSet > 1) {
+                    result = 0;
+                    break;
+                }
+            }
+        }
+        return result;
     }
 }
