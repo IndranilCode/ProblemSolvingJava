@@ -1,6 +1,7 @@
 package com.tutorial;
 
 import com.tutorial.AdvancedDSA.M8_Hashing.Day52_Hashing1;
+import com.tutorial.AdvancedDSA.M8_Hashing.Day53_Hashing2;
 
 public class Main {
 
@@ -99,7 +100,8 @@ public class Main {
         //new Day51_2Pointer().execute();
 
         //-------------Hashing-------------
-        new Day52_Hashing1().execute();
+        //new Day52_Hashing1().execute();
+        new Day53_Hashing2().execute();
     }
 
 
