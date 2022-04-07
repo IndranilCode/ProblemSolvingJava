@@ -1,7 +1,6 @@
 package com.tutorial;
 
-import com.tutorial.AdvancedDSA.M8_Hashing.Day52_Hashing1;
-import com.tutorial.AdvancedDSA.M8_Hashing.Day53_Hashing2;
+import com.tutorial.AdvancedDSA.M10_LinkList.Day58_LinkList1;
 
 public class Main {
 
@@ -95,13 +94,20 @@ public class Main {
 
         //-------------Binary Search-------------
         //new Day48_BinarySearch1().execute();
+        //new Day55_SortingSearchingFollowUp().execute();
 
         //-------------2 Pointers-------------
         //new Day51_2Pointer().execute();
 
         //-------------Hashing-------------
         //new Day52_Hashing1().execute();
-        new Day53_Hashing2().execute();
+        //new Day53_Hashing2().execute();
+
+        //Strings
+        //new Day56_StringPatternMatching().execute();
+
+        //LinkList
+        new Day58_LinkList1().execute();
     }
 
 
