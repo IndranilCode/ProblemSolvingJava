@@ -38,20 +38,34 @@ public class Day58_LinkList1 {
         /*---------------ASSIGNMENT--------------*/
 
         System.out.println("----------------ASSIGNMENTS-----------------");
-        NodeLList n7 = new NodeLList(7);
-        NodeLList n6 = new NodeLList(6); n6.next = n7;
-        NodeLList n5 = new NodeLList(5); n5.next = n6;
-        NodeLList n4 = new NodeLList(4); n4.next = n5;
-        NodeLList n3 = new NodeLList(3); n3.next = n4;
-        NodeLList n2 = new NodeLList(2); n2.next = n3;
-        NodeLList n1 = new NodeLList(1); n1.next = n2;
-        System.out.print("AS  > Base Input LL => "); this.printList(n1);
+        NodeLList odd_n7 = new NodeLList(7);
+        NodeLList odd_n6 = new NodeLList(6); odd_n6.next = odd_n7;
+        NodeLList odd_n5 = new NodeLList(5); odd_n5.next = odd_n6;
+        NodeLList odd_n4 = new NodeLList(4); odd_n4.next = odd_n5;
+        NodeLList odd_n3 = new NodeLList(3); odd_n3.next = odd_n4;
+        NodeLList odd_n2 = new NodeLList(2); odd_n2.next = odd_n3;
+        NodeLList odd_n1 = new NodeLList(1); odd_n1.next = odd_n2;
+        System.out.print("AS  > Base Input LL (Odd LL) => "); this.printList(odd_n1);
+        NodeLList even_n8 = new NodeLList(8);
+        NodeLList even_n7 = new NodeLList(7); even_n7.next = even_n8;
+        NodeLList even_n6 = new NodeLList(6); even_n6.next = even_n7;
+        NodeLList even_n5 = new NodeLList(5); even_n5.next = even_n6;
+        NodeLList even_n4 = new NodeLList(4); even_n4.next = even_n5;
+        NodeLList even_n3 = new NodeLList(3); even_n3.next = even_n4;
+        NodeLList even_n2 = new NodeLList(2); even_n2.next = even_n3;
+        NodeLList even_n1 = new NodeLList(1); even_n1.next = even_n2;
+        System.out.print("AS  > Base Input LL (Even LL) => "); this.printList(even_n1);
 
+        //AS3 > Middle element of linked list
+        System.out.println("AS3 > Middle element of linked list [1,2,3,4,5,6,7] => " + this.middleElementOfList(odd_n1));
+        System.out.println("    > Middle element of linked list [1,2,3,4,5,6,7,8] => " + this.middleElementOfList(even_n1));
+
+        //AS5 > Reverse Linked List
         System.out.print("AS5 > Reverse Linked List => ");
-        NodeLList newHead = this.reverseFirstKNodes(n1, 10);
+        NodeLList newHead = this.reverseFirstKNodes(odd_n1, 10);
         this.printList(newHead);
 
-        // AS6 > Link list operation
+        //AS6 > Link list operation
     }
 
     /**
@@ -171,6 +185,29 @@ public class Day58_LinkList1 {
     }
 
     /*---------------ASSIGNMENT--------------*/
+
+    /**
+     * AS3 > Middle element of linked list
+     * @param head
+     * @return
+     */
+    private int middleElementOfList(NodeLList head) {
+        NodeLList slowTemp = head;
+        NodeLList fastTemp = head;
+        while (fastTemp != null) {
+            if(fastTemp.next != null && fastTemp.next.next != null) {
+                fastTemp = fastTemp.next.next;
+                slowTemp = slowTemp.next;
+
+            } else if (fastTemp.next != null && fastTemp.next.next == null) {
+                slowTemp = slowTemp.next;
+                break;
+            } else if (fastTemp.next == null){
+                break;
+            }
+        }
+        return slowTemp.value;
+    }
 
     /**
      * AS5 > Reverse Linked List
