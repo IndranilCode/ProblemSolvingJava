@@ -1,6 +1,7 @@
 package com.tutorial;
 
 import com.tutorial.AdvancedDSA.M10_LinkList.Day58_LinkList1;
+import com.tutorial.AdvancedDSA.M10_LinkList.Day59_LinkList2;
 
 public class Main {
 
@@ -107,7 +108,8 @@ public class Main {
         //new Day56_StringPatternMatching().execute();
 
         //LinkList
-        new Day58_LinkList1().execute();
+        //new Day58_LinkList1().execute();
+        new Day59_LinkList2().execute();
     }
 
 
