@@ -1,7 +1,6 @@
 package com.tutorial;
 
-import com.tutorial.AdvancedDSA.M10_LinkList.Day58_LinkList1;
-import com.tutorial.AdvancedDSA.M10_LinkList.Day59_LinkList2;
+import com.tutorial.AdvancedDSA.M12_Queue.Day63_Queues1;
 
 public class Main {
 
@@ -109,7 +108,10 @@ public class Main {
 
         //LinkList
         //new Day58_LinkList1().execute();
-        new Day59_LinkList2().execute();
+        //new Day59_LinkList2().execute();
+
+        //Queue
+        new Day63_Queues1().execute();
     }
 
 
