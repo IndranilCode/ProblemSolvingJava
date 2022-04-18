@@ -1,6 +1,7 @@
 package com.tutorial;
 
 import com.tutorial.AdvancedDSA.M12_Queue.Day63_Queues1;
+import com.tutorial.AdvancedDSA.M13_Trees.Day65_Trees1;
 
 public class Main {
 
@@ -111,7 +112,10 @@ public class Main {
         //new Day59_LinkList2().execute();
 
         //Queue
-        new Day63_Queues1().execute();
+        //new Day63_Queues1().execute();
+
+        //Trees
+        new Day65_Trees1().execute();
     }
 
 
