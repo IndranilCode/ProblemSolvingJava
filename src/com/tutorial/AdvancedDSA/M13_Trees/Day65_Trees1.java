@@ -2,7 +2,6 @@ package com.tutorial.AdvancedDSA.M13_Trees;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Stack;
 
 public class Day65_Trees1 {
@@ -37,7 +36,7 @@ public class Day65_Trees1 {
         ArrayList<Integer> inputAS6_preOrder = new ArrayList<>(Arrays.asList(1, 6, 2, 3));
         ArrayList<Integer> inputAS6_inOrder = new ArrayList<>(Arrays.asList(6, 1, 3, 2));
         TreeNode root = this.buildTreeFromPreorderInorder(inputAS6_preOrder, inputAS6_inOrder);
-        System.out.print("AS6> Binary Tree From Inorder And Preorder => Root " + root.val);
+        System.out.println("AS6> Binary Tree From Inorder And Preorder => Root " + root.val);
 
         /*---------------HOMEWORK--------------*/
         System.out.println("---------------HOMEWORK--------------");
@@ -48,6 +47,12 @@ public class Day65_Trees1 {
         resultHW1.forEach(e -> System.out.print(e + ", "));
         System.out.println("");
 
+        //HW2 > Preorder Traversal
+        ArrayList<Integer> resultHW2 = this.preorderTraversal(inputAS1_t1);
+        System.out.print("HW2 > Preorder Traversal [Non-recursion] => ");
+        resultHW2.forEach(e -> System.out.print(e + ", "));
+        System.out.println("");
+
         //HW3 > Depth of Each Node
         TreeNodeDepth inputHW3_t4 = new TreeNodeDepth(2);
         TreeNodeDepth inputHW3_t3 = new TreeNodeDepth(3);
@@ -56,9 +61,37 @@ public class Day65_Trees1 {
         System.out.print("HW3 > Depth of Each Node => ");
         this.depthFill(inputHW3_t1);
         this.printNodeWithDepthPreOrder(inputHW3_t1);
+        System.out.println("");
+
+        //HW4 > Odd and Even Levels
+        TreeNode inputHW4_t7 = new TreeNode(7);
+        TreeNode inputHW4_t6 = new TreeNode(6); inputHW4_t6.right = inputHW4_t7;
+        TreeNode inputHW4_t5 = new TreeNode(5); inputHW4_t5.left = inputHW4_t6;
+        TreeNode inputHW4_t4 = new TreeNode(4);
+        TreeNode inputHW4_t3 = new TreeNode(3);
+        TreeNode inputHW4_t2 = new TreeNode(2); inputHW4_t2.left = inputHW4_t4; inputHW4_t2.right = inputHW4_t5;
+        TreeNode inputHW4_t1 = new TreeNode(1); inputHW4_t1.left = inputHW4_t2; inputHW4_t1.right = inputHW4_t3;
+        System.out.println("HW4 > Odd and Even Levels => " + this.oddEvenLevelDifference(inputHW4_t1));
+
+        //HW5 > Identical Binary Trees
+        TreeNode inputHW5_t4_A = new TreeNode(2);
+        TreeNode inputHW5_t3_A = new TreeNode(3);
+        TreeNode inputHW5_t2_A = new TreeNode(4); inputHW5_t2_A.left = inputHW5_t4_A;
+        TreeNode inputHW5_t1_A = new TreeNode(1); inputHW5_t1_A.left = inputHW5_t2_A; inputHW5_t1_A.right = inputHW5_t3_A;
+        TreeNode inputHW5_t4_B = new TreeNode(2);
+        TreeNode inputHW5_t3_B = new TreeNode(3);
+        TreeNode inputHW5_t2_B = new TreeNode(4); inputHW5_t2_B.left = inputHW5_t4_B;
+        TreeNode inputHW5_t1_B = new TreeNode(1); inputHW5_t1_B.left = inputHW5_t2_B; inputHW5_t1_B.right = inputHW5_t3_B;
+        System.out.println("HW5 > Identical Binary Trees => " + this.isSameTree(inputHW5_t1_A, inputHW5_t1_B));
+
+        //HW6 > Binary Tree From Inorder And Postorder
+        ArrayList<Integer> inputHW6_preOrder = new ArrayList<>(Arrays.asList(6, 3, 2, 1));
+        ArrayList<Integer> inputHW6_inOrder = new ArrayList<>(Arrays.asList(6, 1, 3, 2));
+        TreeNode root_resultHW6 = this.buildTreeFromPostorderInorder(inputHW6_preOrder, inputHW6_inOrder);
+        System.out.println("HW6 > Binary Tree From Inorder And Postorder => Root " + root_resultHW6.val);
     }
 
-    /*---------------ASSIGNMENT--------------*/
+    //---------------ASSIGNMENT--------------
 
     /**
      * AS1 > Nodes Count
@@ -180,13 +213,15 @@ public class Day65_Trees1 {
     }
     private ArrayList<Integer> getSubList(ArrayList<Integer> superList, int startIndex, int endIndex) {
         ArrayList<Integer> resultList = new ArrayList<>();
-        for(int i = startIndex; i <= endIndex; i++) {
-            resultList.add(superList.get(i));
+        if (startIndex < superList.size() && endIndex < superList.size()) {
+            for(int i = startIndex; i <= endIndex; i++) {
+                resultList.add(superList.get(i));
+            }
         }
         return resultList;
     }
 
-    /*---------------HOMEWORK--------------*/
+    //---------------HOMEWORK--------------
 
     /**
      * HW1 > Inorder Traversal
@@ -213,6 +248,27 @@ public class Day65_Trees1 {
         return results;
     }
 
+    /**
+     * HW2 > Preorder Traversal
+     * @param root
+     * @return
+     */
+    private ArrayList<Integer> preorderTraversal(TreeNode root) {
+        ArrayList<Integer> preorderResult = new ArrayList<>();
+        Stack<TreeNode> preorderStack = new Stack<>();
+        preorderStack.push(root);
+        while (!preorderStack.isEmpty()) {
+            TreeNode poppedNode = preorderStack.pop();
+            preorderResult.add(poppedNode.val);
+            if (poppedNode.right != null) {
+                preorderStack.push(poppedNode.right);
+            }
+            if (poppedNode.left != null) {
+                preorderStack.push(poppedNode.left);
+            }
+        }
+        return preorderResult;
+    }
 
     /**
      * HW3 > Depth of Each Node
@@ -243,8 +299,74 @@ public class Day65_Trees1 {
         this.printNodeWithDepthPreOrder(root.right);
     }
 
+    /**
+     * HW4 > Odd and Even Levels
+     * @param root
+     * @return
+     */
+    private int oddEvenLevelDifference(TreeNode root) {
+        return this.runningSumOddEvenDifference(root, 1, 0);
+    }
+    private int runningSumOddEvenDifference(TreeNode root, int level, int runningSum) {
+        if (root == null) return 0;
+        if ((level % 2) == 0) {
+            runningSum = runningSum - root.val;
+        } else {
+            runningSum = runningSum + root.val;
+        }
+        return runningSum + this.runningSumOddEvenDifference(root.left, level+1, runningSum)
+                + this.runningSumOddEvenDifference(root.right, level+1, runningSum);
+    }
 
-    //    private int oddEvenLevelDifference(TreeNode root) {
-    //
-    //    }
+    /**
+     * HW5 > Identical Binary Trees
+     * @param A
+     * @param B
+     * @return
+     */
+    private int isSameTree(TreeNode A, TreeNode B) {
+        if (A == null && B == null) {
+            return 1;
+        } else if (A == null || B == null) {
+            return 0;
+        }
+        int nodeAVal = A.val;
+        int nodeBVal = B.val;
+
+        if (nodeAVal == nodeBVal) {
+            return 1 * this.isSameTree(A.left, B.left) * this.isSameTree(A.right, B.right);
+        } else {
+            return 0;
+        }
+    }
+
+    /**
+     * HW6 > Binary Tree From Inorder And Postorder
+     * @param postOrder
+     * @param inOrder
+     * @return
+     */
+    private TreeNode buildTreeFromPostorderInorder(ArrayList<Integer> postOrder, ArrayList<Integer> inOrder) {
+        int n = postOrder.size();
+        TreeNode root = null;
+
+        if (n >= 1) {
+            //postOrder[n-1] th node is the root node
+            root = new TreeNode(postOrder.get(n-1));
+
+            if (n > 1) {
+                //Split the Inorder @ root node to LNR -> L = left side, R = right side
+                int rootIndexInorder = inOrder.indexOf(root.val);
+                ArrayList<Integer> inOrderLeft = this.getSubList(inOrder, 0, rootIndexInorder-1);
+                ArrayList<Integer> inOrderRight = this.getSubList(inOrder, rootIndexInorder+1, n-1);
+                int rightSize = inOrderRight.size();
+                ArrayList<Integer> postOrderLeft = this.getSubList(postOrder, 0, rootIndexInorder-1);
+                ArrayList<Integer> postOrderRight = this.getSubList(postOrder, rootIndexInorder, rootIndexInorder+rightSize-1);
+                root.left = this.buildTreeFromPostorderInorder(postOrderLeft, inOrderLeft);
+                root.right = this.buildTreeFromPostorderInorder(postOrderRight, inOrderRight);
+            }
+
+        }
+        return root;
+    }
 }

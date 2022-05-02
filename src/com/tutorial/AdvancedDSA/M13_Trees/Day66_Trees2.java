@@ -56,6 +56,9 @@ public class Day66_Trees2 {
         topViewOfBT.forEach(e -> System.out.print(e + ","));
         System.out.println(" ]" );
 
+        //AS4 (NEW) > Balanced Binary Tree
+        //System.out.println(this.heightOfBT(input_AS1_new_n1));
+
         //---------------HOMEWORK--------------
         System.out.println("---------------HOMEWORK------------------");
 
@@ -85,7 +88,6 @@ public class Day66_Trees2 {
         TreeNode input_HW3_new_n2 = new TreeNode(3); input_HW3_new_n2.left = input_HW3_new_n4; input_HW3_new_n2.right = input_HW3_new_n3;
         TreeNode input_HW3_new_n1 = new TreeNode(1); input_HW3_new_n1.left = input_HW3_new_n5; input_HW3_new_n1.right = input_HW3_new_n2;
         System.out.println("HW3 (NEW) > Odd and Even Levels difference => " + this.sumDifferenceBetweenOddEvenLevels(input_HW3_new_n1));
-
     }
 
     /**
@@ -274,6 +276,30 @@ public class Day66_Trees2 {
         this.iterateTreeToPopulateTopView(root.right, level + 1, topViewElementMap);
     }
 
+    /**
+     * AS4 (NEW) > Balanced Binary Tree
+     * A height-balanced binary tree is defined as a binary tree in which the
+     * depth of the two subtrees of every node never differ by more than 1.
+     * @param root
+     * @return
+     */
+    private int isBalancedBT(TreeNode root) {
+        if (root == null) return 1;
+
+        int leftHeight = this.heightOfBT(root.left);
+        int rightHeight = this.heightOfBT(root.right);
+        if (Math.abs(leftHeight - rightHeight) > 1) {
+            return 0;
+        } else {
+            return 1 * this.isBalancedBT(root.left) * this.isBalancedBT(root.right);
+        }
+    }
+    private int heightOfBT(TreeNode root) {
+        if (root == null) return -1;
+        int leftHeight = this.heightOfBT(root.left);
+        int rightHeight = this.heightOfBT(root.right);
+        return 1 + Integer.max(leftHeight, rightHeight);
+    }
 
     //---------------HOMEWORK--------------
 
