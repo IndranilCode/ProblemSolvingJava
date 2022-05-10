@@ -1,7 +1,9 @@
 package com.tutorial;
 
-import com.tutorial.AdvancedDSA.M12_Queue.Day63_Queues1;
+//import com.tutorial.AdvancedDSA.M12_Queue.Day63_Queues1;
 import com.tutorial.AdvancedDSA.M13_Trees.Day65_Trees1;
+import com.tutorial.AdvancedDSA.M13_Trees.Day66_Trees2;
+import com.tutorial.AdvancedDSA.M14_BST.Day68_BST1;
 
 public class Main {
 
@@ -115,9 +117,13 @@ public class Main {
         //new Day63_Queues1().execute();
 
         //Trees
-        new Day65_Trees1().execute();
+        //new Day65_Trees1().execute();
+        //new Day66_Trees2().execute();
 
         //new I1_Cisco().execute();
+
+        //BST
+        new Day68_BST1().execute();
     }
 
 
