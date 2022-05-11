@@ -42,7 +42,23 @@ public class Day68_BST1 {
         ArrayList<Integer> inputHW1_1 = new ArrayList<>(Arrays.asList(4, 10, 5 ,8));
         System.out.println("HW1 > Check for BST with One Child [4, 10, 5 ,8] => : " + this.checkForBSTWith1ChildEach(inputHW1_1));
         ArrayList<Integer> inputHW1_2 = new ArrayList<>(Arrays.asList(1, 5, 6, 4));
-        System.out.println("HW1 > Check for BST with One Child [1, 5, 6, 4] => : " + this.checkForBSTWith1ChildEach(inputHW1_2));
+        System.out.println("    > Check for BST with One Child [1, 5, 6, 4] => : " + this.checkForBSTWith1ChildEach(inputHW1_2));
+
+        //HW2> Common Nodes in Two BST
+        TreeNode inputHW2_A_n1 = new TreeNode(9);
+        TreeNode inputHW2_A_n2 = new TreeNode(15); inputHW2_A_n2.left = inputHW2_A_n1;
+        TreeNode inputHW2_A_n3 = new TreeNode(8); inputHW2_A_n3.right = inputHW2_A_n2;
+        TreeNode inputHW2_A_n4 = new TreeNode(3);
+        TreeNode inputHW2_A_n5 = new TreeNode(2); inputHW2_A_n5.right = inputHW2_A_n4;
+        TreeNode inputHW2_A_n6 = new TreeNode(5); inputHW2_A_n6.left = inputHW2_A_n5; inputHW2_A_n6.right = inputHW2_A_n3;
+        TreeNode inputHW2_B_n1 = new TreeNode(11);
+        TreeNode inputHW2_B_n2 = new TreeNode(15); inputHW2_B_n2.left = inputHW2_B_n1;
+        TreeNode inputHW2_B_n3 = new TreeNode(10); inputHW2_B_n3.right = inputHW2_B_n2;
+        TreeNode inputHW2_B_n4 = new TreeNode(2);
+        TreeNode inputHW2_B_n5 = new TreeNode(1); inputHW2_B_n5.right = inputHW2_B_n4;
+        TreeNode inputHW2_B_n6 = new TreeNode(7); inputHW2_B_n6.left = inputHW2_B_n5; inputHW2_B_n6.right = inputHW2_B_n3;
+        System.out.println("HW2> Common Nodes in Two BST => : " + this.commonNodesIn2BST_sum(inputHW2_A_n6, inputHW2_B_n6));
+
     }
 
     private void inorderTraversalDisplay(TreeNode root) {
@@ -81,9 +97,8 @@ public class Day68_BST1 {
     }
     private int checkValidBST(TreeNode root, int low, int high) {
         if (root == null) return 1;
-
         if (root.val >= low && root.val <= high) {
-            return 1 * this.checkValidBST(root.left, low, root.val) * this.checkValidBST(root.right, root.val, high);
+            return 1 * this.checkValidBST(root.left, low, root.val-1) * this.checkValidBST(root.right, root.val+1, high);
         } else {
             return 0;
         }
@@ -161,6 +176,49 @@ public class Day68_BST1 {
         }
         return result;
     }
+
+    /**
+     * HW2> Common Nodes in Two BST
+     *       5           |         7
+     *   2       8       |     1       10
+     *     3       15    |       2       15
+     *           9       |             11
+     * @param A
+     * @param B
+     * @return
+     */
+    private int commonNodesIn2BST_sum(TreeNode A, TreeNode B) {
+        ArrayList<Integer> inorderA = new ArrayList<>();
+        ArrayList<Integer> inorderB = new ArrayList<>();
+        this.buildInorderArray(A, inorderA);
+        this.buildInorderArray(B, inorderB);
+        //return 1;
+        //NOTE: Inorder of BST is always sorted
+
+        int aIndex = 0;
+        int bIndex = 0;
+        int sum = 0;
+
+        while (aIndex < inorderA.size() && bIndex < inorderB.size()) {
+            if (inorderA.get(aIndex) == inorderB.get(bIndex)) {
+                sum = sum + inorderA.get(aIndex);
+                aIndex++;
+                bIndex++;
+            } else if (inorderA.get(aIndex) < inorderB.get(bIndex)) {
+                aIndex++;
+            } else {
+                bIndex++;
+            }
+        }
+        return sum;
+    }
+    private void buildInorderArray(TreeNode root, ArrayList<Integer> inorderList) {
+        if (root == null) return;
+        this.buildInorderArray(root.left, inorderList);
+        inorderList.add(root.val);
+        this.buildInorderArray(root.right, inorderList);
+    }
+
 
     private ArrayList<Integer> inorderTraversal(TreeNode root) {
         if (root == null) return null;
