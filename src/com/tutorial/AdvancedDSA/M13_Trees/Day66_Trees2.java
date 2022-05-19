@@ -247,7 +247,7 @@ public class Day66_Trees2 {
     }
 
     /**
-     * AS3 (NEW) > Top View of Binary Tree
+     * AS3 (NEW) > Top View of Binary Tree [UNORDERED RESULT]
      * @param root
      * @return
      */
@@ -275,6 +275,60 @@ public class Day66_Trees2 {
         this.iterateTreeToPopulateTopView(root.left, level - 1, topViewElementMap);
         this.iterateTreeToPopulateTopView(root.right, level + 1, topViewElementMap);
     }
+
+    /**
+     * AS3 (NEW) > Top View of Binary Tree [ORDERED RESULT] [CORRECT]
+     * @param root
+     * @return
+     */
+    private ArrayList<Integer> topViewOfBinaryTree_withQueue(TreeNode root) {
+        HashMap<Integer, ArrayList<Integer>> vertOrderTraversalMap = new HashMap<>();
+
+        Queue<HashMap<Integer, TreeNode>> traversalQ = new LinkedList<>();
+        int hLevel = 0;
+        HashMap<Integer,TreeNode> rootLevel = new HashMap<>(); rootLevel.put(hLevel, root); traversalQ.add(rootLevel);
+        while (!traversalQ.isEmpty()) {
+
+            int qSize = traversalQ.size();
+            for (int i = 0; i < qSize; i++) {
+                HashMap<Integer,TreeNode> dequeuedNode = traversalQ.remove();
+                int deqLevel = dequeuedNode.keySet().stream().findFirst().get();
+                TreeNode deqNode = dequeuedNode.values().stream().findFirst().get();
+
+                //Add the popped node to Hashmap with level
+                if (!vertOrderTraversalMap.containsKey(deqLevel)) {
+                    vertOrderTraversalMap.put(deqLevel, new ArrayList<>());
+                }
+                vertOrderTraversalMap.get(deqLevel).add(deqNode.val);
+
+                //Add left n right nodes (if present)
+                if (deqNode.left != null) {
+                    HashMap<Integer, TreeNode> nodeAndVLevelToAddLeft = new HashMap<>();
+                    nodeAndVLevelToAddLeft.put(deqLevel - 1, deqNode.left);
+                    traversalQ.add(nodeAndVLevelToAddLeft);
+                }
+                if (deqNode.right != null) {
+                    HashMap<Integer, TreeNode> nodeAndVLevelToAddRight = new HashMap<>();
+                    nodeAndVLevelToAddRight.put(deqLevel + 1, deqNode.right);
+                    traversalQ.add(nodeAndVLevelToAddRight);
+                }
+            }
+        }
+
+        int lowestVLevel = Integer.MAX_VALUE;
+        int highestVLevel = Integer.MIN_VALUE;
+        for (Integer level : vertOrderTraversalMap.keySet()) {
+            if (level >= highestVLevel) highestVLevel = level;
+            if (level <= lowestVLevel) lowestVLevel = level;
+        }
+
+        ArrayList<Integer> topLevelResult = new ArrayList<>();
+        for (int i = lowestVLevel; i <= highestVLevel; i++) {
+            topLevelResult.add(vertOrderTraversalMap.get(i).get(0));
+        }
+        return topLevelResult;
+    }
+
 
     /**
      * AS4 (NEW) > Balanced Binary Tree
@@ -443,13 +497,26 @@ public class Day66_Trees2 {
     //        int sumOfChildren =
     //    }
 
-    //    private int isBTSymmetric(TreeNode root) {
-    //        if (root == null) return 1;
-    //        return
-    //    }
+    /**
+     * HW6 > Symmetric Binary Tree
+     * @param root
+     * @return
+     */
+    private int isBTSymmetric(TreeNode root) {
+        return this.isLeftSameAsRight(root, root);
+    }
+    private int isLeftSameAsRight(TreeNode leftNode, TreeNode rightNode) {
+        if (leftNode == null && rightNode == null) return 1;
+        if (leftNode == null || rightNode == null) return 0;
+        if (leftNode.val != rightNode.val) {
+            return 0;
+        } else {
+            return this.isLeftSameAsRight(leftNode.left, rightNode.right) * this.isLeftSameAsRight(leftNode.right, rightNode.left);
+        }
+    }
 
     /**
-     * HW5 > Invert the Binary Tree
+     * HW7 > Invert the Binary Tree
      * @param root
      * @return
      */
