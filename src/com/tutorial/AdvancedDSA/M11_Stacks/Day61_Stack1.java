@@ -9,6 +9,12 @@ public class Day61_Stack1 {
         System.out.println("------------ Day61_Stacks 1-----------------");
         System.out.println("---------------ASSIGNMENT-------------------");
 
+        //AS1 > Balanced Paranthesis
+        System.out.println("AS1 > Balanced Paranthesis {([])} => " + this.isBalancedParentheses("{([])}"));
+        System.out.println("    > Balanced Paranthesis (){ => " + this.isBalancedParentheses("(){"));
+        System.out.println("    > Balanced Paranthesis ()[] => " + this.isBalancedParentheses("()[]"));
+        System.out.println("    > Balanced Paranthesis )))))))) => " + this.isBalancedParentheses("))))))))"));
+
         //AS3 > Evaluate Expression (Reverse Polish Notation / Postfix)
         ArrayList<String> inputAS3 = new ArrayList<>(Arrays.asList("4", "13", "5", "/", "+"));
         System.out.println("AS3 > Evaluate Expression (Reverse Polish Notation / Postfix) [4, 13, 5, /, +] => " + this.evaluateReversePolishNotation_Postfix(inputAS3));
@@ -21,6 +27,36 @@ public class Day61_Stack1 {
         int inputHW2_B = 23;
         ArrayList<Integer> inputHW1_C = new ArrayList<>(Arrays.asList(86, 63, 60, 0, 47, 0, 99, 9, 0, 0));
         System.out.println("HW1 > Passing game - Last player => " + this.passingGame(inputHW1_A, inputHW2_B, inputHW1_C));
+    }
+
+    /**
+     * AS1 > Balanced Paranthesis
+     * Eg: {([])} => 1 ; (){ => 0 ; ()[] => 1
+     * @param A
+     * @return
+     */
+    private int isBalancedParentheses(String A) {
+        Stack<Character> bracketStack = new Stack<>();
+        for (int i = 0; i < A.length(); i++) {
+            Character currentChar = A.charAt(i);
+            if (currentChar.equals('(') || currentChar.equals('{') || currentChar.equals('[')) {
+                bracketStack.push(currentChar);
+            } else {
+                if (bracketStack.size() > 0) {
+                    Character lastChar = bracketStack.peek();
+                    if (currentChar.equals(')') && lastChar.equals('(')) {
+                        bracketStack.pop();
+                    } else if (currentChar.equals('}') && lastChar.equals('{')) {
+                        bracketStack.pop();
+                    } else if (currentChar.equals(']') && lastChar.equals('[')) {
+                        bracketStack.pop();
+                    }
+                } else {
+                    return 0;
+                }
+            }
+        }
+        return bracketStack.size() == 0 ? 1 : 0;
     }
 
 
