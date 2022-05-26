@@ -7,11 +7,11 @@ public class Day61_Stack1 {
         System.out.println("------------ Day61_Stacks 1-----------------");
         System.out.println("---------------ASSIGNMENT-------------------");
 
-        //AS1 > Balanced Paranthesis
-        System.out.println("AS1 > Balanced Paranthesis {([])} => " + this.isBalancedParentheses("{([])}"));
-        System.out.println("    > Balanced Paranthesis (){ => " + this.isBalancedParentheses("(){"));
-        System.out.println("    > Balanced Paranthesis ()[] => " + this.isBalancedParentheses("()[]"));
-        System.out.println("    > Balanced Paranthesis )))))))) => " + this.isBalancedParentheses("))))))))"));
+        //AS1 > Balanced Parenthesis
+        System.out.println("AS1 > Balanced Parenthesis {([])} => " + this.isBalancedParentheses("{([])}"));
+        System.out.println("    > Balanced Parenthesis (){ => " + this.isBalancedParentheses("(){"));
+        System.out.println("    > Balanced Parenthesis ()[] => " + this.isBalancedParentheses("()[]"));
+        System.out.println("    > Balanced Parenthesis )))))))) => " + this.isBalancedParentheses("))))))))"));
 
         //AS2 > Double Character Trouble
         System.out.println("AS2 > Double Character Trouble (abccbc) => " + this.doubleCharacterRemoval("abccbc"));
