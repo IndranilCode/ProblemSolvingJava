@@ -26,6 +26,19 @@ public class Day62_Stack2 {
         resultCW3_nearestLargerInteger_Left.forEach(e -> System.out.print(e + ", "));
         System.out.println(" ]");
 
+        System.out.print("CW4 > Nearest smaller integer - Right (Stack) [4, 5, 2, 10, 8, 2, 3] => [ ");
+        ArrayList<Integer> resultCW4_nearestSmallerInteger_Right = this.nearestSmallerInteger_Right_Stacks(inputCW1);
+        resultCW4_nearestSmallerInteger_Right.forEach(e -> System.out.print(e + ", "));
+        System.out.println(" ]");
+
+        System.out.print("CW5 > Nearest larger integer - Right (Stack) [4, 5, 2, 10, 8, 2, 3] => [ ");
+        ArrayList<Integer> resultCW4_nearestLargerInteger_Right = this.nearestLargerInteger_Right_Stack(inputCW1);
+        resultCW4_nearestLargerInteger_Right.forEach(e -> System.out.print(e + ", "));
+        System.out.println(" ]");
+
+//        ArrayList<Integer> aaa = this.nearestSmallestIntegerLeft_Stacks(this.reverseList(inputCW1));
+//        aaa.forEach(e -> System.out.print(e + ", "));
+//        System.out.println(" ]");
 
         System.out.println("---------------ASSIGNMENT-------------------");
 
@@ -109,7 +122,7 @@ public class Day62_Stack2 {
             int currentElement = A.get(i);
             int ans = -1;
             if (currentElement > s.peek()) {
-                //CurrentElemet > top => remove stack e
+                //CurrentElement > top => remove stack e
                 while (!s.isEmpty() && currentElement > s.peek()) {
                     s.pop();
                 }
@@ -123,6 +136,77 @@ public class Day62_Stack2 {
                 s.push(currentElement);
             }
             result.add(ans);
+        }
+        return result;
+    }
+
+    /**
+     * CW4 > Nearest smaller integer - Right (Stack)
+     * @param A
+     * @return
+     */
+    private ArrayList<Integer> nearestSmallerInteger_Right_Stacks(ArrayList<Integer> A) {
+        Stack<Integer> s = new Stack<>();
+        Integer[] result = new Integer[A.size()];
+        result[A.size()-1] = -1; //For nth element
+        s.push(A.get(A.size()-1));
+        for (int i = A.size()-2; i >= 0; i--) {
+            int currentElement = A.get(i);
+            int ans = -1;
+            if (currentElement > s.peek()) {
+                //CurrentElement > stack.top => ans = top + push currentElement
+                ans = s.peek();
+                s.push(currentElement);
+            } else {
+                //CurrentElement <
+                while (!s.isEmpty() && s.peek() >= currentElement) {
+                    s.pop();
+                }
+                if (!s.isEmpty()) {
+                    ans = s.peek();
+                }
+                s.push(currentElement);
+            }
+            result[i] = ans;
+        }
+
+        return new ArrayList<Integer>(Arrays.asList(result));
+    }
+
+    /**
+     * CW5 > Nearest larger integer - Right (Stack)
+     * @param A
+     * @return
+     */
+    private ArrayList<Integer> nearestLargerInteger_Right_Stack(ArrayList<Integer> A) {
+        Stack<Integer> s = new Stack<>();
+        Integer[] result = new Integer[A.size()];
+        result[A.size() - 1] = -1;
+        s.push(A.get(A.size() - 1));
+        for (int i = A.size()-2; i >= 0; i--) {
+            int currentElement = A.get(i);
+            int ans = -1;
+            if (currentElement > s.peek()) {
+                while (!s.isEmpty() && s.peek() <= currentElement) {
+                    s.pop();
+                }
+                if (!s.isEmpty()) {
+                    ans = s.peek();
+                }
+                s.push(currentElement);
+            } else {
+                ans = s.peek();
+                s.push(currentElement);
+            }
+            result[i] = ans;
+        }
+        return new ArrayList<>(Arrays.asList(result));
+    }
+
+    private ArrayList<Integer> reverseList(ArrayList<Integer> A) {
+        ArrayList<Integer> result = new ArrayList<>();
+        for (int i = A.size() - 1 ; i >= 0; i--) {
+            result.add(A.get(i));
         }
         return result;
     }
@@ -159,4 +243,15 @@ public class Day62_Stack2 {
         return postfixEval.pop();
     }
 
+
+
+    //---------------HOMEWORK---------------------
+
+    /**
+     * HW1 > Double Character Trouble > Same as Day61_Stack1 - AS2
+     */
+
+    /**
+     * HW3 > Next Greater > Same as CW5
+     */
 }
