@@ -1,9 +1,6 @@
 package com.tutorial.AdvancedDSA.M5_Sorting;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class Day45_Sorting1 {
     //1. Selection sort - O(n2)
@@ -13,6 +10,9 @@ public class Day45_Sorting1 {
     public void execute() {
         System.out.println("------------SORTING 1------------");
         System.out.println("------------CLASSWORK------------");
+
+        /*------------CLASSWORK------------*/
+
         //CW1 > 2nd largest number
         ArrayList<Integer> inputCW1 = new ArrayList<>(Arrays.asList(5, 2, 7, 12, 99, 6, 1));
         System.out.println("CW1 > 2nd largest number (Normal) [5, 2, 7, 12, 99, 6, 1] => " + this.secondLargestElement(inputCW1));
@@ -35,7 +35,7 @@ public class Day45_Sorting1 {
         resultCW3.forEach(e -> System.out.print(e + ", "));
         System.out.println("");
 
-        //CW3.1 > Kth max with Selection sort
+        //CW3.1 > Kth max with Bubble sort
         System.out.println("    > Kth (6th) max Bubble sort [5, 2, 7, 12, 99, 6, 1] => " +  this.kThMax_bubbleSort(inputCW3, 6));
         System.out.println("    > Kth (3rd) max Bubble sort [5, 2, 7, 12, 99, 6, 1] => " +  this.kThMax_bubbleSort(inputCW3, 3));
 
@@ -92,6 +92,8 @@ public class Day45_Sorting1 {
 
 
     }
+
+    /*------------CLASSWORK------------*/
 
     /**
      * CW1 > 2nd largest number
@@ -417,7 +419,7 @@ public class Day45_Sorting1 {
     /*------------HOMEWORK------------*/
 
     /**
-     * HW1 > Chocolate Distribution
+     * HW1 > Chocolate Distribution [WRONG]
      *
      * @param A
      * @param B
@@ -430,7 +432,6 @@ public class Day45_Sorting1 {
         int bThLowest = A.get(B-1);
         return bThLowest-lowest;
     }
-
     private void mergeSort_CP(ArrayList<Integer> arr, int start, int end) {
         if (start == end) return;
         int mid = (start + end) / 2;
@@ -479,5 +480,33 @@ public class Day45_Sorting1 {
             index++;
             j++;
         }
+    }
+
+    /**
+     * HW1 > Chocolate Distribution [CORRECT]
+     * @param A
+     * @param B
+     * @return
+     */
+    public int chocolateDistributionProblem_Correct(ArrayList<Integer> A, int B) {
+        int minDifference = Integer.MAX_VALUE;
+        if (B > 0 && A.size() > 0) {
+            Collections.sort(A);
+
+            int startIndex = 0;
+            int endIndex = A.size() - B;
+            for (int i = startIndex; i <= endIndex; i++){
+                int startVal = A.get(i);
+                int endVal = A.get(i + B - 1);
+                int thisDifference = endVal - startVal;
+                if (thisDifference < minDifference) {
+                    minDifference = thisDifference;
+                }
+            }
+        } else {
+            minDifference = 0;
+        }
+
+        return minDifference;
     }
 }
