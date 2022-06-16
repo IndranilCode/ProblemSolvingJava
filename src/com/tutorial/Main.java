@@ -1,9 +1,16 @@
 package com.tutorial;
 
 //import com.tutorial.AdvancedDSA.M12_Queue.Day63_Queues1;
+import com.tutorial.AdvancedDSA.M11_Stacks.Day61_Stack1;
+import com.tutorial.AdvancedDSA.M11_Stacks.Day62_Stack2;
 import com.tutorial.AdvancedDSA.M13_Trees.Day65_Trees1;
 import com.tutorial.AdvancedDSA.M13_Trees.Day66_Trees2;
 import com.tutorial.AdvancedDSA.M14_BST.Day68_BST1;
+import com.tutorial.AdvancedDSA.M14_BST.Day69_BST2;
+import com.tutorial.AdvancedDSA.M14_BST.Day70_LCA_BST;
+import com.tutorial.AdvancedDSA.M18_Graphs.Day87_Graphs1;
+import com.tutorial.AdvancedDSA.M5_Sorting.Day46_Sorting2;
+import com.tutorial.AdvancedDSA.M5_Sorting.Day47_Sorting3;
 
 public class Main {
 
@@ -94,6 +101,7 @@ public class Main {
         //-------------Sorting-------------------
         //new Day45_Sorting1().execute();
         //new Day46_Sorting2().execute();
+        //new Day47_Sorting3().execute();
 
         //-------------Binary Search-------------
         //new Day48_BinarySearch1().execute();
@@ -113,6 +121,10 @@ public class Main {
         //new Day58_LinkList1().execute();
         //new Day59_LinkList2().execute();
 
+        //Stacks
+        //new Day61_Stack1().execute();
+        //new Day62_Stack2().execute();
+
         //Queue
         //new Day63_Queues1().execute();
 
@@ -123,7 +135,13 @@ public class Main {
         //new I1_Cisco().execute();
 
         //BST
-        new Day68_BST1().execute();
+        //        new Day68_BST1().execute();
+        //new Day69_BST2().execute();
+        //new Day70_LCA_BST().execute();
+
+
+        //Graphs
+        new Day87_Graphs1().execute();
     }
 
 
