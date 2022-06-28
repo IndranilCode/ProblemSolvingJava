@@ -9,12 +9,19 @@ import com.tutorial.AdvancedDSA.M14_BST.Day68_BST1;
 import com.tutorial.AdvancedDSA.M14_BST.Day69_BST2;
 import com.tutorial.AdvancedDSA.M14_BST.Day70_LCA_BST;
 import com.tutorial.AdvancedDSA.M18_Graphs.Day87_Graphs1;
+import com.tutorial.AdvancedDSA.M18_Graphs.Day88_Graphs2;
 import com.tutorial.AdvancedDSA.M5_Sorting.Day46_Sorting2;
 import com.tutorial.AdvancedDSA.M5_Sorting.Day47_Sorting3;
+import com.tutorial.IntermediateDSA.M5_Hashing2.Day22_Hashing2;
 
 public class Main {
 
     public static void main(String[] args) {
+        //Intermediate
+        System.out.println("----------INTERMEDIATE------------");
+        new Day22_Hashing2().execute();
+
+
 	// write your code here
 
         //Day 4 - (18 Oct) - Introduction to Problem Solving
@@ -141,7 +148,8 @@ public class Main {
 
 
         //Graphs
-        new Day87_Graphs1().execute();
+        //new Day87_Graphs1().execute();
+        //new Day88_Graphs2().execute();
     }
 
 
