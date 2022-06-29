@@ -12,14 +12,16 @@ import com.tutorial.AdvancedDSA.M18_Graphs.Day87_Graphs1;
 import com.tutorial.AdvancedDSA.M18_Graphs.Day88_Graphs2;
 import com.tutorial.AdvancedDSA.M5_Sorting.Day46_Sorting2;
 import com.tutorial.AdvancedDSA.M5_Sorting.Day47_Sorting3;
+import com.tutorial.IntermediateDSA.M5_Hashing2.Day21_Hashing1;
 import com.tutorial.IntermediateDSA.M5_Hashing2.Day22_Hashing2;
 
 public class Main {
 
     public static void main(String[] args) {
         //Intermediate
-        System.out.println("----------INTERMEDIATE------------");
-        new Day22_Hashing2().execute();
+        System.out.println("----------------INTERMEDIATE-----------------");
+        new Day21_Hashing1().execute();
+        //new Day22_Hashing2().execute();
 
 
 	// write your code here
