@@ -1,10 +1,12 @@
 package com.tutorial.AdvancedDSA.M10_LinkList;
 
-import java.util.HashMap;
 import java.util.HashSet;
 
-public class Day58_LinkList1 {
+public class Day58_70_LinkList1 {
     public void execute() {
+        System.out.println("--------------Linked List 1--------------");
+        System.out.println("-----------------ASSIGNMENT--------------");
+
         //CW1 > Array to List
         int[] inputCW1 = new int[] { 1, 2, 3, 4, 5};
         System.out.print("CW1 > Array to Link list nodes => ");
@@ -368,8 +370,12 @@ public class Day58_LinkList1 {
             h2 = temp;
             i++;
         }
-        low.next.next = h2;
-        low.next = h1;
+        if (b == 1) {
+            low.next = h2;
+        } else {
+            low.next.next = h2;
+            low.next = h1;
+        }
 
         if (b == 1) {
             return h1;
@@ -399,7 +405,7 @@ public class Day58_LinkList1 {
     }
 
     /**
-     * AS6 > Link list operation
+     * AS6 > Linked List (Link list operation)
      */
     public static class LinkListOperations {
         static class Node {
