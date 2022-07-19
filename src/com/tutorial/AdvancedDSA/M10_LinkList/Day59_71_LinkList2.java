@@ -1,7 +1,23 @@
 package com.tutorial.AdvancedDSA.M10_LinkList;
 
-public class Day59_LinkList2 {
+public class Day59_71_LinkList2 {
     public void execute() {
+        System.out.println("--------------Linked List 2--------------");
+        System.out.println("----------------ASSIGNMENT---------------");
+
+        //AS2 > Remove Loop from Linked List [Floyd's cycle detection algo]
+        NodeLList inputAS2_n3 = new NodeLList(4);
+        NodeLList inputAS2_n5 = new NodeLList(6); inputAS2_n5.next = inputAS2_n3;
+        NodeLList inputAS2_n4 = new NodeLList(5); inputAS2_n4.next = inputAS2_n5;
+        inputAS2_n3.next = inputAS2_n4;
+        NodeLList inputAS2_n2 = new NodeLList(2); inputAS2_n2.next = inputAS2_n3;
+        NodeLList inputAS2_n1 = new NodeLList(3); inputAS2_n1.next = inputAS2_n2;
+        NodeLList resultAS2 = this.removeLoopFromLinkedList(inputAS2_n1);
+        System.out.print("AS2 > Remove Loop from Linked List [Floyd's cycle detection algo] [3 -> 2 -> 4 -> 5 -> 6 -> .....4 (loop) ] => ");
+        this.printList(resultAS2);
+
+        System.out.println("-----------------HOMEWORK----------------");
+
         NodeLList inputHW2_a1_n7 = new NodeLList(27);
         NodeLList inputHW2_a1_n6 = new NodeLList(26); inputHW2_a1_n6.next = inputHW2_a1_n7;
         NodeLList inputHW2_a1_n5 = new NodeLList(23); inputHW2_a1_n5.next = inputHW2_a1_n6;
@@ -16,6 +32,7 @@ public class Day59_LinkList2 {
         System.out.print("HW2 > Merge Two Sorted Lists [2,3,8,10,23] [5,6,15] => ");
         this.printList(resultHW2_1);
     }
+
 
     private void printList(NodeLList head) {
         NodeLList temp = head;
@@ -36,6 +53,33 @@ public class Day59_LinkList2 {
 //        }
 //
 //    }
+
+
+    /**
+     * AS2 > Remove Loop from Linked List (Floyd's cycle detection algorithm)
+     * @param head
+     * @return
+     */
+    private NodeLList removeLoopFromLinkedList(NodeLList head) {
+        //Floyd's cycle detection algorithm
+        NodeLList slow = head;
+        NodeLList fast = head.next;
+
+        //Go on till the slow and fast meet
+        while (slow != fast) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        //Once met, reset slow to head & traverse 1 for each
+        slow = head;
+        while (fast.next != slow) {
+            fast = fast.next;
+            slow = slow.next;
+        }
+        fast.next = null;
+        return head;
+    }
 
 
     /**

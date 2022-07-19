@@ -313,6 +313,26 @@ public class Day58_70_LinkList1 {
         return head;
     }
 
+
+    private NodeLList k_reverse_link_list_in_groups(NodeLList head, int k) {
+        if (k == 1 || head == null) {
+            return head;
+        }
+        NodeLList h1 = head;
+        NodeLList h2 = h1.next;
+        int counter = 1;
+        while (counter <= (k -1) && h2 != null) {
+            NodeLList temp = h2.next;
+            h2.next = h1;
+            h1 = h2;
+            h2 = temp;
+            counter++;
+        }
+
+        head.next = this.k_reverse_link_list_in_groups(h2, k);
+        return h1;
+    }
+
     /**
      * AS3 > Middle element of linked list
      * @param head
@@ -538,7 +558,4 @@ public class Day58_70_LinkList1 {
         }
         return head;
     }
-
-
-
 }
