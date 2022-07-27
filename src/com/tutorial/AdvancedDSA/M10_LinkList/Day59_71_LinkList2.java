@@ -5,6 +5,37 @@ public class Day59_71_LinkList2 {
         System.out.println("--------------Linked List 2--------------");
         System.out.println("----------------ASSIGNMENT---------------");
 
+        //AS1 > List Cycle
+        NodeLList inputAS1_n3 = new NodeLList(3);
+        NodeLList inputAS1_n4 = new NodeLList(4); inputAS1_n4.next = inputAS1_n3;
+        inputAS1_n3.next = inputAS1_n4;
+        NodeLList inputAS1_n2 = new NodeLList(2); inputAS1_n2.next = inputAS1_n3;
+        NodeLList inputAS1_n1 = new NodeLList(1); inputAS1_n1.next = inputAS1_n2;
+        NodeLList resultAS1 = this.detectCycle(inputAS1_n1);
+        System.out.println("AS1 > List Cycle [ 1 -> 2 -> 3 -> 4 (loop to 3)] => " + (resultAS1 == null ? "NULL" : resultAS1.value));
+
+        NodeLList inputAS1_2_n4 = new NodeLList(4);
+        NodeLList inputAS1_2_n10 = new NodeLList(10); inputAS1_2_n10.next = inputAS1_2_n4;
+        NodeLList inputAS1_2_n9 = new NodeLList(9); inputAS1_2_n9.next = inputAS1_2_n10;
+        NodeLList inputAS1_2_n8 = new NodeLList(8); inputAS1_2_n8.next = inputAS1_2_n9;
+        NodeLList inputAS1_2_n7 = new NodeLList(7); inputAS1_2_n7.next = inputAS1_2_n8;
+        NodeLList inputAS1_2_n6 = new NodeLList(6); inputAS1_2_n6.next = inputAS1_2_n7;
+        NodeLList inputAS1_2_n5 = new NodeLList(5); inputAS1_2_n5.next = inputAS1_2_n6;
+        inputAS1_2_n4.next = inputAS1_2_n5;
+        NodeLList inputAS1_2_n3 = new NodeLList(3); inputAS1_2_n3.next = inputAS1_2_n4;
+        NodeLList inputAS1_2_n2 = new NodeLList(2); inputAS1_2_n2.next = inputAS1_2_n3;
+        NodeLList inputAS1_2_n1 = new NodeLList(1); inputAS1_2_n1.next = inputAS1_2_n2;
+        NodeLList resultAS1_2 = this.detectCycle(inputAS1_2_n1);
+        System.out.println("    > List Cycle [ 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10 (loop to 4)] => "+ (resultAS1_2 == null ? "NULL" : resultAS1_2.value));
+
+        NodeLList inputAS1_3_n5 = new NodeLList(5);
+        NodeLList inputAS1_3_n4 = new NodeLList(4); inputAS1_3_n4.next = inputAS1_3_n5;
+        NodeLList inputAS1_3_n3 = new NodeLList(3); inputAS1_3_n3.next = inputAS1_3_n4;
+        NodeLList inputAS1_3_n2 = new NodeLList(2); inputAS1_3_n2.next = inputAS1_3_n3;
+        NodeLList inputAS1_3_n1 = new NodeLList(1); inputAS1_3_n1.next = inputAS1_3_n2;
+        NodeLList resultAS1_3 = this.detectCycle(inputAS1_3_n1);
+        System.out.println("    > List Cycle [ 1 -> 2 -> 3 -> 4 -> 5 -> null] => "+ (resultAS1_3 == null ? "NULL" : resultAS1_3.value));
+
         //AS2 > Remove Loop from Linked List [Floyd's cycle detection algo]
         NodeLList inputAS2_n3 = new NodeLList(4);
         NodeLList inputAS2_n5 = new NodeLList(6); inputAS2_n5.next = inputAS2_n3;
@@ -29,6 +60,17 @@ public class Day59_71_LinkList2 {
         this.printList(resultAS3_1);
 
         System.out.println("-----------------HOMEWORK----------------");
+
+        NodeLList inputHW1_1_n7 = new NodeLList(4);
+        NodeLList inputHW1_1_n6 = new NodeLList(5); inputHW1_1_n6.next = inputHW1_1_n7;
+        NodeLList inputHW1_1_n5 = new NodeLList(2); inputHW1_1_n5.next = inputHW1_1_n6;
+        NodeLList inputHW1_1_n4 = new NodeLList(6); inputHW1_1_n4.next = inputHW1_1_n5;
+        NodeLList inputHW1_1_n3 = new NodeLList(7); inputHW1_1_n3.next = inputHW1_1_n4;
+        NodeLList inputHW1_1_n2 = new NodeLList(1); inputHW1_1_n2.next = inputHW1_1_n3;
+        NodeLList inputHW1_1_n1 = new NodeLList(3); inputHW1_1_n1.next = inputHW1_1_n2;
+        NodeLList resultHW1_newHead = this.sortList_mergeSort(inputHW1_1_n1);
+        System.out.print("HW1 > Sort List [3 -> 1 -> 7 -> 6 -> 2 -> 5 -> 4] => ");
+        this.printList(resultHW1_newHead);
 
         //HW2 > Merge Two Sorted Lists
         NodeLList inputHW2_a1_n7 = new NodeLList(27);
@@ -56,6 +98,44 @@ public class Day59_71_LinkList2 {
         System.out.println("");
     }
 
+    /*---------------ASSIGNMENT--------------*/
+
+    /**
+     * AS1 > List Cycle (Floyd's cycle detection algorithm)
+     * Given a linked list, return the node where the cycle begins. If there is no cycle, return null.
+     * Try solving it using constant additional space.
+     * @param head
+     * @return
+     */
+    private NodeLList detectCycle(NodeLList head) {
+        //Floyd's cycle detection algorithm
+        NodeLList slow = head;
+        NodeLList fast = head.next;
+
+        //Find the position - where fast & slow meet
+        while (fast != slow) {
+            if (fast.next == null || fast.next.next == null) {
+                break;
+            }
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        //No loop - return null
+        if (fast.next == null || fast.next.next == null) {
+            return null;
+        }
+
+        //Loop exists - run 2nd part of Floyd's cycle detection algorithm
+        //Re-align slow to head
+        //Both slow and fast will now run 1 at a time (Same speed)
+        slow = head;
+        while (fast.next != slow) {
+            slow = slow.next;
+            fast = fast.next;
+        }
+        return slow;
+    }
 
     /**
      * AS2 > Remove Loop from Linked List (Floyd's cycle detection algorithm)
@@ -149,6 +229,67 @@ public class Day59_71_LinkList2 {
     }
 
     /*---------------HOMEWORK--------------*/
+
+    /**
+     * HW1 > Sort List (Linked List Merge Sort)
+     * Sort a linked list, A in O(n log n) time using constant space complexity.
+     * @param head
+     * @return
+     */
+    private NodeLList sortList_mergeSort(NodeLList head) {
+        //Base case
+        if (head == null || head.next == null) {
+            return head;
+        }
+
+        //Find the mid & split the list (head-mid) (head2-end)
+        NodeLList slow = head;
+        NodeLList fast = head;
+        while (fast.next != null && fast.next.next != null) {
+            slow = slow.next;
+            fast= fast.next.next;
+        }
+        NodeLList head2 = slow.next;
+        slow.next = null;
+
+        //Call mergesort for Left list & Right list
+        head = this.sortList_mergeSort(head);
+        head2 = this.sortList_mergeSort(head2);
+
+        //Merge left & right sorted list
+        return this.merge(head, head2);
+    }
+    private NodeLList merge(NodeLList head1, NodeLList head2) {
+        NodeLList newHead = null;
+        NodeLList newTemp = null;
+        NodeLList temp1 = head1;
+        NodeLList temp2 = head2;
+        if (temp1.value < temp2.value) {
+            newHead = temp1;
+            temp1 = temp1.next;
+        } else {
+            newHead = temp2;
+            temp2 = temp2.next;
+        }
+        newTemp = newHead;
+
+        while (temp1 != null && temp2 != null) {
+            if (temp1.value < temp2.value) {
+                newTemp.next = temp1;
+                temp1 = temp1.next;
+            } else {
+                newTemp.next = temp2;
+                temp2 = temp2.next;
+            }
+            newTemp = newTemp.next;
+        }
+        if (temp1 == null) {
+            newTemp.next = temp2;
+        } else {
+            newTemp.next = temp1;
+        }
+        return newHead;
+    }
 
     /**
      * HW2 > Merge Two Sorted Lists
