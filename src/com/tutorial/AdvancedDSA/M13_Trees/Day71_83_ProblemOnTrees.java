@@ -1,12 +1,8 @@
 package com.tutorial.AdvancedDSA.M13_Trees;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
 public class Day71_83_ProblemOnTrees {
-
     private class TreeLinkNode {
         int val;
         TreeLinkNode left, right, next;
@@ -77,6 +73,20 @@ public class Day71_83_ProblemOnTrees {
         TreeNode inputHW3_t1 = new TreeNode(1); inputHW3_t1.left = inputHW3_t2; inputHW3_t1.right = inputHW3_t3;
         System.out.println("HW3 > Odd and Even Levels => " + this.oddEvenLevelDifference(inputHW3_t1));
 
+        //HW4 > Equal Tree Partition
+        //                5
+        //               /  \
+        //              3    7
+        //             / \  / \
+        //            4  6  5  6
+        TreeNode inputHW4_t7 = new TreeNode(6);
+        TreeNode inputHW4_t6 = new TreeNode(5);
+        TreeNode inputHW4_t5 = new TreeNode(6);
+        TreeNode inputHW4_t4 = new TreeNode(4);
+        TreeNode inputHW4_t3 = new TreeNode(7); inputHW4_t3.left = inputHW4_t6; inputHW4_t3.right = inputHW4_t7;
+        TreeNode inputHW4_t2 = new TreeNode(3); inputHW4_t2.left = inputHW4_t4; inputHW4_t2.right = inputHW4_t5;
+        TreeNode inputHW4_t1 = new TreeNode(5); inputHW4_t1.left = inputHW4_t2; inputHW4_t1.right = inputHW4_t3;
+        System.out.println("HW4 > Equal Tree Partition => " + this.equalTreePartition(inputHW4_t1));
     }
 
     private void inOrderRecursion(TreeNode root) {
@@ -252,5 +262,48 @@ public class Day71_83_ProblemOnTrees {
             currentLevel ++;
         }
         return difference;
+    }
+
+    /**
+     * HW4 > Equal Tree Partition
+     * Given a binary tree A.
+     * Check whether it is possible to partition the tree to two trees which have equal sum of values after removing exactly one edge on the original tree.
+     * Eg:
+     *                 5
+     *                /  \
+     *               3    7
+     *              / \  / \
+     *             4  6  5  6
+     *
+     *  Remove edge between 5(root node) and 7:
+     *         Tree 1 =                                               Tree 2 =
+     *                         5                                                     7
+     *                        /                                                     / \
+     *                       3                                                     5   6
+     *                      / \
+     *                     4   6
+     *         Sum of Tree 1 = Sum of Tree 2 = 18
+     * @param root
+     * @return
+     */
+    private int equalTreePartition(TreeNode root) {
+        HashSet<Integer> nodeSums = new HashSet<>();
+        int totalSumOfTree = this.treeSum(root, nodeSums);
+        if (totalSumOfTree % 2 == 0) {
+            //Even sum - check for half sum in hashset
+            int halfSum = totalSumOfTree / 2;
+            return nodeSums.contains(halfSum) ? 1 : 0;
+        }
+        return 0;
+    }
+    private int treeSum(TreeNode root, HashSet<Integer> nodeSums) {
+        if (root == null) {
+            return 0;
+        }
+        int leftSum = this.treeSum(root.left, nodeSums);
+        int rightSum = this.treeSum(root.right, nodeSums);
+        int currentSum = root.val + leftSum + rightSum;
+        nodeSums.add(currentSum);
+        return currentSum;
     }
 }
