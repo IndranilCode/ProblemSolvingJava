@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Stack;
 
-public class Day62_Stack2 {
+public class Day62_74_Stack2 {
     public void execute() {
         System.out.println("------------ Day62_Stacks 2-----------------");
         System.out.println("---------------CLASSWORK--------------------");

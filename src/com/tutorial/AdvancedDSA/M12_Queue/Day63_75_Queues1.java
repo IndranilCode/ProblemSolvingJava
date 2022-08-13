@@ -1,13 +1,13 @@
 package com.tutorial.AdvancedDSA.M12_Queue;
 
 import java.util.*;
-import java.util.concurrent.SynchronousQueue;
 
-public class Day63_Queues1 {
+public class Day63_75_Queues1 {
     public void execute() {
         System.out.println("----------Day 63 : Queues 1------------");
-        /*---------------ASSIGNMENT--------------*/
         System.out.println("---------------ASSIGNMENT--------------");
+
+        /*---------------ASSIGNMENT--------------*/
 
         //AS1 > Perfect Numbers
         System.out.println("AS1 > Perfect Numbers (A = 4) => " + this.aThPerfectNumber(3));
@@ -23,8 +23,8 @@ public class Day63_Queues1 {
         ArrayList<Integer> inputAS3_b = new ArrayList<>(Arrays.asList(1, 3, 5, 4, 2));
         System.out.println("AS3 > Task Scheduling A=[2, 3, 1, 5, 4] B=[1, 3, 5, 4, 2] => " + this.taskScheduling(inputAS3_a, inputAS3_b));
 
-        /*---------------HOMEWORK--------------*/
         System.out.println("---------------HOMEWORK--------------");
+        /*---------------HOMEWORK--------------*/
 
         //HW1 > Reversing Elements Of Queue
         ArrayList<Integer> inputHW1 = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5));

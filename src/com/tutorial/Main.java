@@ -1,28 +1,22 @@
 package com.tutorial;
 
 //import com.tutorial.AdvancedDSA.M12_Queue.Day63_Queues1;
-import com.tutorial.AdvancedDSA.M11_Stacks.Day61_Stack1;
-import com.tutorial.AdvancedDSA.M11_Stacks.Day62_Stack2;
-import com.tutorial.AdvancedDSA.M13_Trees.Day65_Trees1;
-import com.tutorial.AdvancedDSA.M13_Trees.Day66_Trees2;
-import com.tutorial.AdvancedDSA.M14_BST.Day68_BST1;
-import com.tutorial.AdvancedDSA.M14_BST.Day69_BST2;
-import com.tutorial.AdvancedDSA.M14_BST.Day70_LCA_BST;
-import com.tutorial.AdvancedDSA.M18_Graphs.Day87_Graphs1;
-import com.tutorial.AdvancedDSA.M18_Graphs.Day88_Graphs2;
-import com.tutorial.AdvancedDSA.M5_Sorting.Day46_Sorting2;
-import com.tutorial.AdvancedDSA.M5_Sorting.Day47_Sorting3;
-import com.tutorial.IntermediateDSA.M5_Hashing2.Day21_Hashing1;
-import com.tutorial.IntermediateDSA.M5_Hashing2.Day22_Hashing2;
+import com.tutorial.AdvancedDSA.M12_Queue.Day64_76_QueueAndDeque;
+import com.tutorial.AdvancedDSA.M13_Trees.Day71_83_ProblemOnTrees;
+import com.tutorial.AdvancedDSA.M19_Tries.Day72_84_Tries;
 
 public class Main {
 
     public static void main(String[] args) {
         //Intermediate
-        System.out.println("----------------INTERMEDIATE-----------------");
-        new Day21_Hashing1().execute();
+        //System.out.println("----------------INTERMEDIATE-----------------");
+        //new Day21_Hashing1().execute();
         //new Day22_Hashing2().execute();
 
+        //System.out.println();
+        //new Day33_Arrays1().execute();
+
+        //new Day25_30_LinkedListBasics().execute();
 
 	// write your code here
 
@@ -128,7 +122,8 @@ public class Main {
 
         //LinkList
         //new Day58_LinkList1().execute();
-        //new Day59_LinkList2().execute();
+        //new Day59_71_LinkList2().execute();
+        //new Day60_72_LinkList3().execute();
 
         //Stacks
         //new Day61_Stack1().execute();
@@ -136,12 +131,14 @@ public class Main {
 
         //Queue
         //new Day63_Queues1().execute();
+        //new Day64_76_QueueAndDeque().execute();
 
         //Trees
         //new Day65_Trees1().execute();
         //new Day66_Trees2().execute();
 
         //new I1_Cisco().execute();
+        //new Day71_83_ProblemOnTrees().execute();
 
         //BST
         //        new Day68_BST1().execute();
@@ -150,8 +147,12 @@ public class Main {
 
 
         //Graphs
-        //new Day87_Graphs1().execute();
+        //new Day87_100_Graphs1().execute();
+        //new Day88_101_Graphs2().execute();
         //new Day88_Graphs2().execute();
+
+        //Tries
+        new Day72_84_Tries().execute();
     }
 
 

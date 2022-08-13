@@ -1,10 +1,8 @@
 package com.tutorial.AdvancedDSA.M11_Stacks;
 
-import com.sun.jdi.PrimitiveValue;
-
 import java.util.*;
 
-public class Day61_Stack1 {
+public class Day61_73_Stack1 {
     //For HW5 > Min Stack problem
     int minValue = Integer.MAX_VALUE;
     Stack<Integer> mimicStack = new Stack<>();
