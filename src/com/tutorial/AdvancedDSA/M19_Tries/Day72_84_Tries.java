@@ -22,6 +22,16 @@ public class Day72_84_Tries {
         System.out.print("AS3 > Shortest Unique Prefix [zebra, dog, duck, dove] => [");
         resultAS3.forEach(e -> System.out.print(e + ","));
         System.out.println("]");
+
+        System.out.println("--------------------HOMEWORK---------------------");
+
+        ArrayList<Integer> inputHW1_A = new ArrayList<>(Arrays.asList(0, 0, 1, 1));
+        ArrayList<String> inputHW1_B = new ArrayList<>(Arrays.asList("hack", "hacker", "hac", "hak"));
+        ArrayList<Integer> resultHW1 = this.contactFinder(inputHW1_A, inputHW1_B);
+        System.out.print("HW1 > Contact Finder A:[0, 0, 1, 1] B: [hack, hacker, hac, hak] => [");
+        resultHW1.forEach(e -> System.out.print(e + ","));
+        System.out.println("]");
+
     }
 
     /**
@@ -127,4 +137,71 @@ public class Day72_84_Tries {
         return prefixBuilder.toString();
     }
 
+    /**
+     * HW1 > Contact Finder
+     * A = [0, 0, 1, 1]
+     * B = ["hack", "hacker", "hac", "hak"]
+     * o/p => [2, 0]
+     *
+     * A = [0, 1]
+     * B = ["abcde", "abc"]
+     * o/p => [1]
+     * @param A
+     * @param B
+     * @return
+     */
+    private ArrayList<Integer> contactFinder(ArrayList<Integer> A, ArrayList<String> B) {
+        int n = A.size();
+        TriesNode root = new TriesNode();
+
+        ArrayList<Integer> isSubContactAvailable = new ArrayList<>();
+
+        for (int i = 0; i < n; i++) {
+            int operation = A.get(i);
+            String word = B.get(i);
+
+            if (operation == 0) {
+                //Add to tries
+                this.addContactToTries(root, word);
+            } else {
+                //Find if word is present
+                isSubContactAvailable.add(this.isSubWordInTries(root, word));
+            }
+        }
+        return isSubContactAvailable;
+    }
+    private void addContactToTries(TriesNode root, String word) {
+        TriesNode current = root;
+        for (int i = 0; i < word.length(); i++) {
+            Character currentChar = word.charAt(i);
+            if (!current.children.containsKey(currentChar)) {
+                TriesNode newNode = new TriesNode(currentChar);
+                current.children.put(currentChar, newNode);
+            } else {
+                TriesNode foundNode = current.children.get(currentChar);
+                foundNode.count = foundNode.count + 1;
+                current.children.put(currentChar, foundNode);
+            }
+            current = current.children.get(currentChar);
+        }
+        current.isEnd = true;
+    }
+    private int isSubWordInTries(TriesNode root, String subWord) {
+        TriesNode current = root;
+        int numberOfWords = 0;
+        for (int i = 0; i < subWord.length(); i++) {
+            Character currentChar = subWord.charAt(i);
+            if (current.children == null) {
+                return 0;
+            }
+            if (!current.children.containsKey(currentChar)) {
+                return 0;
+            }
+            if (i == (subWord.length() - 1)) {
+                numberOfWords = current.children.get(currentChar).count;
+            }
+            current = current.children.get(currentChar);
+        }
+        return numberOfWords;
+    }
 }
