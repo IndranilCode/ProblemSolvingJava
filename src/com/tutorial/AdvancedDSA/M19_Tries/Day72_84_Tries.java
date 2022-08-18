@@ -23,6 +23,10 @@ public class Day72_84_Tries {
         resultAS3.forEach(e -> System.out.print(e + ","));
         System.out.println("]");
 
+        ArrayList<Integer> inputAS4 = new ArrayList<>(Arrays.asList(5, 17, 100, 11));
+        int resultAS4 = this.maximumXor(inputAS4);
+        System.out.println("AS4 > Maximum XOR [5, 17, 100, 11] => " + resultAS4);
+
         System.out.println("--------------------HOMEWORK---------------------");
 
         ArrayList<Integer> inputHW1_A = new ArrayList<>(Arrays.asList(0, 0, 1, 1));
@@ -33,6 +37,8 @@ public class Day72_84_Tries {
         System.out.println("]");
 
     }
+
+    /*---------------ASSIGNMENT--------------*/
 
     /**
      * AS1 > Spelling Checker
@@ -138,6 +144,64 @@ public class Day72_84_Tries {
     }
 
     /**
+     * AS4 > Maximum XOR
+     * @param A
+     * @return
+     */
+    private int maximumXor(ArrayList<Integer> A) {
+        TriesNodeBit root = new TriesNodeBit();
+
+        //Insert 1st number into tries
+        this.insertNumberToTries(root, A.get(0));
+
+        int maxAns = Integer.MIN_VALUE;
+        for (int i = 1; i < A.size(); i++) {
+            Integer currentNumber = A.get(i);
+            int xorAnswer = this.findXor(root, currentNumber);
+            if (xorAnswer > maxAns) {
+                maxAns = xorAnswer;
+            }
+            this.insertNumberToTries(root, currentNumber);
+        }
+        return maxAns;
+    }
+    private void insertNumberToTries(TriesNodeBit root, int number) {
+        //Add MST->LSB bits into tries
+        TriesNodeBit current = root;
+
+        for (int i = 31; i >= 0; i--) {
+            int currentBitSetting = (1 << i) & number;
+            int currentPositionBitValue = currentBitSetting > 0 ? 1 : 0;
+
+            if (!current.children.containsKey(currentPositionBitValue)) {
+                TriesNodeBit newNode = new TriesNodeBit(currentPositionBitValue);
+                current.children.put(currentPositionBitValue, newNode);
+            }
+            current = current.children.get(currentPositionBitValue);
+        }
+        current.isEnd = true;
+    }
+    private int findXor(TriesNodeBit root, int number) {
+        TriesNodeBit current = root;
+        int answer = 0;
+
+        for (int i = 31; i >= 0; i--) {
+            int currentBitSetting = (1 << i) & number;
+            int currentPositionBitValue = currentBitSetting > 0 ? 1 : 0;
+            int oppositeBitValue = currentPositionBitValue ^ 1;
+            if (current.children.containsKey(oppositeBitValue)) {
+                answer = answer + (1 << i);
+                current = current.children.get(oppositeBitValue);
+            } else {
+                current = current.children.get(currentPositionBitValue);
+            }
+        }
+        return answer;
+    }
+
+    /*---------------HOMEWORK--------------*/
+
+    /**
      * HW1 > Contact Finder
      * A = [0, 0, 1, 1]
      * B = ["hack", "hacker", "hac", "hak"]
@@ -204,4 +268,41 @@ public class Day72_84_Tries {
         }
         return numberOfWords;
     }
+
+//    private String modifiedSearch(ArrayList<String> A, ArrayList<String> B) {
+//        TriesNode root = new TriesNode();
+//
+//        //Insert source words to tries
+//        for (int i = 0; i < A.size(); i++) {
+//            this.addToTriesLibrary_modifiedSearch(root, A.get(i));
+//        }
+//
+//
+//    }
+//    private void addToTriesLibrary_modifiedSearch(TriesNode root, String word) {
+//        TriesNode current = root;
+//        for (int i = 0; i < word.length(); i++) {
+//            Character currentChar = word.charAt(i);
+//            if (!current.children.containsKey(currentChar)) {
+//                TriesNode newNode = new TriesNode(currentChar);
+//                current.children.put(currentChar, newNode);
+//            }
+//            current = current.children.get(currentChar);
+//        }
+//        current.isEnd = true;
+//    }
+//    private int isWordInTriesAfter1Change(TriesNode root, String word) {
+//        boolean isChangeDone = false;
+//        TriesNode current = root;
+//        for (int i = 0; i < word.length(); i++) {
+//            Character currentChar = word.charAt(i);
+//
+//            if (!isChangeDone && current.children.containsKey(currentChar)) {
+//                //No change done yet + character found => Proceed
+//                current = current.children.get(currentChar);
+//            } else if (!isChangeDone && !current.children.containsKey(currentChar)){
+//                //No change done yet + character not found => Mark isChangeDone & proceed
+//            }
+//        }
+//    }
 }
