@@ -57,6 +57,10 @@ public class Day22_26_Hashing2 {
         //HW2 > Pairs With Given Xor
         ArrayList<Integer> inputHW2 = new ArrayList<>(Arrays.asList(3, 6, 8, 10, 15, 50));
         System.out.println("HW2 > Pairs With Given Xor [3, 6, 8, 10, 15, 50] ; XorVal = 5 => " + this.pairWithGivenXor(inputHW2, 5));
+
+        //HW3 > Valid Sudoku
+        ArrayList<String> inputHW3 = new ArrayList<>(Arrays.asList("53..7....", "6..195...", ".98....6.", "8...6...3", "4..8.3..1", "7...2...6", ".6....28.", "...419..5", "....8..79")) ;
+        System.out.println("HW3 > Valid Sudoku => " + this.isValidSudoku_bruteForce(inputHW3));
     }
 
     /*---------------ASSIGNMENT--------------*/
@@ -313,5 +317,62 @@ public class Day22_26_Hashing2 {
             set.add(A.get(i));
         }
         return pairCount;
+    }
+
+    /**
+     * HW3 > Valid Sudoku
+     * Determine if a Sudoku is valid, according to: http://sudoku.com.au/TheRules.aspx
+     * @param A
+     * @return
+     */
+    private int isValidSudoku_bruteForce(List<String> A) {
+        //Each row validation
+        for (int row = 0; row < A.size(); row++) {
+            HashSet<Character> eachRowSet = new HashSet<>();
+            for (int col = 0; col < A.get(row).length(); col++) {
+                Character currentChar = A.get(row).charAt(col);
+                if (currentChar >= '1'&& currentChar <= '9') {
+                    if (eachRowSet.contains(currentChar)) {
+                        return 0;
+                    }
+                    eachRowSet.add(A.get(row).charAt(col));
+                }
+            }
+        }
+
+        //Each column validation
+        for (int col = 0; col < A.get(0).length(); col++) {
+            HashSet<Character> eachColSet = new HashSet<>();
+            for (int row = 0 ; row < A.size(); row++) {
+                Character currentChar = A.get(row).charAt(col);
+                if (currentChar >= '1'&& currentChar <= '9') {
+                    if (eachColSet.contains(currentChar)) {
+                        return 0;
+                    }
+                    eachColSet.add(A.get(row).charAt(col));
+                }
+            }
+        }
+
+        //Validate each box
+        for (int rowBox = 0; rowBox < 3; rowBox++) {
+            for (int colBox = 0; colBox < 3; colBox++) {
+                HashSet<Character> eachBoxSet = new HashSet<>();
+                for (int i = 0; i < 3; i++) {
+                    for (int j = 0; j < 3; j++) {
+                        int row = 3 * rowBox + i;
+                        int col = 3 * colBox + j;
+                        Character currentChar = A.get(row).charAt(col);
+                        if (currentChar >= '1'&& currentChar <= '9') {
+                            if (eachBoxSet.contains(currentChar)) {
+                                return 0;
+                            }
+                            eachBoxSet.add(currentChar);
+                        }
+                    }
+                }
+            }
+        }
+        return 1;
     }
 }
