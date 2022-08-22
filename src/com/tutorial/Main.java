@@ -6,6 +6,7 @@ import com.tutorial.AdvancedDSA.M13_Trees.Day71_83_ProblemOnTrees;
 import com.tutorial.AdvancedDSA.M19_Tries.Day72_84_Tries;
 import com.tutorial.IntermediateDSA.Day39_ContestDiscussion;
 import com.tutorial.IntermediateDSA.M5_Hashing2.Day22_26_Hashing2;
+import com.tutorial.IntermediateDSA.M_SubsequenceAndSubsets.Day29_35_SubsequencesAndSubsets;
 
 public class Main {
 
@@ -13,12 +14,15 @@ public class Main {
         //Intermediate
         //System.out.println("----------------INTERMEDIATE-----------------");
         //new Day21_Hashing1().execute();
-        new Day22_26_Hashing2().execute();
+        //new Day22_26_Hashing2().execute();
 
         //System.out.println();
         //new Day33_Arrays1().execute();
 
         //new Day25_30_LinkedListBasics().execute();
+
+        //Subsequence & Subsets
+        new Day29_35_SubsequencesAndSubsets().execute();
 
 
         //Contest
