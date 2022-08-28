@@ -1,4 +1,4 @@
-package com.tutorial.Trees;
+package com.tutorial.IntermediateDSA.M_Trees;
 
     public class TreeNode {
         int val;
