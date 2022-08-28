@@ -7,6 +7,8 @@ import com.tutorial.AdvancedDSA.M19_Tries.Day72_84_Tries;
 import com.tutorial.IntermediateDSA.Day39_ContestDiscussion;
 import com.tutorial.IntermediateDSA.M5_Hashing2.Day22_26_Hashing2;
 import com.tutorial.IntermediateDSA.M_SubsequenceAndSubsets.Day29_35_SubsequencesAndSubsets;
+import com.tutorial.IntermediateDSA.M_Trees.Day27_34_TreesBasic1;
+import com.tutorial.IntermediateDSA.M_Trees.Day28_TreesBasic2;
 
 public class Main {
 
@@ -21,8 +23,12 @@ public class Main {
 
         //new Day25_30_LinkedListBasics().execute();
 
+        //Tree Basics
+        //new Day27_34_TreesBasic1().execute();
+        new Day28_TreesBasic2().execute();
+
         //Subsequence & Subsets
-        new Day29_35_SubsequencesAndSubsets().execute();
+        //new Day29_35_SubsequencesAndSubsets().execute();
 
 
         //Contest
@@ -162,7 +168,7 @@ public class Main {
         //new Day88_Graphs2().execute();
 
         //Tries
-        new Day72_84_Tries().execute();
+        //new Day72_84_Tries().execute();
     }
 
 

@@ -1,9 +1,9 @@
-package com.tutorial.Trees;
+package com.tutorial.IntermediateDSA.M_Trees;
 
 import java.util.ArrayList;
 import java.util.Stack;
 
-public class Day27_TreesBasic1 {
+public class Day27_34_TreesBasic1 {
     private TreeNode generateSampleTree() {
         TreeNode root = new TreeNode(6);
         root.left = new TreeNode(3);
@@ -17,6 +17,9 @@ public class Day27_TreesBasic1 {
     //------------------------------------------------------------
 
     public void execute() {
+        System.out.println("----------Day 27(34) Intermediate: Trees Basic 1-----------------------");
+        System.out.println("---------------------------------ASSIGNMENT----------------------------");
+
         //Sample Tree =>
         //      6
         //   3       5
@@ -24,7 +27,7 @@ public class Day27_TreesBasic1 {
 
         //AS1 > Inorder - Recursion
         System.out.print("AS1 - InOrder (Recursion) : ");
-                TreeNode root = generateSampleTree();
+        TreeNode root = generateSampleTree();
         inOrderRecursion(root);
         System.out.println("");
 
@@ -73,22 +76,30 @@ public class Day27_TreesBasic1 {
         int outputAS4 = treeHeight(root);
         System.out.println("AS4 - Tree Height : " + outputAS4);
 
-        //-------------------------------------------------------------
+        System.out.println("---------------------------------HOMEWORK------------------------------");
 
         //HW1 > Identical Binary Trees
         TreeNode root2 = generateSampleTree();
         root = generateSampleTree();
         int outputHW1a = isSameBinaryTree(root, root2);
-        System.out.println("HW1 - Identical Binary Trees - Case 1 : " + outputHW1a);
+        System.out.println("HW1 > Identical Binary Trees - Case 1 : " + outputHW1a);
         TreeNode root3 = generateSampleTree();
         root3.right.right = new TreeNode(9);
         int outputHW1b = isSameBinaryTree(root, root3);
-        System.out.println("HW1 - Identical Binary Trees - Case 2 : " + outputHW1b);
+        System.out.println("    > Identical Binary Trees - Case 2 : " + outputHW1b);
+
+        //HW2 > Counting the Nodes (Child > Ancestor)
+        TreeNode inputHW2_n5 = new TreeNode(6);
+        TreeNode inputHW2_n4 = new TreeNode(3);
+        TreeNode inputHW2_n3 = new TreeNode(2); inputHW2_n3.left = inputHW2_n4; inputHW2_n3.right = inputHW2_n5;
+        TreeNode inputHW2_n2 = new TreeNode(5);
+        TreeNode inputHW2_n1 = new TreeNode(4); inputHW2_n1.left = inputHW2_n2; inputHW2_n1.right = inputHW2_n3;
+        System.out.println("HW2 > Counting the Nodes (Child > All Ancestors) => " + this.nodeCountNodeGreaterThanParent(inputHW2_n1));
 
         //HW3 > Nodes Count
         root = generateSampleTree();
         int outputHW3 = nodeCount(root);
-        System.out.println("HW3 - Nodes Count : " + outputHW3);
+        System.out.println("HW3 > Nodes Count (Total nodes) : " + outputHW3);
     }
 
     /**
@@ -232,6 +243,24 @@ public class Day27_TreesBasic1 {
         if ((A == null && B != null) || (B == null && A != null)) return 0;
         if (A.val != B.val) return 0;
         return isSameBinaryTree(A.left, B.left) * isSameBinaryTree(A.right, B.right);
+    }
+
+    /**
+     * HW2 > Counting the Nodes (Child > All Ancestors)
+     * Given the root of a tree A with each node having a certain value, find the count of nodes with more value than all its ancestor.
+     * @param root
+     * @return
+     */
+    private int nodeCountNodeGreaterThanParent(TreeNode root) {
+        return this.nodeHigherThanParent(root, Integer.MIN_VALUE);
+    }
+    private int nodeHigherThanParent(TreeNode node, int highestParentValue) {
+        if (node == null) return 0;
+        if (node.val > highestParentValue) {
+            return 1 + this.nodeHigherThanParent(node.left, node.val) + this.nodeHigherThanParent(node.right, node.val);
+        } else {
+            return 0 + this.nodeHigherThanParent(node.left, highestParentValue) + this.nodeHigherThanParent(node.right, highestParentValue);
+        }
     }
 
     /**
