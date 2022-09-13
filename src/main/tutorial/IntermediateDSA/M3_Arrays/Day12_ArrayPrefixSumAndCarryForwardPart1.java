@@ -1,4 +1,4 @@
-package main.tutorial;
+package main.tutorial.IntermediateDSA.M3_Arrays;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,46 +6,49 @@ import java.util.Collections;
 
 /**
  * COMPLETED
+ * Revision Dates: 13/Sep/22
  */
-public class Day12ArrayPrefixSumAndCarryForwardPart1 {
-    public void executeArrayPrefixSumAndCarryForwardPart1() {
+public class Day12_ArrayPrefixSumAndCarryForwardPart1 {
+    public void execute() {
+        System.out.println("----------Intermediate : Day 12: Array - Prefix Sum & Carry Forward------------");
+        System.out.println("------------------------------------ASSIGNMENT---------------------------------");
+
         //AS1 > Beggars Outside Temple
         ArrayList<ArrayList<Integer>> inputAS1 = new ArrayList<>();
         inputAS1.add(new ArrayList<>(Arrays.asList(1, 2, 10)));
         inputAS1.add(new ArrayList<>(Arrays.asList(2, 3, 20)));
         inputAS1.add(new ArrayList<>(Arrays.asList(2, 5, 25)));
         ArrayList<Integer> outputAS1 = beggarsOutsideTemple(5, inputAS1);
-        System.out.print("AS1 - Beggars Outside Temple :");
+        System.out.print("AS1 > Beggars Outside Temple => [ ");
         outputAS1.forEach(e -> {
             System.out.print(e + " ");
         });
-        System.out.println("");
+        System.out.println(" ]");
 
         //AS2 > Sum of All Subarrays
         ArrayList<Integer> inputAS2 = new ArrayList<Integer>(Arrays.asList(1, 2, 3));
-        //ArrayList<Integer> inputAS2 = new ArrayList<Integer>(Arrays.asList(8454, 3670, 4704, 7827, 5096));
-        Long outputAS2 = sumOfAllSubarrays(inputAS2);
-        System.out.println("AS4 - Sum of All Subarrays :" + outputAS2);
+        System.out.println("AS2 > Sum of All Subarrays (1, 2, 3) => " + this.sumOfAllSubarrays(inputAS2));
+        ArrayList<Integer> inputAS2_2 = new ArrayList<Integer>(Arrays.asList(8454, 3670, 4704, 7827, 5096));
+        System.out.println("    > Sum of All Subarrays (8454, 3670, 4704, 7827, 5096) => " + this.sumOfAllSubarrays(inputAS2_2));
 
         //AS3 > Closest MinMax
-        // ArrayList<Integer> inputAS3 = new ArrayList<Integer>(Arrays.asList(1, 3, 1, 5, 8, 1, 2, 8, 5));  // => 2
-        // ArrayList<Integer> inputAS3 = new ArrayList<Integer>(Arrays.asList(834, 563, 606, 221, 165)); => 5
         ArrayList<Integer> inputAS3 = new ArrayList<Integer>(Arrays.asList(4, 4, 4, 4, 4));
-        int outputAS3 = closestMinMax(inputAS3);
-        System.out.println("AS4 - Closest MinMax :" + outputAS3);
+        System.out.println("AS3 > Closest MinMax (4, 4, 4, 4, 4) => " + this.closestMinMax(inputAS3));
+        ArrayList<Integer> inputAS3_2 = new ArrayList<Integer>(Arrays.asList(1, 3, 1, 5, 8, 1, 2, 8, 5));  // => 2
+        System.out.println("    > Closest MinMax (1, 3, 1, 5, 8, 1, 2, 8, 5) => " + this.closestMinMax(inputAS3_2));
+        ArrayList<Integer> inputAS3_3 = new ArrayList<Integer>(Arrays.asList(834, 563, 606, 221, 165)); // => 5
+        System.out.println("    > Closest MinMax (834, 563, 606, 221, 165) => " + this.closestMinMax(inputAS3_3));
         
         //AS4 > Special Subsequences "AG"
-        String inputAS4 = "GUGPUAGAFQBMPYAGGAAOALAELGGGAOGLGEGZ";
-        // String inputAS4 = "ABCGAG";
-        int outputAS4 = specialSequencesAG(inputAS4);
-        System.out.println("AS4 - Special Subsequences \"AG\" :" + outputAS4);
+        System.out.println("AS4 > Special Subsequences AG (ABCGAG) => " + this.specialSequencesAG("ABCGAG"));
+        System.out.println("    > Special Subsequences AG (GUGPUAGAFQBMPYAGGAAOALAELGGGAOGLGEGZ) => " + this.specialSequencesAG("GUGPUAGAFQBMPYAGGAAOALAELGGGAOGLGEGZ"));
 
-        //-------------------------------------------------------------------------------------------
+        System.out.println("------------------------------------HOMEWORK-----------------------------------");
 
         //HW1 > Pattern Printing -2
         int inputHW1 = 4;
         ArrayList<ArrayList<Integer>> outputHW1 = patternPrinting2(inputHW1);
-        System.out.println("HW1 - Pattern Printing -2 :");
+        System.out.println("HW1 > Pattern Printing -2 (n = 4) => ");
         outputHW1.forEach(eachRow -> {
             eachRow.forEach(eachNumber -> {
                 System.out.print(eachNumber + " ");
@@ -56,7 +59,7 @@ public class Day12ArrayPrefixSumAndCarryForwardPart1 {
         //HW2 > Pattern Printing -1
         int inputHW2 = 4;
         ArrayList<ArrayList<Integer>> outputHW2 = patternPrinting1(inputHW2);
-        System.out.println("HW2 - Pattern Printing -1 :");
+        System.out.println("HW2 > Pattern Printing -1 (n = 4) => ");
         outputHW2.forEach(eachRow -> {
             eachRow.forEach(eachNumber -> {
                 System.out.print(eachNumber + " ");
@@ -66,18 +69,14 @@ public class Day12ArrayPrefixSumAndCarryForwardPart1 {
 
         //HW3 > Arithmetic Progression
         ArrayList<Integer> inputHW3 = new ArrayList<Integer>(Arrays.asList(3, 5, 1));
-        int outputHW3 = arithmeticProgression(inputHW3);
-        System.out.println("HW3 - Arithmetic Progression :" + outputHW3);
-        //        String inputHW3 = "GUGPUAGAFQBMPYAGGAAOALAELGGGAOGLGEGZ";
-        //        // String inputAS4 = "ABCGAG";
-        //        int outputAS4 = specialSequencesAG(inputAS4);
-        //        System.out.println("AS4 - Special Subsequences \"AG\" :" + outputAS4);
+        System.out.println("HW3 > Arithmetic Progression (3, 5, 1) => " + this.arithmeticProgression(inputHW3));
 
         //HW4 > Equilibrium index of an array
         ArrayList<Integer> inputHW4 = new ArrayList<Integer>(Arrays.asList(-7, 1, 5, 2, -4, 3, 0));
-        int outputHW4 = equilibriumIndexOfArray(inputHW4);
-        System.out.println("HW4 - Equilibrium index of an array :" + outputHW4);
+        System.out.println("HW4 > Equilibrium index of an array (-7, 1, 5, 2, -4, 3, 0) => " + this.equilibriumIndexOfArray(inputHW4));
     }
+
+    //-------------------------------------------------------------------------------------------
 
     /**
      * AS1 > Beggars Outside Temple [Technique - prefix sum at end]
@@ -149,7 +148,7 @@ public class Day12ArrayPrefixSumAndCarryForwardPart1 {
             //totalSum = totalSum + ((i + 1) * (A.size() - i) * currentVal); //Issue with long inputs as int * int * long
             // => if (i + 1) * (A.size() - i) yields long then since both were int it casts to int itself having garbage values and then multiplies with long
             // => result wrong value
-            totalSum = totalSum + (currentVal* (i + 1) * (A.size() - i)); //long * int * int => this is correct
+            totalSum = totalSum + (currentVal * (i + 1) * (A.size() - i)); //long * int * int => this is correct
         }
         return totalSum;
     }
@@ -306,7 +305,8 @@ public class Day12ArrayPrefixSumAndCarryForwardPart1 {
     }
 
     /**
-     * HW4 > Given array A of integers of size N, find the equilibrium index.
+     * HW4 > Equilibrium index of an array
+     * Given array A of integers of size N, find the equilibrium index.
      * Equilibrium index is an index such that the sum of elements at lower indexes is equal to the sum of elements at higher indexes.
      * @param A
      * @return

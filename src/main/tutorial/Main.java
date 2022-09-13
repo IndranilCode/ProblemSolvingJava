@@ -1,6 +1,7 @@
 package main.tutorial;
 
 //import main.tutorial.AdvancedDSA.M12_Queue.Day63_Queues1;
+import main.tutorial.IntermediateDSA.M3_Arrays.Day12_ArrayPrefixSumAndCarryForwardPart1;
 import main.tutorial.LLD.LLDMain;
 
 public class Main {
@@ -11,6 +12,7 @@ public class Main {
 
         // M3 >> Arrays & Dynamic Arrays--------------
         //new Day10_ArraysDynamicArrays().execute();
+        new Day12_ArrayPrefixSumAndCarryForwardPart1().execute();
 
         // Arrays and Maths -----------------------
         //new Day16_ArrayAndMath().execute();
@@ -173,7 +175,7 @@ public class Main {
         //new Day72_84_Tries().execute();
 
         //----------------------------LLD----------------------------
-        new LLDMain().execute();
+        //new LLDMain().execute();
     }
 
 
