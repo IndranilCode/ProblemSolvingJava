@@ -1,9 +1,12 @@
 package main.tutorial;
 
 //import main.tutorial.AdvancedDSA.M12_Queue.Day63_Queues1;
-import main.tutorial.IntermediateDSA.M3_Arrays.Day12_ArrayPrefixSumAndCarryForwardPart1;
-import main.tutorial.IntermediateDSA.M3_Arrays.Day13_ArrayPrefixSumAndCarryForwardPart2;
-import main.tutorial.LLD.LLDMain;
+import main.tutorial.AdvancedDSA.M18_Graphs.Day88_Graphs2;
+import main.tutorial.AdvancedDSA.M18_Graphs.Day89_Graphs3;
+import main.tutorial.AdvancedDSA.M18_Graphs.Day90_Graph4;
+import main.tutorial.AdvancedDSA.M18_Graphs.Day91_Graph5;
+import main.tutorial.AdvancedDSA.M22_DynamicProgramming.*;
+import main.tutorial.LLD.DesignPatterns.Creational.DesignPatternsDemo;
 
 public class Main {
 
@@ -14,7 +17,12 @@ public class Main {
         // M3 >> Arrays & Dynamic Arrays--------------
         //new Day10_ArraysDynamicArrays().execute();
         //new Day12_ArrayPrefixSumAndCarryForwardPart1().execute();
-        new Day13_ArrayPrefixSumAndCarryForwardPart2().execute();
+        //new Day13_ArrayPrefixSumAndCarryForwardPart2().execute();
+        //new Day14_Matrix2D().execute();
+        //new Day15_ProblemOnArrays().execute();
+
+
+        //new Day20_IntermediateStrings().execute();
 
         // Arrays and Maths -----------------------
         //new Day16_ArrayAndMath().execute();
@@ -170,14 +178,25 @@ public class Main {
 
         //Graphs
         //new Day87_100_Graphs1().execute();
-        //new Day88_101_Graphs2().execute();
         //new Day88_Graphs2().execute();
+        //new Day89_Graphs3().execute();
+        new Day90_Graph4().execute();
+        //new Day91_Graph5().execute();
 
         //Tries
         //new Day72_84_Tries().execute();
 
+
+        //Dynamic Programming
+//        new Day79_DynamicProgramming1().execute();
+//        new Day80_DynamicProgramming2().execute();
+//        new Day81_DynamicProgramming3().execute();
+//        new Day82_DynamicProgramming4().execute();
+        // new Day85_DynamicProgramming6().execute();
         //----------------------------LLD----------------------------
         //new LLDMain().execute();
+
+        //new DesignPatternsDemo().execute();
     }
 
 
