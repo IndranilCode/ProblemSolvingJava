@@ -5,36 +5,142 @@ package main.tutorial.recursion;
  */
 public class Day23Recursion1 {
     public void execute() {
-        //AS1 - Check Palindrome
-        String inputAS1 = "MALAYALAM";
-        int outputAS1 = checkPalindrome(inputAS1);
-        System.out.println("AS1 - Check Palindrome : " + outputAS1);
+        System.out.println("-----------Intermediate : Day 23: Recursion 1--------------");
+        System.out.println("-------------------------CLASSWORK-------------------------");
 
-        //AS2 - Check Palindrome
-        int inputAS2 = 5;
-        int outputAS2 = findAthFibonacci(inputAS2);
-        System.out.println("AS2 - Find Fibonacci : " + outputAS2);
+        //CW1 > Sum of 1st N natural numbers
+        System.out.println("CW1 > Sum(10) => " + this.sum(10));
+
+        //CW2 > Factorial(n)
+        System.out.println("CW2 > Factorial(5) => " + this.factorial(5));
+
+        //CW3 > Nth fibonacci number
+        System.out.println("CW3 > Fibonacci(7) => " + this.fibonacci(7));
+
+        //CW4 > Decreasing print
+        System.out.print("CW4 > Decreasing print (10) => ");
+        this.printNSeries_Descreasing(10);
+        System.out.println("");
+
+        //CW5 > Increasing print
+        System.out.print("CW5 > Increasing print (10) => ");
+        this.printNSeries_Increasing(10);
+        System.out.println("");
+
+        //CW6 > IsPalindrome
+        System.out.println("CW6 > IsPalindrome(malayalam) => " + this.isPalindromeString("malayalam", 0, 8));
+        System.out.println("    > IsPalindrome(indranil) => " + this.isPalindromeString("indranil", 0, 7));
+
+        System.out.println("-------------------------ASSIGNMENTS-----------------------");
+
+        //AS1 > Check Palindrome
+        System.out.println("AS1 > Check Palindrome : " + this.checkPalindrome("MALAYALAM"));
+
+        //AS2 > Check Palindrome
+        System.out.println("AS2 > Find Fibonacci (5) : " + this.findAthFibonacci(5));
 
         //AS3 - Find Factorial
-        int inputAS3 = 5;
-        int outputAS3 = findFactorial(inputAS3);
-        System.out.println("AS3 - Find Factorial : " + outputAS3);
+        System.out.println("AS3 > Find Factorial : " + this.findFactorial(5));
 
         //AS4 - Print reverse string
         String inputAS4 = "HELLO";
         String outputAS4 = getReverseString(inputAS4, "");
-        System.out.println("AS4 - Print reverse string : " + outputAS4);
+        System.out.println("AS4 > Print reverse string : " + outputAS4);
         String outputAS4b = getReverseStringBetter(inputAS4);
-        System.out.println("AS4 - Print reverse string (Better Approach) : " + outputAS4b);
+        System.out.println("AS4 > Print reverse string (Better Approach) : " + outputAS4b);
 
+        System.out.println("-------------------------HOMEWORK-------------------------");
 
         //HW1 - Sum of Digits
         int inputHW1 = 20534;
         int outputHW1a = sumOfDigits(inputHW1, 0);
-        System.out.println("HW1 - Sum of Digits : " + outputHW1a);
+        System.out.println("HW1 > Sum of Digits : " + outputHW1a);
         int outputHW1b = sumOfDigitsBetter(inputHW1);
-        System.out.println("HW1 - Sum of Digits (Better Approach) : " + outputHW1b);
+        System.out.println("HW1 > Sum of Digits (Better Approach) : " + outputHW1b);
     }
+
+    //----------------------CLASSWORK--------------------------
+
+    /**
+     * CW1 > Sum of 1st N natural numbers
+     * @param n
+     * @return
+     */
+    private int sum(int n) {
+        if (n == 0) {
+            return 0;
+        }
+        return n + this.sum(n - 1);
+    }
+
+    /**
+     * CW2 > Factorial(n)
+     * @param n
+     * @return
+     */
+    private int factorial(int n) {
+        if (n == 0) {
+            return 1;
+        }
+        return n * this.factorial(n - 1);
+    }
+
+    /**
+     * CW3 > Nth fibonacci number
+     * @param n
+     * @return
+     */
+    private int fibonacci(int n) {
+        if (n == 0 || n == 1) {
+            return 1;
+        }
+        return this.fibonacci(n - 1) + this.fibonacci(n - 2);
+    }
+
+    /**
+     * CW4 > 5, 4, 3, 2, 1 (Decreasing print)
+     * @param n
+     */
+    private void printNSeries_Descreasing(int n) {
+        if (n == 0) {
+            return;
+        }
+        System.out.print(n + " ");
+
+        this.printNSeries_Descreasing(n - 1);
+    }
+
+    /**
+     * CW5 > 1, 2, 3, 4, 5 (Increasing print)
+     * @param n
+     */
+    private void printNSeries_Increasing(int n) {
+        if (n == 0) {
+            return;
+        }
+        this.printNSeries_Increasing(n - 1);
+        System.out.print(n + " ");
+    }
+
+    /**
+     * CW6 > IsPalindrome
+     * @param str
+     * @param s
+     * @param e
+     * @return
+     */
+    private boolean isPalindromeString(String str, int s, int e) {
+        if (s >= e) {
+            return true;
+        } else {
+            if (str.charAt(s) == str.charAt(e)) {
+                return this.isPalindromeString(str, s + 1, e - 1);
+            }
+        }
+        return false;
+    }
+
+    //---------------------ASSIGNMENTS-------------------------
 
     /**
      * AS1 > (*) Check Palindrome [PRACTICE]
@@ -121,6 +227,7 @@ public class Day23Recursion1 {
         }
     }
 
+    //----------------------HOMEWORK------------------------
 
     /**
      * HW1 > Sum of Digits
@@ -152,6 +259,5 @@ public class Day23Recursion1 {
         }
         return number % 10 + sumOfDigitsBetter(number / 10);
     }
-
 }
 
