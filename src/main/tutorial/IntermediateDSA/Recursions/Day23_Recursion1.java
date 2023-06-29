@@ -1,9 +1,9 @@
-package main.tutorial.recursion;
+package main.tutorial.IntermediateDSA.Recursions;
 
 /**
  * AS => DONE; HW => DONE
  */
-public class Day23Recursion1 {
+public class Day23_Recursion1 {
     public void execute() {
         System.out.println("-----------Intermediate : Day 23: Recursion 1--------------");
         System.out.println("-------------------------CLASSWORK-------------------------");

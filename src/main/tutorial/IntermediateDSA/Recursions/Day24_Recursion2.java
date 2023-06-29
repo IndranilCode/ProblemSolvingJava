@@ -1,10 +1,13 @@
-package main.tutorial.recursion;
+package main.tutorial.IntermediateDSA.Recursions;
 
 /**
 * AS => DONE; HW => 2 left
  */
-public class Day24Recursion2 {
+public class Day24_Recursion2 {
     public void execute() {
+        System.out.println("-----------Intermediate : Day 24: Recursion 2--------------");
+        System.out.println("------------------------ASSIGNMENT-------------------------");
+
         //AS1 > Power Function
         //        int inputAS1a = 2;
         //        int inputAS1b = 3;
@@ -16,12 +19,10 @@ public class Day24Recursion2 {
         if (outputAS1 < 0) {
             outputAS1 = outputAS1 + inputAS1d;
         }
-        System.out.println(String.format("AS1 - Power Function (%d ^ %d) : %d",inputAS1a, inputAS1b,  outputAS1));
+        System.out.println(String.format("AS1 > Power Function (%d ^ %d) : %d", inputAS1a, inputAS1b,  outputAS1));
 
         //AS2 > Sum of digits
-        int inputAS2 = 4610;
-        int outputAS2 = sumOfDigits(inputAS2);
-        System.out.println("AS2 - Sum of digits : " + outputAS2);
+        System.out.println("AS2 > Sum of digits (4610) : " + this.sumOfDigits(4610));
 
         //AS3 - Is it magic number
         int inputAS3 = 83557;

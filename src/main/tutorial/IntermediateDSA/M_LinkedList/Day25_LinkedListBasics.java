@@ -3,9 +3,9 @@ package main.tutorial.IntermediateDSA.M_LinkedList;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Day25_30_LinkedListBasics {
+public class Day25_LinkedListBasics {
     public void execute() {
-        System.out.println("------------Intermediate : Linked List Basics--------------");
+        System.out.println("--------Intermediate : Day 25: Linked List Basics----------");
         System.out.println("-------------------------ASSIGNMENT------------------------");
 
         //AS2 > Design Linked list [4 operations]

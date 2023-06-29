@@ -1,12 +1,9 @@
 package main.tutorial;
 
 //import main.tutorial.AdvancedDSA.M12_Queue.Day63_Queues1;
-import main.tutorial.AdvancedDSA.M18_Graphs.Day88_Graphs2;
-import main.tutorial.AdvancedDSA.M18_Graphs.Day89_Graphs3;
-import main.tutorial.AdvancedDSA.M18_Graphs.Day90_Graph4;
-import main.tutorial.AdvancedDSA.M18_Graphs.Day91_Graph5;
-import main.tutorial.AdvancedDSA.M22_DynamicProgramming.*;
-import main.tutorial.LLD.DesignPatterns.Creational.DesignPatternsDemo;
+import main.tutorial.IntermediateDSA.M_LinkedList.Day25_LinkedListBasics;
+import main.tutorial.IntermediateDSA.M_StacksQueues.Day26_StacksQueues;
+import main.tutorial.IntermediateDSA.Recursions.Day24_Recursion2;
 
 public class Main {
 
@@ -31,6 +28,18 @@ public class Main {
 
         //new Day21_Hashing1().execute();
         //new Day22_26_Hashing2().execute();
+
+        //---------------------M3 Intermediate : Introduction to Problem Solving 2-------------------------
+
+        //------Recursion------
+        // new Day23_Recursion1().execute();
+        // new Day24_Recursion2().execute();
+
+        //------Linked list----
+        // new Day25_LinkedListBasics().execute();
+
+        //------Stacks & Queues-----
+        new Day26_StacksQueues().execute();
 
         //System.out.println();
         //new Day33_Arrays1().execute();
@@ -175,12 +184,15 @@ public class Main {
         //new Day69_BST2().execute();
         //new Day70_LCA_BST().execute();
 
+        //Heaps
+//        new Day73_Heaps1().execute();
+
 
         //Graphs
         //new Day87_100_Graphs1().execute();
         //new Day88_Graphs2().execute();
         //new Day89_Graphs3().execute();
-        new Day90_Graph4().execute();
+        //new Day90_Graph4().execute();
         //new Day91_Graph5().execute();
 
         //Tries
@@ -194,7 +206,7 @@ public class Main {
 //        new Day82_DynamicProgramming4().execute();
         // new Day85_DynamicProgramming6().execute();
         //----------------------------LLD----------------------------
-        //new LLDMain().execute();
+//        new LLDMain().execute();
 
         //new DesignPatternsDemo().execute();
     }
